@@ -47,6 +47,8 @@
 - Analog event pattern_hint propagation test
 - Digital OFDM integration test
 - Non-vendor digital OFDM integration test
+- Control profile pattern hints (ELRS/Crossfire)
+- Control profile integration tests (pattern hints)
 - Schema fixtures validation suite
 - CLI dry-run integration test (null radio)
 - Advanced detection implementation plan (docs/advanced_detection_plan.md)
@@ -114,6 +116,8 @@
 - Analog event pattern_hint tests: pass
 - Digital OFDM integration tests: pass
 - Non-vendor digital OFDM tests: pass
+- Control profile tests (pattern_hint): pass
+- Control profile integration tests: pass
 - Sweep plan loading tests: pass
 - Control profile tests: pass
 - DSP feature tests: pass
@@ -182,6 +186,7 @@
 - `tests/test_plan_loading.py`
 - `config/plans/digital_5g8.yaml`
 - `tests/test_control_profiles.py`
+- `tests/test_control_profile_integration.py`
 - `src/ndefender_antsdr_scan/core/dsp.py`
 - `tests/test_dsp_features.py`
 - `src/ndefender_antsdr_scan/core/hopping.py`

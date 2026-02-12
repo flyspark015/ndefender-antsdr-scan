@@ -124,14 +124,14 @@ Each detection type documents what we detect, how it is identified, output hints
 ## 🟡 ELRS / ExpressLRS (control link)
 - Detects: Narrowband bursty control packets in 2.4/915 MHz.
 - Identification: Narrowband peaks + burstiness + hop rate.
-- Output: `features.class_path` → ["Control", "ELRS"], `pattern_hint`.
+- Output: `features.class_path` → ["Control", "ELRS"], `pattern_hint` set to `elrs_2g4`.
 - Status: 🟡 In Progress (profile rule only; burst detection pending).
 - Verification: `PYTHONPATH=src python -m unittest tests/test_control_profiles.py` → OK. Schema: `PYTHONPATH=src python -m ndefender_antsdr_scan.cli.main validate --log tests/fixtures/valid_control.jsonl` → validation ok.
 
 ## 🟡 Crossfire / Tracer (control link)
 - Detects: Narrowband control carriers in 915 MHz with hop patterns.
 - Identification: Narrowband + hop detection + baud patterns (future).
-- Output: `features.class_path` → ["Control", "Crossfire"].
+- Output: `features.class_path` → ["Control", "Crossfire"], `pattern_hint` set to `crossfire_915`.
 - Status: 🟡 In Progress (profile rule + hop-rate signal; hop classification pending).
 - Verification: `PYTHONPATH=src python -m unittest tests/test_control_profiles.py` → OK. Schema: `PYTHONPATH=src python -m ndefender_antsdr_scan.cli.main validate --log tests/fixtures/valid_control.jsonl` → validation ok.
 

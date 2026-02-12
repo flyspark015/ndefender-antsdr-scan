@@ -327,6 +327,7 @@ profiles:
   min_snr_db: 10
   confidence: 0.8
 - name: elrs_2g4
+  pattern_hint: elrs_2g4
   start_hz: 2400000000
   stop_hz: 2483500000
   class_path:
@@ -336,6 +337,7 @@ profiles:
   min_snr_db: 8
   confidence: 0.7
 - name: crossfire_915
+  pattern_hint: crossfire_915
   start_hz: 902000000
   stop_hz: 928000000
   class_path:

@@ -20,6 +20,7 @@ class ControlProfileTests(unittest.TestCase):
         )
         result = self.classifier.classify(features)
         self.assertEqual(result.class_path, ["Control", "ELRS"])
+        self.assertEqual(result.pattern_hint, "elrs_2g4")
 
     def test_crossfire_915(self) -> None:
         features = SignalFeatures(
@@ -30,6 +31,7 @@ class ControlProfileTests(unittest.TestCase):
         )
         result = self.classifier.classify(features)
         self.assertEqual(result.class_path, ["Control", "Crossfire"])
+        self.assertEqual(result.pattern_hint, "crossfire_915")
 
 
 if __name__ == "__main__":
