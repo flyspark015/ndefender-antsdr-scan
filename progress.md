@@ -51,6 +51,7 @@
 - Control profile integration tests (pattern hints)
 - Hardware validation guide (docs/hardware_validation.md)
 - Hardware smoke-test script (tools/hardware_smoke_test.sh)
+- API plan documentation (api_plan.md)
 - Schema fixtures validation suite
 - CLI dry-run integration test (null radio)
 - Advanced detection implementation plan (docs/advanced_detection_plan.md)
