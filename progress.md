@@ -24,6 +24,7 @@
 - Analog band/channel profile data (RaceBand/FatShark/Band A)
 - Channel selection now prefers closest profile center frequency
 - Analog 5.8 GHz sweep plans (RaceBand/FatShark/Band A)
+- Control sweep plans (2.4 GHz, 915 MHz)
 
 ## 🟡 What is currently in progress
 - Live radio spectrum capture validation on hardware
@@ -48,6 +49,7 @@
 - `PYTHONPATH=src python -m unittest tests/test_classification_profiles.py` → `OK`
 - `PYTHONPATH=src python -m unittest tests/test_classification_profiles_channels.py` → `OK`
 - `PYTHONPATH=src python -m unittest tests/test_plan_loading.py` → `OK`
+- `PYTHONPATH=src python -m unittest tests/test_control_profiles.py` → `OK`
 
 ## 🧩 Test outcomes
 - Tracker lifecycle tests: pass
@@ -62,6 +64,7 @@
 - Classification profile tests: pass
 - Classification channel profile tests: pass
 - Sweep plan loading tests: pass
+- Control profile tests: pass
 - Radio spectrum tests: pass
 
 ## 📦 Code changes implemented
@@ -109,7 +112,10 @@
 - `config/classification_profiles.yaml`
 - `tests/test_classification_profiles_channels.py`
 - `config/plans/analog_5g8.yaml`
+- `config/plans/control_2g4.yaml`
+- `config/plans/control_915.yaml`
 - `tests/test_plan_loading.py`
+- `tests/test_control_profiles.py`
 - `config/default.yaml`
 - `pyproject.toml`
 - `.github/workflows/ci.yml`

@@ -103,15 +103,15 @@ Each detection type documents what we detect, how it is identified, output hints
 - Detects: Narrowband bursty control packets in 2.4/915 MHz.
 - Identification: Narrowband peaks + burstiness + hop rate.
 - Output: `features.class_path` → ["Control", "ELRS"], `pattern_hint`.
-- Status: ❌ Planned.
-- Verification: Planned burst detector + correlation tests.
+- Status: 🟡 In Progress (profile rule only; burst detection pending).
+- Verification: `PYTHONPATH=src python -m unittest tests/test_control_profiles.py` → OK.
 
 ## ❌ Crossfire / Tracer (control link)
 - Detects: Narrowband control carriers in 915 MHz with hop patterns.
 - Identification: Narrowband + hop detection + baud patterns (future).
 - Output: `features.class_path` → ["Control", "Crossfire"].
-- Status: ❌ Planned.
-- Verification: Planned tests + soak.
+- Status: 🟡 In Progress (profile rule only; hop detection pending).
+- Verification: `PYTHONPATH=src python -m unittest tests/test_control_profiles.py` → OK.
 
 ## ✅ Video + Control correlation gating
 - Detects: Combined video + control alignment for higher confidence NEW.

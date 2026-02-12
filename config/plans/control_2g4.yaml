@@ -1,0 +1,5 @@
+bands:
+  - name: "2G4_Control"
+    start_hz: 2400000000
+    stop_hz: 2483500000
+    step_hz: 1000000

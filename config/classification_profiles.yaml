@@ -1,171 +1,283 @@
 profiles:
-  - name: "fatshark_f1"
-    start_hz: 5736500000
-    stop_hz: 5763500000
-    class_path: ["Analog", "Video", "FatShark", "F1"]
-    bandwidth_class: "wide"
-    min_snr_db: 10
-    confidence: 0.85
-  - name: "fatshark_f2"
-    start_hz: 5746500000
-    stop_hz: 5773500000
-    class_path: ["Analog", "Video", "FatShark", "F2"]
-    bandwidth_class: "wide"
-    min_snr_db: 10
-    confidence: 0.85
-  - name: "fatshark_f3"
-    start_hz: 5756500000
-    stop_hz: 5783500000
-    class_path: ["Analog", "Video", "FatShark", "F3"]
-    bandwidth_class: "wide"
-    min_snr_db: 10
-    confidence: 0.85
-  - name: "fatshark_f4"
-    start_hz: 5766500000
-    stop_hz: 5793500000
-    class_path: ["Analog", "Video", "FatShark", "F4"]
-    bandwidth_class: "wide"
-    min_snr_db: 10
-    confidence: 0.85
-  - name: "fatshark_f5"
-    start_hz: 5776500000
-    stop_hz: 5803500000
-    class_path: ["Analog", "Video", "FatShark", "F5"]
-    bandwidth_class: "wide"
-    min_snr_db: 10
-    confidence: 0.85
-  - name: "fatshark_f6"
-    start_hz: 5786500000
-    stop_hz: 5813500000
-    class_path: ["Analog", "Video", "FatShark", "F6"]
-    bandwidth_class: "wide"
-    min_snr_db: 10
-    confidence: 0.85
-  - name: "fatshark_f7"
-    start_hz: 5796500000
-    stop_hz: 5823500000
-    class_path: ["Analog", "Video", "FatShark", "F7"]
-    bandwidth_class: "wide"
-    min_snr_db: 10
-    confidence: 0.85
-  - name: "fatshark_f8"
-    start_hz: 5806500000
-    stop_hz: 5833500000
-    class_path: ["Analog", "Video", "FatShark", "F8"]
-    bandwidth_class: "wide"
-    min_snr_db: 10
-    confidence: 0.85
-
-  - name: "raceband_r1"
-    start_hz: 5644500000
-    stop_hz: 5671500000
-    class_path: ["Analog", "Video", "RaceBand", "R1"]
-    bandwidth_class: "wide"
-    min_snr_db: 10
-    confidence: 0.9
-  - name: "raceband_r2"
-    start_hz: 5681500000
-    stop_hz: 5708500000
-    class_path: ["Analog", "Video", "RaceBand", "R2"]
-    bandwidth_class: "wide"
-    min_snr_db: 10
-    confidence: 0.9
-  - name: "raceband_r3"
-    start_hz: 5718500000
-    stop_hz: 5745500000
-    class_path: ["Analog", "Video", "RaceBand", "R3"]
-    bandwidth_class: "wide"
-    min_snr_db: 10
-    confidence: 0.9
-  - name: "raceband_r4"
-    start_hz: 5755500000
-    stop_hz: 5782500000
-    class_path: ["Analog", "Video", "RaceBand", "R4"]
-    bandwidth_class: "wide"
-    min_snr_db: 10
-    confidence: 0.9
-  - name: "raceband_r5"
-    start_hz: 5792500000
-    stop_hz: 5819500000
-    class_path: ["Analog", "Video", "RaceBand", "R5"]
-    bandwidth_class: "wide"
-    min_snr_db: 10
-    confidence: 0.9
-  - name: "raceband_r6"
-    start_hz: 5829500000
-    stop_hz: 5856500000
-    class_path: ["Analog", "Video", "RaceBand", "R6"]
-    bandwidth_class: "wide"
-    min_snr_db: 10
-    confidence: 0.9
-  - name: "raceband_r7"
-    start_hz: 5866500000
-    stop_hz: 5893500000
-    class_path: ["Analog", "Video", "RaceBand", "R7"]
-    bandwidth_class: "wide"
-    min_snr_db: 10
-    confidence: 0.9
-  - name: "raceband_r8"
-    start_hz: 5903500000
-    stop_hz: 5930500000
-    class_path: ["Analog", "Video", "RaceBand", "R8"]
-    bandwidth_class: "wide"
-    min_snr_db: 10
-    confidence: 0.9
-
-  - name: "banda_a1"
-    start_hz: 5840500000
-    stop_hz: 5867500000
-    class_path: ["Analog", "Video", "BandA", "A1"]
-    bandwidth_class: "wide"
-    min_snr_db: 10
-    confidence: 0.8
-  - name: "banda_a2"
-    start_hz: 5850500000
-    stop_hz: 5877500000
-    class_path: ["Analog", "Video", "BandA", "A2"]
-    bandwidth_class: "wide"
-    min_snr_db: 10
-    confidence: 0.8
-  - name: "banda_a3"
-    start_hz: 5860500000
-    stop_hz: 5887500000
-    class_path: ["Analog", "Video", "BandA", "A3"]
-    bandwidth_class: "wide"
-    min_snr_db: 10
-    confidence: 0.8
-  - name: "banda_a4"
-    start_hz: 5870500000
-    stop_hz: 5897500000
-    class_path: ["Analog", "Video", "BandA", "A4"]
-    bandwidth_class: "wide"
-    min_snr_db: 10
-    confidence: 0.8
-  - name: "banda_a5"
-    start_hz: 5880500000
-    stop_hz: 5907500000
-    class_path: ["Analog", "Video", "BandA", "A5"]
-    bandwidth_class: "wide"
-    min_snr_db: 10
-    confidence: 0.8
-  - name: "banda_a6"
-    start_hz: 5890500000
-    stop_hz: 5917500000
-    class_path: ["Analog", "Video", "BandA", "A6"]
-    bandwidth_class: "wide"
-    min_snr_db: 10
-    confidence: 0.8
-  - name: "banda_a7"
-    start_hz: 5900500000
-    stop_hz: 5927500000
-    class_path: ["Analog", "Video", "BandA", "A7"]
-    bandwidth_class: "wide"
-    min_snr_db: 10
-    confidence: 0.8
-  - name: "banda_a8"
-    start_hz: 5910500000
-    stop_hz: 5937500000
-    class_path: ["Analog", "Video", "BandA", "A8"]
-    bandwidth_class: "wide"
-    min_snr_db: 10
-    confidence: 0.8
+- name: fatshark_f1
+  start_hz: 5736500000
+  stop_hz: 5763500000
+  class_path:
+  - Analog
+  - Video
+  - FatShark
+  - F1
+  bandwidth_class: wide
+  min_snr_db: 10
+  confidence: 0.85
+- name: fatshark_f2
+  start_hz: 5746500000
+  stop_hz: 5773500000
+  class_path:
+  - Analog
+  - Video
+  - FatShark
+  - F2
+  bandwidth_class: wide
+  min_snr_db: 10
+  confidence: 0.85
+- name: fatshark_f3
+  start_hz: 5756500000
+  stop_hz: 5783500000
+  class_path:
+  - Analog
+  - Video
+  - FatShark
+  - F3
+  bandwidth_class: wide
+  min_snr_db: 10
+  confidence: 0.85
+- name: fatshark_f4
+  start_hz: 5766500000
+  stop_hz: 5793500000
+  class_path:
+  - Analog
+  - Video
+  - FatShark
+  - F4
+  bandwidth_class: wide
+  min_snr_db: 10
+  confidence: 0.85
+- name: fatshark_f5
+  start_hz: 5776500000
+  stop_hz: 5803500000
+  class_path:
+  - Analog
+  - Video
+  - FatShark
+  - F5
+  bandwidth_class: wide
+  min_snr_db: 10
+  confidence: 0.85
+- name: fatshark_f6
+  start_hz: 5786500000
+  stop_hz: 5813500000
+  class_path:
+  - Analog
+  - Video
+  - FatShark
+  - F6
+  bandwidth_class: wide
+  min_snr_db: 10
+  confidence: 0.85
+- name: fatshark_f7
+  start_hz: 5796500000
+  stop_hz: 5823500000
+  class_path:
+  - Analog
+  - Video
+  - FatShark
+  - F7
+  bandwidth_class: wide
+  min_snr_db: 10
+  confidence: 0.85
+- name: fatshark_f8
+  start_hz: 5806500000
+  stop_hz: 5833500000
+  class_path:
+  - Analog
+  - Video
+  - FatShark
+  - F8
+  bandwidth_class: wide
+  min_snr_db: 10
+  confidence: 0.85
+- name: raceband_r1
+  start_hz: 5644500000
+  stop_hz: 5671500000
+  class_path:
+  - Analog
+  - Video
+  - RaceBand
+  - R1
+  bandwidth_class: wide
+  min_snr_db: 10
+  confidence: 0.9
+- name: raceband_r2
+  start_hz: 5681500000
+  stop_hz: 5708500000
+  class_path:
+  - Analog
+  - Video
+  - RaceBand
+  - R2
+  bandwidth_class: wide
+  min_snr_db: 10
+  confidence: 0.9
+- name: raceband_r3
+  start_hz: 5718500000
+  stop_hz: 5745500000
+  class_path:
+  - Analog
+  - Video
+  - RaceBand
+  - R3
+  bandwidth_class: wide
+  min_snr_db: 10
+  confidence: 0.9
+- name: raceband_r4
+  start_hz: 5755500000
+  stop_hz: 5782500000
+  class_path:
+  - Analog
+  - Video
+  - RaceBand
+  - R4
+  bandwidth_class: wide
+  min_snr_db: 10
+  confidence: 0.9
+- name: raceband_r5
+  start_hz: 5792500000
+  stop_hz: 5819500000
+  class_path:
+  - Analog
+  - Video
+  - RaceBand
+  - R5
+  bandwidth_class: wide
+  min_snr_db: 10
+  confidence: 0.9
+- name: raceband_r6
+  start_hz: 5829500000
+  stop_hz: 5856500000
+  class_path:
+  - Analog
+  - Video
+  - RaceBand
+  - R6
+  bandwidth_class: wide
+  min_snr_db: 10
+  confidence: 0.9
+- name: raceband_r7
+  start_hz: 5866500000
+  stop_hz: 5893500000
+  class_path:
+  - Analog
+  - Video
+  - RaceBand
+  - R7
+  bandwidth_class: wide
+  min_snr_db: 10
+  confidence: 0.9
+- name: raceband_r8
+  start_hz: 5903500000
+  stop_hz: 5930500000
+  class_path:
+  - Analog
+  - Video
+  - RaceBand
+  - R8
+  bandwidth_class: wide
+  min_snr_db: 10
+  confidence: 0.9
+- name: banda_a1
+  start_hz: 5840500000
+  stop_hz: 5867500000
+  class_path:
+  - Analog
+  - Video
+  - BandA
+  - A1
+  bandwidth_class: wide
+  min_snr_db: 10
+  confidence: 0.8
+- name: banda_a2
+  start_hz: 5850500000
+  stop_hz: 5877500000
+  class_path:
+  - Analog
+  - Video
+  - BandA
+  - A2
+  bandwidth_class: wide
+  min_snr_db: 10
+  confidence: 0.8
+- name: banda_a3
+  start_hz: 5860500000
+  stop_hz: 5887500000
+  class_path:
+  - Analog
+  - Video
+  - BandA
+  - A3
+  bandwidth_class: wide
+  min_snr_db: 10
+  confidence: 0.8
+- name: banda_a4
+  start_hz: 5870500000
+  stop_hz: 5897500000
+  class_path:
+  - Analog
+  - Video
+  - BandA
+  - A4
+  bandwidth_class: wide
+  min_snr_db: 10
+  confidence: 0.8
+- name: banda_a5
+  start_hz: 5880500000
+  stop_hz: 5907500000
+  class_path:
+  - Analog
+  - Video
+  - BandA
+  - A5
+  bandwidth_class: wide
+  min_snr_db: 10
+  confidence: 0.8
+- name: banda_a6
+  start_hz: 5890500000
+  stop_hz: 5917500000
+  class_path:
+  - Analog
+  - Video
+  - BandA
+  - A6
+  bandwidth_class: wide
+  min_snr_db: 10
+  confidence: 0.8
+- name: banda_a7
+  start_hz: 5900500000
+  stop_hz: 5927500000
+  class_path:
+  - Analog
+  - Video
+  - BandA
+  - A7
+  bandwidth_class: wide
+  min_snr_db: 10
+  confidence: 0.8
+- name: banda_a8
+  start_hz: 5910500000
+  stop_hz: 5937500000
+  class_path:
+  - Analog
+  - Video
+  - BandA
+  - A8
+  bandwidth_class: wide
+  min_snr_db: 10
+  confidence: 0.8
+- name: elrs_2g4
+  start_hz: 2400000000
+  stop_hz: 2483500000
+  class_path:
+  - Control
+  - ELRS
+  bandwidth_class: narrow
+  min_snr_db: 8
+  confidence: 0.7
+- name: crossfire_915
+  start_hz: 902000000
+  stop_hz: 928000000
+  class_path:
+  - Control
+  - Crossfire
+  bandwidth_class: narrow
+  min_snr_db: 8
+  confidence: 0.7
