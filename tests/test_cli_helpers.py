@@ -77,7 +77,7 @@ class CliHelperTests(unittest.TestCase):
     def test_iter_sweep_frames_once(self) -> None:
         bands = [BandPlan(name="2G4", start_hz=100.0, stop_hz=300.0, step_hz=100.0)]
         radio = NullRadio(lambda _lo: ([1.0], [2.0]))
-        frames = list(iter_sweep_frames(radio, bands, lambda: 123))
+        frames = list(iter_sweep_frames(radio, bands, lambda: 123, dwell_ms=0))
         self.assertEqual(len(frames), 3)
         self.assertEqual(frames[0].timestamp_ms, 123)
 

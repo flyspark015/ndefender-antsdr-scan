@@ -16,6 +16,7 @@ from ndefender_antsdr_scan.tracking.tracker import TrackerConfig
 @dataclass(frozen=True)
 class SweepConfig:
     bands: list[BandPlan]
+    dwell_ms: int = 0
 
 
 @dataclass(frozen=True)
@@ -55,7 +56,10 @@ def load_config(path: str | Path) -> AppConfig:
             min_snr_db=float(detector.get("min_snr_db", 0.0)),
             lo_guard_hz=float(detector.get("lo_guard_hz", 0.0)),
         ),
-        sweep=SweepConfig(bands=bands),
+        sweep=SweepConfig(
+            bands=bands,
+            dwell_ms=int(sweep.get("dwell_ms", 0)),
+        ),
         ws=WsClientConfig(
             url=str(ws.get("url", "")),
             enabled=bool(ws.get("enabled", False)),

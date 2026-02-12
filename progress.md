@@ -14,6 +14,7 @@
 - CI workflow (tests + schema validation + compile check)
 - WebSocket client implementation with retry/backoff
 - Continuous sweep loop for live scanning (graceful shutdown)
+- Configurable dwell pacing per sweep step
 
 ## 🟡 What is currently in progress
 - Live radio spectrum capture validation on hardware
@@ -59,6 +60,8 @@
 - `src/ndefender_antsdr_scan/detectors/base.py`
 - `src/ndefender_antsdr_scan/detectors/peak.py`
 - `src/ndefender_antsdr_scan/cli/helpers.py`
+- `src/ndefender_antsdr_scan/core/config.py`
+- `config/default.yaml`
 - `tests/test_tracker.py`
 - `tests/test_peak_detector.py`
 - `tests/test_sweep.py`
@@ -81,3 +84,4 @@
 - Implemented FFT-based spectrum extraction with windowing in `spectrum_from_samples`
 - WebSocket client uses retry/backoff and JSON-encoded payloads
 - Run loop validates sweep bands and handles graceful shutdown with flush
+- Sweep pacing is configured via `sweep.dwell_ms` to control LO dwell time

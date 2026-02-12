@@ -13,6 +13,9 @@ detector:
   min_snr_db: 10
   lo_guard_hz: 100000
 
+sweep:
+  dwell_ms: 0
+
 ws:
   enabled: false
   url: ""

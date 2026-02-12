@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import time
+import time
 from typing import Iterable
 
 from ndefender_antsdr_scan.core.config import AppConfig, load_config
@@ -114,20 +115,31 @@ def iter_live_frames_continuous(config: AppConfig) -> Iterable[SpectrumFrame]:
     radio.connect()
     try:
         while True:
-            yield from iter_sweep_frames(radio, config.sweep.bands, _now_ms)
+            yield from iter_sweep_frames(
+                radio,
+                config.sweep.bands,
+                _now_ms,
+                dwell_ms=config.sweep.dwell_ms,
+            )
     finally:
         radio.close()
 
 
 def null_live_frames(config: AppConfig) -> Iterable[SpectrumFrame]:
     null_radio = NullRadio(lambda _lo: ([2_450_000_000], [120.0]))
-    yield from iter_sweep_frames(null_radio, config.sweep.bands, _now_ms)
+    yield from iter_sweep_frames(
+        null_radio,
+        config.sweep.bands,
+        _now_ms,
+        dwell_ms=config.sweep.dwell_ms,
+    )
 
 
 def iter_sweep_frames(
     radio: AntSdrRadio | NullRadio,
     bands: Iterable[BandPlan],
     clock: callable,
+    dwell_ms: int = 0,
 ) -> Iterable[SpectrumFrame]:
     for step in iter_sweep(bands):
         freqs, power = radio.capture_spectrum(step.lo_hz)
@@ -138,3 +150,5 @@ def iter_sweep_frames(
             band=step.band,
             lo_hz=step.lo_hz,
         )
+        if dwell_ms > 0:
+            time.sleep(dwell_ms / 1000.0)
