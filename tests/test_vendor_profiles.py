@@ -55,6 +55,16 @@ class VendorProfileTests(unittest.TestCase):
         result = self.classifier.classify(features)
         self.assertNotIn(result.class_path[-1], {"DJI", "Walksnail", "HDZero"})
 
+    def test_vendor_requires_ofdm_present(self) -> None:
+        features = SignalFeatures(
+            freq_hz=5_780_000_000,
+            band="5G8",
+            snr_db=15.0,
+            bandwidth_class="wide",
+        )
+        result = self.classifier.classify(features)
+        self.assertNotIn(result.class_path[-1], {"DJI", "Walksnail", "HDZero"})
+
 
 if __name__ == "__main__":
     unittest.main()
