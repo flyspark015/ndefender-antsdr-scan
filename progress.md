@@ -9,14 +9,15 @@
 - Core sweep planner and radio interface stubs
 - Config loader with YAML support
 - Core scan engine wiring (detector → tracker → emitter)
+- CLI run/replay/stats wiring (config-driven)
 
 ## 🟡 What is currently in progress
-- CLI `run/replay/stats` functionality
+- Live radio spectrum capture implementation
 
 ## ❌ What is pending
-- Config loader + plan handling
 - CI workflow (tests + schema validation + compile check)
 - WebSocket client implementation
+- Production AntSDR capture pipeline (FFT + power spectrum)
 
 ## 🧪 Verification results
 - `PYTHONPATH=src python -m ndefender_antsdr_scan.cli.main validate --log /tmp/antsdr_valid.jsonl` → `validation ok`
@@ -25,6 +26,7 @@
 - `PYTHONPATH=src python -m unittest tests/test_sweep.py` → `OK`
 - `PYTHONPATH=src python -m unittest tests/test_config.py` → `OK`
 - `PYTHONPATH=src python -m unittest tests/test_engine.py` → `OK`
+- `PYTHONPATH=src python -m unittest tests/test_cli_helpers.py` → `OK`
 
 ## 🧩 Test outcomes
 - Tracker lifecycle tests: pass
@@ -32,6 +34,7 @@
 - Sweep planner tests: pass
 - Config loader tests: pass
 - Engine wiring tests: pass
+- CLI helper tests: pass
 
 ## 📦 Code changes implemented
 - `src/ndefender_antsdr_scan/events/schema.json`
@@ -49,11 +52,13 @@
 - `src/ndefender_antsdr_scan/core/sweep.py`
 - `src/ndefender_antsdr_scan/detectors/base.py`
 - `src/ndefender_antsdr_scan/detectors/peak.py`
+- `src/ndefender_antsdr_scan/cli/helpers.py`
 - `tests/test_tracker.py`
 - `tests/test_peak_detector.py`
 - `tests/test_sweep.py`
 - `tests/test_config.py`
 - `tests/test_engine.py`
+- `tests/test_cli_helpers.py`
 
 ## 🧠 Key decisions taken
 - Enforced backend envelope schema via JSON Schema draft 2020-12
@@ -61,3 +66,4 @@
 - Introduced update throttling and SNR delta triggers for UPDATE events
 - Preserved default log path `/opt/ndefender/logs/antsdr_scan.jsonl`
 - Added YAML-based config loader with optional plan file support
+- CLI replay pass-throughs contact events; non-event records can be reconstructed into synthetic frames

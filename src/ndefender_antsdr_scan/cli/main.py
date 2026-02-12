@@ -2,21 +2,35 @@ import argparse
 import sys
 
 from ndefender_antsdr_scan.version import __version__
+from ndefender_antsdr_scan.cli.helpers import (
+    build_engine,
+    iter_live_frames,
+    load_app_config,
+    run_replay,
+    run_stats,
+)
+from ndefender_antsdr_scan.events.validate import validate_jsonl
 
 
 def _cmd_run(args: argparse.Namespace) -> int:
-    print(f"run not implemented yet: config={args.config}")
+    config = load_app_config(args.config)
+    engine, _emitter = build_engine(config)
+    for frame in iter_live_frames(config):
+        engine.process_frame(frame)
+    engine.flush()
     return 0
 
 
 def _cmd_replay(args: argparse.Namespace) -> int:
-    print(f"replay not implemented yet: log={args.log}")
+    config = load_app_config(args.config)
+    engine, emitter = build_engine(config, jsonl_path=args.output)
+    stats = run_replay(args.log, engine, emitter)
+    print(f"replayed {stats['frames']} frames")
+    print(f"emitted {stats['events_emitted']} events")
     return 0
 
 
 def _cmd_validate(args: argparse.Namespace) -> int:
-    from ndefender_antsdr_scan.events.validate import validate_jsonl
-
     errors = validate_jsonl(args.log)
     if errors:
         for err in errors:
@@ -28,7 +42,13 @@ def _cmd_validate(args: argparse.Namespace) -> int:
 
 
 def _cmd_stats(args: argparse.Namespace) -> int:
-    print(f"stats not implemented yet: log={args.log}")
+    stats = run_stats(args.log)
+    print(f"total events: {stats['total']}")
+    print("counts:")
+    for event_type, count in stats["counts"].items():
+        print(f"  {event_type}: {count}")
+    if stats["last_timestamp"] is not None:
+        print(f"last timestamp: {stats['last_timestamp']}")
     return 0
 
 
@@ -44,6 +64,16 @@ def build_parser() -> argparse.ArgumentParser:
 
     replay = subparsers.add_parser("replay", help="Replay a JSONL log")
     replay.add_argument("--log", required=True, help="Path to JSONL log")
+    replay.add_argument(
+        "--config",
+        default="config/default.yaml",
+        help="Path to config YAML (for detector/tracker settings)",
+    )
+    replay.add_argument(
+        "--output",
+        default=None,
+        help="Optional JSONL output path (defaults to system log)",
+    )
     replay.set_defaults(func=_cmd_replay)
 
     validate = subparsers.add_parser("validate", help="Validate a JSONL log")
