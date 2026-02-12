@@ -11,12 +11,12 @@
 - Core scan engine wiring (detector → tracker → emitter)
 - CLI run/replay/stats wiring (config-driven)
 - Spectrum capture pipeline (FFT power spectrum + frequency bins)
+- CI workflow (tests + schema validation + compile check)
 
 ## 🟡 What is currently in progress
 - Live radio spectrum capture validation on hardware
 
 ## ❌ What is pending
-- CI workflow (tests + schema validation + compile check)
 - WebSocket client implementation
 - Production AntSDR capture pipeline (hardware tuning/testing)
 
@@ -29,6 +29,7 @@
 - `PYTHONPATH=src python -m unittest tests/test_engine.py` → `OK`
 - `PYTHONPATH=src python -m unittest tests/test_cli_helpers.py` → `OK`
 - `PYTHONPATH=src python -m unittest tests/test_radio_spectrum.py` → `OK`
+- `PYTHONPATH=src python -m unittest discover -s tests` → `OK`
 
 ## 🧩 Test outcomes
 - Tracker lifecycle tests: pass
@@ -63,6 +64,8 @@
 - `tests/test_engine.py`
 - `tests/test_cli_helpers.py`
 - `tests/test_radio_spectrum.py`
+- `.github/workflows/ci.yml`
+- `tests/fixtures/valid.jsonl`
 
 ## 🧠 Key decisions taken
 - Enforced backend envelope schema via JSON Schema draft 2020-12
