@@ -42,6 +42,9 @@ class WsClient:
         finally:
             self._ws = None
 
+    def is_connected(self) -> bool:
+        return self._ws is not None
+
     def _connect_with_retries(self) -> None:
         last_error: Exception | None = None
         for attempt in range(self._config.max_retries):
@@ -91,3 +94,6 @@ class NullWsClient(WsClient):
 
     def close(self) -> None:
         return None
+
+    def is_connected(self) -> bool:
+        return False

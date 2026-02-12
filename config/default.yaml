@@ -37,3 +37,11 @@ classification:
   profiles: "classification_profiles.yaml"
   hop_window_ms: 1000
   min_hop_hz: 200000
+
+api:
+  enabled: false
+  bind: "127.0.0.1"
+  port: 8890
+  api_key: ""
+  max_clients: 25
+  event_buffer: 500

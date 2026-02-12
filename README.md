@@ -57,6 +57,13 @@ ws:
 
 classification:
   profiles: ""
+api:
+  enabled: false
+  bind: "127.0.0.1"
+  port: 8890
+  api_key: ""
+  max_clients: 25
+  event_buffer: 500
 ```
 
 Logs are written to:
@@ -98,6 +105,24 @@ Quick stats from a JSONL log:
 ```bash
 ndefender-antsdr-scan stats --log file.jsonl
 ```
+
+## API
+
+Enable the API in `config/default.yaml` (`api.enabled: true`), then run:
+
+```bash
+ndefender-antsdr-scan api --config config/default.yaml
+```
+
+See `docs/api.md` for endpoints and examples.
+
+Environment overrides:
+- `API_ENABLED`
+- `API_BIND`
+- `API_PORT`
+- `API_KEY`
+- `API_MAX_CLIENTS`
+- `API_EVENT_BUFFER`
 
 ## Development
 

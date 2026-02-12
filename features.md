@@ -46,6 +46,10 @@ Each feature lists its current status and verification notes.
 - Description: GitHub Actions runs compile check, unit tests, and schema validation.
 - Verification: See `.github/workflows/ci.yml` (pipeline configured).
 
+## ✅ API server (REST + WebSocket)
+- Description: Local API with `/api/v1` endpoints for health, stats, config, control, replay, and event streaming.
+- Verification: `.venv/bin/python -m unittest tests/test_api_server.py` → OK.
+
 ## 🟡 In Progress — Advanced classification
 - Description: Multi-level classification tree for analog/digital/control with confidence scoring.
 - Verification: `PYTHONPATH=src python -m unittest tests/test_classification.py` → OK (rule-based stub, partially integrated).

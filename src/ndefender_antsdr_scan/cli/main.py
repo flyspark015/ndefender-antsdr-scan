@@ -11,6 +11,7 @@ from ndefender_antsdr_scan.cli.helpers import (
     run_stats,
 )
 from ndefender_antsdr_scan.events.validate import validate_jsonl
+from ndefender_antsdr_scan.api.server import run_api_server
 
 
 def _cmd_run(args: argparse.Namespace) -> int:
@@ -65,6 +66,19 @@ def _cmd_stats(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_api(args: argparse.Namespace) -> int:
+    try:
+        return run_api_server(
+            args.config,
+            null_radio=args.null_radio,
+            bind=args.bind,
+            port=args.port,
+        )
+    except RuntimeError as exc:
+        print(str(exc))
+        return 2
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="ndefender-antsdr-scan")
     parser.add_argument("--version", action="version", version=__version__)
@@ -112,6 +126,17 @@ def build_parser() -> argparse.ArgumentParser:
     stats = subparsers.add_parser("stats", help="Summarize a JSONL log")
     stats.add_argument("--log", required=True, help="Path to JSONL log")
     stats.set_defaults(func=_cmd_stats)
+
+    api = subparsers.add_parser("api", help="Run API server")
+    api.add_argument("--config", required=True, help="Path to config YAML")
+    api.add_argument("--bind", default=None, help="Override API bind host")
+    api.add_argument("--port", type=int, default=None, help="Override API port")
+    api.add_argument(
+        "--null-radio",
+        action="store_true",
+        help="Use a null radio for dry runs (no hardware required)",
+    )
+    api.set_defaults(func=_cmd_api)
 
     return parser
 

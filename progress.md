@@ -52,6 +52,9 @@
 - Hardware validation guide (docs/hardware_validation.md)
 - Hardware smoke-test script (tools/hardware_smoke_test.sh)
 - API plan documentation (api_plan.md)
+- API server implementation (REST + WS)
+- API configuration + env overrides
+- API event bus + runtime runner
 - Schema fixtures validation suite
 - CLI dry-run integration test (null radio)
 - Advanced detection implementation plan (docs/advanced_detection_plan.md)
@@ -74,6 +77,7 @@
 - `PYTHONPATH=src python -m unittest tests/test_cli_helpers.py` → `OK`
 - `PYTHONPATH=src python -m unittest tests/test_radio_spectrum.py` → `OK`
 - `PYTHONPATH=src python -m unittest discover -s tests` → `OK`
+- `.venv/bin/python -m unittest discover -s tests` → `OK`
 - `PYTHONPATH=src python -m unittest tests/test_classification.py` → `OK`
 - `PYTHONPATH=src python -m unittest tests/test_engine.py` → `OK`
 - `PYTHONPATH=src python -m unittest tests/test_correlation.py` → `OK`
@@ -94,6 +98,7 @@
 - `PYTHONPATH=src python -m unittest tests/test_schema_fixtures.py` → `OK`
 - `PYTHONPATH=src python -m unittest tests/test_cli_run_dry.py` → `OK`
 - `PYTHONPATH=src python -m unittest tests/test_cli_replay_e2e.py` → `OK`
+- `.venv/bin/python -m unittest tests/test_api_server.py` → `OK`
 
 ## 🧩 Test outcomes
 - Tracker lifecycle tests: pass
@@ -122,6 +127,7 @@
 - Control profile tests (pattern_hint): pass
 - Control profile integration tests: pass
 - Null-radio dry-run verification: pass
+- API server tests: pass
 - Sweep plan loading tests: pass
 - Control profile tests: pass
 - DSP feature tests: pass
@@ -137,6 +143,7 @@
 - CLI dry-run test: pass
 - CLI replay e2e test: pass
 - Radio spectrum tests: pass
+- API server tests: pass
 
 ## 📦 Code changes implemented
 - `src/ndefender_antsdr_scan/events/schema.json`
@@ -157,6 +164,9 @@
 - `src/ndefender_antsdr_scan/detectors/peak.py`
 - `src/ndefender_antsdr_scan/cli/helpers.py`
 - `src/ndefender_antsdr_scan/core/config.py`
+- `src/ndefender_antsdr_scan/api/bus.py`
+- `src/ndefender_antsdr_scan/api/runtime.py`
+- `src/ndefender_antsdr_scan/api/server.py`
 - `config/default.yaml`
 - `tests/test_tracker.py`
 - `tests/test_peak_detector.py`
@@ -191,6 +201,9 @@
 - `config/plans/digital_5g8.yaml`
 - `tests/test_control_profiles.py`
 - `tests/test_control_profile_integration.py`
+- `tests/test_api_config.py`
+- `tests/test_api_bus.py`
+- `tests/test_api_server.py`
 - `src/ndefender_antsdr_scan/core/dsp.py`
 - `tests/test_dsp_features.py`
 - `src/ndefender_antsdr_scan/core/hopping.py`
@@ -222,11 +235,13 @@
 - `tests/test_cli_replay_e2e.py`
 - `docs/advanced_detection_plan.md`
 - `docs/hardware_validation.md`
+- `docs/api.md`
 - `config/default.yaml`
 - `pyproject.toml`
 - `.github/workflows/ci.yml`
 - `tests/fixtures/valid.jsonl`
 - `tools/hardware_smoke_test.sh`
+- `api_plan.md`
 
 ## 🧠 Key decisions taken
 - Enforced backend envelope schema via JSON Schema draft 2020-12

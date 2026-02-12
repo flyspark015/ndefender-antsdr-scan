@@ -6,6 +6,7 @@ from typing import Iterable
 
 from ndefender_antsdr_scan.io.jsonl import write_jsonl
 from ndefender_antsdr_scan.api.ws_client import NullWsClient, WsClient
+from ndefender_antsdr_scan.api.bus import EventBus
 
 DEFAULT_LOG_PATH = "/opt/ndefender/logs/antsdr_scan.jsonl"
 
@@ -16,14 +17,22 @@ class EmitConfig:
 
 
 class EventEmitter:
-    def __init__(self, config: EmitConfig | None = None, ws_client: WsClient | None = None) -> None:
+    def __init__(
+        self,
+        config: EmitConfig | None = None,
+        ws_client: WsClient | None = None,
+        event_bus: EventBus | None = None,
+    ) -> None:
         self._config = config or EmitConfig()
         self._ws_client = ws_client or NullWsClient()
+        self._event_bus = event_bus
         self._ensure_log_dir()
 
     def emit(self, event: dict) -> None:
         write_jsonl(self._config.jsonl_path, [event])
         self._ws_client.send_event(event)
+        if self._event_bus is not None:
+            self._event_bus.publish(event)
 
     def emit_many(self, events: Iterable[dict]) -> None:
         events_list = list(events)
@@ -31,6 +40,13 @@ class EventEmitter:
             return
         write_jsonl(self._config.jsonl_path, events_list)
         self._ws_client.send_many(events_list)
+        if self._event_bus is not None:
+            for event in events_list:
+                self._event_bus.publish(event)
+
+    @property
+    def ws_connected(self) -> bool:
+        return self._ws_client.is_connected()
 
     def _ensure_log_dir(self) -> None:
         log_dir = os.path.dirname(self._config.jsonl_path)

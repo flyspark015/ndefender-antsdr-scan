@@ -22,12 +22,20 @@ def load_app_config(path: str) -> AppConfig:
     return load_config(path)
 
 
-def build_engine(config: AppConfig, jsonl_path: str | None = None) -> tuple[ScanEngine, EventEmitter]:
+def build_engine(
+    config: AppConfig,
+    jsonl_path: str | None = None,
+    event_bus=None,
+) -> tuple[ScanEngine, EventEmitter]:
     detector = PeakDetector(config.detector)
     tracker = Tracker(config.tracker)
     classifier = Classifier(profiles=config.classification_profiles)
     ws_client = WsClient(config.ws) if config.ws.enabled and config.ws.url else None
-    emitter = EventEmitter(EmitConfig(jsonl_path=jsonl_path) if jsonl_path else None, ws_client=ws_client)
+    emitter = EventEmitter(
+        EmitConfig(jsonl_path=jsonl_path) if jsonl_path else None,
+        ws_client=ws_client,
+        event_bus=event_bus,
+    )
     return ScanEngine(
         detector,
         tracker,

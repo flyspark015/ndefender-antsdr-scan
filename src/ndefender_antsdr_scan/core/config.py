@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+import os
 from pathlib import Path
 from typing import Any
 
@@ -30,6 +31,17 @@ class AppConfig:
     classification_profiles: ProfileSet | None
     hop_window_ms: int
     min_hop_hz: float
+    api: "ApiConfig"
+
+
+@dataclass(frozen=True)
+class ApiConfig:
+    enabled: bool = False
+    bind: str = "127.0.0.1"
+    port: int = 8890
+    api_key: str | None = None
+    max_clients: int = 25
+    event_buffer: int = 500
 
 
 def load_config(path: str | Path) -> AppConfig:
@@ -43,6 +55,7 @@ def load_config(path: str | Path) -> AppConfig:
     sweep = raw.get("sweep", {})
     ws = raw.get("ws", {})
     classification = raw.get("classification", {})
+    api = raw.get("api", {})
 
     bands = _load_bands(config_path, sweep)
 
@@ -79,6 +92,14 @@ def load_config(path: str | Path) -> AppConfig:
         classification_profiles=_load_classification_profiles(config_path, classification),
         hop_window_ms=int(classification.get("hop_window_ms", 1000)),
         min_hop_hz=float(classification.get("min_hop_hz", 200000.0)),
+        api=ApiConfig(
+            enabled=_env_bool("API_ENABLED", bool(api.get("enabled", False))),
+            bind=_env_str("API_BIND", str(api.get("bind", "127.0.0.1"))),
+            port=_env_int("API_PORT", int(api.get("port", 8890))),
+            api_key=_env_str("API_KEY", api.get("api_key")) or None,
+            max_clients=_env_int("API_MAX_CLIENTS", int(api.get("max_clients", 25))),
+            event_buffer=_env_int("API_EVENT_BUFFER", int(api.get("event_buffer", 500))),
+        ),
     )
 
 
@@ -115,6 +136,30 @@ def _load_bands(config_path: Path, sweep: dict[str, Any]) -> list[BandPlan]:
             bands.append(_band_from_dict(entry))
 
     return bands
+
+
+def _env_bool(name: str, default: bool) -> bool:
+    raw = os.getenv(name)
+    if raw is None:
+        return default
+    return raw.strip().lower() in {"1", "true", "yes", "on"}
+
+
+def _env_int(name: str, default: int) -> int:
+    raw = os.getenv(name)
+    if raw is None:
+        return default
+    try:
+        return int(raw.strip())
+    except ValueError:
+        return default
+
+
+def _env_str(name: str, default: str | None) -> str | None:
+    raw = os.getenv(name)
+    if raw is None:
+        return default
+    return raw
 
 
 def _band_from_dict(entry: dict[str, Any]) -> BandPlan:
