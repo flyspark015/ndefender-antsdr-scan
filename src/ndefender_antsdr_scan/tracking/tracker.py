@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from typing import Iterable, Callable
 
 from .models import Observation, ContactState, FeatureHints
@@ -12,6 +12,8 @@ class TrackerConfig:
     ttl_s: float
     min_hits_to_confirm: int
     update_interval_s: float
+    correlation_enabled: bool = False
+    correlation_window_ms: int = 100
 
 
 class Tracker:
@@ -19,6 +21,8 @@ class Tracker:
         self._config = config
         self._contacts: dict[int, ContactState] = {}
         self._time_ms_provider = time_ms_provider
+        self._last_video_seen_ms: int | None = None
+        self._last_control_seen_ms: int | None = None
 
     def ingest(self, observations: Iterable[Observation], now_ms: int | None = None) -> list[dict]:
         obs_list = list(observations)
@@ -56,6 +60,7 @@ class Tracker:
                 noise_floor_db=obs.noise_floor_db,
                 confidence=self._confidence_from_snr(obs.snr_db),
                 features=obs.features,
+                awaiting_correlation=False,
             )
             self._contacts[bucket_value_hz] = contact
 
@@ -70,20 +75,57 @@ class Tracker:
         contact.features = obs.features
         contact.confidence = self._confidence_from_snr(obs.snr_db)
 
+        role = self._role_from_class_path(contact.features.class_path)
+        if role == "video":
+            self._last_video_seen_ms = obs.timestamp_ms
+        elif role == "control":
+            self._last_control_seen_ms = obs.timestamp_ms
+
+        correlation_ok = self._correlation_ok(role, contact.last_seen_ms)
+        contact = self._update_control_correlation(contact, correlation_ok)
+        self._contacts[bucket_value_hz] = contact
+
         if not contact.confirmed:
             if contact.hit_count >= self._config.min_hits_to_confirm:
+                if self._correlation_required(role) and not correlation_ok:
+                    contact.awaiting_correlation = True
+                    return self._resolve_pending_correlation(obs.timestamp_ms)
                 contact.confirmed = True
+                contact.awaiting_correlation = False
                 contact.last_update_emitted_ms = obs.timestamp_ms
                 contact.last_emitted_snr_db = obs.snr_db
-                return [self._make_event("RF_CONTACT_NEW", obs.timestamp_ms, contact)]
-            return []
+                events = [self._make_event("RF_CONTACT_NEW", obs.timestamp_ms, contact)]
+                events.extend(self._resolve_pending_correlation(obs.timestamp_ms))
+                return events
+            return self._resolve_pending_correlation(obs.timestamp_ms)
 
         if self._should_update(contact, obs):
             contact.last_update_emitted_ms = obs.timestamp_ms
             contact.last_emitted_snr_db = obs.snr_db
-            return [self._make_event("RF_CONTACT_UPDATE", obs.timestamp_ms, contact)]
+            events = [self._make_event("RF_CONTACT_UPDATE", obs.timestamp_ms, contact)]
+            events.extend(self._resolve_pending_correlation(obs.timestamp_ms))
+            return events
 
-        return []
+        return self._resolve_pending_correlation(obs.timestamp_ms)
+
+    def _resolve_pending_correlation(self, now_ms: int) -> list[dict]:
+        if not self._config.correlation_enabled:
+            return []
+        events: list[dict] = []
+        for contact in self._contacts.values():
+            if not contact.awaiting_correlation:
+                continue
+            role = self._role_from_class_path(contact.features.class_path)
+            if not self._correlation_required(role):
+                continue
+            if self._correlation_ok(role, contact.last_seen_ms):
+                contact.awaiting_correlation = False
+                contact.confirmed = True
+                contact.last_update_emitted_ms = now_ms
+                contact.last_emitted_snr_db = contact.last_snr_db
+                contact = self._update_control_correlation(contact, True)
+                events.append(self._make_event("RF_CONTACT_NEW", now_ms, contact))
+        return events
 
     def _expire(self, now_ms: int) -> list[dict]:
         ttl_ms = int(self._config.ttl_s * 1000)
@@ -105,6 +147,35 @@ class Tracker:
         interval_elapsed = obs.timestamp_ms - contact.last_update_emitted_ms >= interval_ms
         snr_change = abs(obs.snr_db - contact.last_emitted_snr_db) > 2.0
         return interval_elapsed or snr_change
+
+    def _role_from_class_path(self, class_path: list[str] | None) -> str | None:
+        if not class_path:
+            return None
+        if "Control" in class_path:
+            return "control"
+        if "Video" in class_path or "Analog" in class_path or "Digital" in class_path:
+            return "video"
+        return None
+
+    def _correlation_required(self, role: str | None) -> bool:
+        return self._config.correlation_enabled and role in {"video", "control"}
+
+    def _correlation_ok(self, role: str | None, timestamp_ms: int) -> bool:
+        if not self._correlation_required(role):
+            return True
+        window = self._config.correlation_window_ms
+        if role == "video" and self._last_control_seen_ms is not None:
+            return abs(self._last_control_seen_ms - timestamp_ms) <= window
+        if role == "control" and self._last_video_seen_ms is not None:
+            return abs(self._last_video_seen_ms - timestamp_ms) <= window
+        return False
+
+    def _update_control_correlation(self, contact: ContactState, correlation_ok: bool) -> ContactState:
+        if correlation_ok and not (contact.features.control_correlation or False):
+            contact.features = replace(contact.features, control_correlation=True)
+        elif contact.features.control_correlation is None:
+            contact.features = replace(contact.features, control_correlation=False)
+        return contact
 
     def _bucketize(self, freq_hz: float) -> int:
         size = self._config.bucket_hz
@@ -128,6 +199,7 @@ class Tracker:
     @staticmethod
     def _make_event(event_type: str, timestamp_ms: int, contact: ContactState) -> dict:
         class_path = contact.features.class_path
+        control_correlation = bool(contact.features.control_correlation)
         return {
             "type": event_type,
             "timestamp": int(timestamp_ms),
@@ -149,6 +221,7 @@ class Tracker:
                     "hop_hint": contact.features.hop_hint,
                     "class_path": class_path if class_path else [],
                     "classification_confidence": contact.features.classification_confidence or 0.0,
+                    "control_correlation": control_correlation,
                 },
             },
         }

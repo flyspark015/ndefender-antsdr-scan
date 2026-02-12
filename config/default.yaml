@@ -9,6 +9,10 @@ tracker:
   min_hits_to_confirm: 2
   update_interval_s: 1.0
 
+correlation:
+  enabled: false
+  window_ms: 100
+
 detector:
   min_snr_db: 10
   lo_guard_hz: 100000

@@ -34,6 +34,7 @@ def load_config(path: str | Path) -> AppConfig:
 
     radio = raw.get("radio", {})
     tracker = raw.get("tracker", {})
+    correlation = raw.get("correlation", {})
     detector = raw.get("detector", {})
     sweep = raw.get("sweep", {})
     ws = raw.get("ws", {})
@@ -51,6 +52,8 @@ def load_config(path: str | Path) -> AppConfig:
             ttl_s=float(tracker.get("ttl_s", 0)),
             min_hits_to_confirm=int(tracker.get("min_hits_to_confirm", 0)),
             update_interval_s=float(tracker.get("update_interval_s", 0)),
+            correlation_enabled=bool(correlation.get("enabled", False)),
+            correlation_window_ms=int(correlation.get("window_ms", 100)),
         ),
         detector=PeakDetectorConfig(
             min_snr_db=float(detector.get("min_snr_db", 0.0)),

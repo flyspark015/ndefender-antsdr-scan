@@ -11,6 +11,7 @@ class FeatureHints:
     hop_hint: str
     class_path: list[str] | None = None
     classification_confidence: float | None = None
+    control_correlation: bool | None = None
 
 
 @dataclass(frozen=True)
@@ -43,3 +44,4 @@ class ContactState:
     noise_floor_db: float
     confidence: float
     features: FeatureHints
+    awaiting_correlation: bool = False

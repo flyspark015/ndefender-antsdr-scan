@@ -19,6 +19,7 @@
 - README expanded with configuration and CLI guidance
 - Classification module scaffold (rule-based)
 - Classification enrichment in event features
+- Correlation gating (video + control) with tests
 
 ## 🟡 What is currently in progress
 - Live radio spectrum capture validation on hardware
@@ -26,7 +27,6 @@
 
 ## ❌ What is pending
 - Production AntSDR capture pipeline (hardware tuning/testing)
-- Correlation gating (video + control)
 
 ## 🧪 Verification results
 - `PYTHONPATH=src python -m ndefender_antsdr_scan.cli.main validate --log /tmp/antsdr_valid.jsonl` → `validation ok`
@@ -40,6 +40,7 @@
 - `PYTHONPATH=src python -m unittest discover -s tests` → `OK`
 - `PYTHONPATH=src python -m unittest tests/test_classification.py` → `OK`
 - `PYTHONPATH=src python -m unittest tests/test_engine.py` → `OK`
+- `PYTHONPATH=src python -m unittest tests/test_correlation.py` → `OK`
 
 ## 🧩 Test outcomes
 - Tracker lifecycle tests: pass
@@ -50,6 +51,7 @@
 - CLI helper tests: pass
 - Classification tests: pass
 - Engine tests: pass (with classification hints)
+- Correlation gating tests: pass
 - Radio spectrum tests: pass
 
 ## 📦 Code changes implemented
@@ -90,6 +92,7 @@
 - `tests/test_engine.py`
 - `tests/test_cli_helpers.py`
 - `features.md`
+- `tests/test_correlation.py`
 - `config/default.yaml`
 - `pyproject.toml`
 - `.github/workflows/ci.yml`

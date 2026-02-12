@@ -13,6 +13,7 @@ def _features() -> FeatureHints:
         hop_hint="none",
         class_path=["Analog", "Video"],
         classification_confidence=0.8,
+        control_correlation=False,
     )
 
 

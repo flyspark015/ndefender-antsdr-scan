@@ -21,6 +21,7 @@ class _Detector:
         hop_hint="none",
         class_path=["Analog", "Video"],
         classification_confidence=0.8,
+        control_correlation=False,
     )
 
     def detect(self, frame: SpectrumFrame):

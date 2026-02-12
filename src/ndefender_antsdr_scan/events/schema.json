@@ -53,7 +53,8 @@
             "pattern_hint",
             "hop_hint",
             "class_path",
-            "classification_confidence"
+            "classification_confidence",
+            "control_correlation"
           ],
           "properties": {
             "prominence_db": {"type": "number"},
@@ -64,7 +65,8 @@
               "type": "array",
               "items": {"type": "string"}
             },
-            "classification_confidence": {"type": "number", "minimum": 0.0, "maximum": 1.0}
+            "classification_confidence": {"type": "number", "minimum": 0.0, "maximum": 1.0},
+            "control_correlation": {"type": "boolean"}
           }
         }
       }

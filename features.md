@@ -40,11 +40,11 @@ Each feature lists its current status and verification notes.
 
 ## 🟡 In Progress — Advanced classification
 - Description: Multi-level classification tree for analog/digital/control with confidence scoring.
-- Verification: `PYTHONPATH=src python -m unittest tests/test_classification.py` → OK (rule-based stub, not integrated).
+- Verification: `PYTHONPATH=src python -m unittest tests/test_classification.py` → OK (rule-based stub, partially integrated).
 
-## ❌ Pending — Correlation gating (video + control)
-- Description: NEW event emitted only when control + video aligned within time window.
-- Verification: Not yet implemented.
+## ✅ Correlation gating (video + control)
+- Description: NEW event emitted only when control + video aligned within time window (configurable).
+- Verification: `PYTHONPATH=src python -m unittest tests/test_correlation.py` → OK.
 
 ## ❌ Pending — Hardware validation
 - Description: Live AntSDR capture validation, LO tuning checks, and WS emission.
@@ -105,9 +105,9 @@ Each detection type documents what we detect, how it is identified, output hints
 - Status: ❌ Planned.
 - Verification: Planned tests + soak.
 
-## ❌ Correlation gating (video + control)
+## ✅ Video + Control correlation gating
 - Detects: Combined video + control alignment for higher confidence NEW.
-- Identification: Timestamp correlation window (±100ms).
-- Output: `features.control_correlation` (planned).
-- Status: ❌ Planned.
-- Verification: Correlation unit tests + replay.
+- Identification: Timestamp correlation window (±100ms, configurable).
+- Output: `features.control_correlation` true when correlated.
+- Status: ✅ Implemented & Verified.
+- Verification: `PYTHONPATH=src python -m unittest tests/test_correlation.py` → OK.
