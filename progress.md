@@ -90,8 +90,13 @@
 - `run` supports `--null-radio` and `--max-frames` to enable safe dry runs
 
 ## ✅ Hardware validation checklist (planned)
-- Verify AntSDR connectivity (`uri` reachable, `pyadi-iio` importable)
-- Confirm RX LO tuning across sweep band (start/stop/step behavior)
-- Validate FFT power spectrum shape and peak detection at known tones
-- Check event emission to JSONL at `/opt/ndefender/logs/antsdr_scan.jsonl`
-- Confirm WebSocket emission when enabled (connect/retry/backoff)
+- Verify AntSDR connectivity (`uri` reachable, `pyadi-iio` importable) — pending
+- Confirm RX LO tuning across sweep band (start/stop/step behavior) — pending
+- Validate FFT power spectrum shape and peak detection at known tones — pending
+- Check event emission to JSONL at `/opt/ndefender/logs/antsdr_scan.jsonl` — pending
+- Confirm WebSocket emission when enabled (connect/retry/backoff) — pending
+
+## 🧪 Hardware validation commands (run on target device)
+- `python -c "import adi; print(adi.__version__)"` (verify pyadi-iio import)
+- `ndefender-antsdr-scan run --config config/default.yaml --max-frames 5` (live capture smoke test)
+- `ndefender-antsdr-scan run --config config/default.yaml --null-radio --max-frames 5` (no-hardware dry run)
