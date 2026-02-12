@@ -58,6 +58,7 @@
 - API health includes last event timestamp
 - API replay validates log path existence
 - Detection capability statuses clarified (classification pending without RF validation)
+- RemoteID/DroneID removed from features (separate system)
 - API monitor dashboard + self-test script
 - Schema fixtures validation suite
 - CLI dry-run integration test (null radio)
