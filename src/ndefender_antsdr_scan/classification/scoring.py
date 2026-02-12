@@ -11,7 +11,9 @@ def score_control(features: SignalFeatures) -> float:
     if features.bandwidth_class == "narrow":
         score += 0.1
     if features.hop_rate_hz is not None and features.hop_rate_hz >= 1.0:
-        score += 0.4
+        hop_excess = max(0.0, features.hop_rate_hz - 1.0)
+        score += 0.3 + 0.2 * min(hop_excess / 4.0, 1.0)
     if features.burstiness is not None and features.burstiness >= 0.6:
-        score += 0.3
+        burst_excess = max(0.0, features.burstiness - 0.6)
+        score += 0.2 + 0.1 * min(burst_excess / 0.4, 1.0)
     return min(score, 1.0)

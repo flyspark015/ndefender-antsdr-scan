@@ -39,6 +39,7 @@
 - Analog profile confidence scaling (SNR/prominence)
 - Vendor profile confidence scaling (OFDM score)
 - OFDM rule confidence scaling test coverage
+- Control confidence scaling (hop/burst)
 - Schema fixtures validation suite
 - CLI dry-run integration test (null radio)
 - Advanced detection implementation plan (docs/advanced_detection_plan.md)
@@ -98,6 +99,7 @@
 - Profile confidence scaling tests: pass
 - Vendor profile confidence scaling tests: pass
 - OFDM confidence scaling tests: pass
+- Control confidence scaling tests: pass
 - Sweep plan loading tests: pass
 - Control profile tests: pass
 - DSP feature tests: pass
@@ -156,6 +158,7 @@
 - `tests/test_correlation.py`
 - `src/ndefender_antsdr_scan/classification/profiles.py`
 - `tests/test_classification_profiles.py`
+- `tests/test_profile_confidence.py`
 - `tests/fixtures/classification_profiles.yaml`
 - `config/classification_profiles.yaml`
 - `tests/test_classification_profiles_channels.py`
@@ -173,11 +176,14 @@
 - `tests/test_classification_rules.py`
 - `src/ndefender_antsdr_scan/classification/scoring.py`
 - `tests/test_control_scoring.py`
+- `tests/test_control_confidence_scaling.py`
 - `src/ndefender_antsdr_scan/classification/ofdm.py`
 - `tests/test_ofdm_signature.py`
+- `tests/test_ofdm_confidence_scaling.py`
 - `src/ndefender_antsdr_scan/classification/rules.py`
 - `tests/test_vendor_heuristics.py`
 - `tests/test_vendor_profiles.py`
+- `tests/test_vendor_confidence_scaling.py`
 - `tests/fixtures/valid_vendor.jsonl`
 - `tests/fixtures/valid_control.jsonl`
 - `tests/fixtures/valid_correlation.jsonl`
