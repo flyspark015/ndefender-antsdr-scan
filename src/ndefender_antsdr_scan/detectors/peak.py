@@ -25,6 +25,8 @@ class PeakDetector:
 
         noise_floor = dsp.noise_floor_db(frame.power_db)
         threshold = noise_floor + self._config.min_snr_db
+        burstiness = dsp.estimate_burstiness(frame.power_db, threshold_db=threshold)
+        bandwidth_est_hz = dsp.estimate_bandwidth_hz(frame.freqs_hz, frame.power_db, threshold_db=threshold)
         detections: list[Detection] = []
 
         for idx in dsp.local_maxima_indices(frame.power_db):
@@ -55,6 +57,8 @@ class PeakDetector:
                         cluster_size=cluster_size,
                         pattern_hint="unknown",
                         hop_hint="none",
+                        burstiness=burstiness,
+                        bandwidth_est_hz=bandwidth_est_hz,
                     ),
                 )
             )

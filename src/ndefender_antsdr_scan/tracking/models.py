@@ -9,6 +9,9 @@ class FeatureHints:
     cluster_size: int
     pattern_hint: str
     hop_hint: str
+    bandwidth_est_hz: float | None = None
+    burstiness: float | None = None
+    hop_rate_hz: float | None = None
     class_path: list[str] | None = None
     classification_confidence: float | None = None
     control_correlation: bool | None = None

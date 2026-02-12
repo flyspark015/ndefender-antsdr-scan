@@ -52,6 +52,9 @@
             "cluster_size",
             "pattern_hint",
             "hop_hint",
+            "bandwidth_est_hz",
+            "burstiness",
+            "hop_rate_hz",
             "class_path",
             "classification_confidence",
             "control_correlation"
@@ -61,6 +64,9 @@
             "cluster_size": {"type": "integer", "minimum": 0},
             "pattern_hint": {"type": "string"},
             "hop_hint": {"type": "string"},
+            "bandwidth_est_hz": {"type": "number", "minimum": 0.0},
+            "burstiness": {"type": "number", "minimum": 0.0, "maximum": 1.0},
+            "hop_rate_hz": {"type": "number", "minimum": 0.0},
             "class_path": {
               "type": "array",
               "items": {"type": "string"}

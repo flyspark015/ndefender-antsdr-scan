@@ -33,3 +33,21 @@ def contiguous_cluster_size(power_db: Sequence[float], idx: int, threshold_db: f
         size += 1
         right += 1
     return size
+
+
+def estimate_bandwidth_hz(freqs_hz: Sequence[float], power_db: Sequence[float], threshold_db: float) -> float:
+    if len(freqs_hz) != len(power_db):
+        raise ValueError("freqs_hz and power_db must be same length")
+    if not freqs_hz:
+        return 0.0
+    indices = [i for i, power in enumerate(power_db) if power >= threshold_db]
+    if not indices:
+        return 0.0
+    return float(freqs_hz[indices[-1]] - freqs_hz[indices[0]])
+
+
+def estimate_burstiness(power_db: Sequence[float], threshold_db: float) -> float:
+    if not power_db:
+        return 0.0
+    active = sum(1 for power in power_db if power >= threshold_db)
+    return active / float(len(power_db))

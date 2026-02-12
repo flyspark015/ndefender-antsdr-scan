@@ -46,6 +46,10 @@ Each feature lists its current status and verification notes.
 - Description: Multi-level classification tree for analog/digital/control with confidence scoring.
 - Verification: `PYTHONPATH=src python -m unittest tests/test_classification.py` → OK (rule-based stub, partially integrated).
 
+## ✅ DSP feature extraction (bandwidth + burstiness)
+- Description: Estimate bandwidth and burstiness for classification hints and control-link detection.
+- Verification: `PYTHONPATH=src python -m unittest tests/test_dsp_features.py` → OK.
+
 ## ✅ Profile-driven classification rules
 - Description: Optional YAML profile rules to tag signals by frequency range, bandwidth class, and SNR.
 - Verification: `PYTHONPATH=src python -m unittest tests/test_classification_profiles.py` → OK (closest-center selection).
