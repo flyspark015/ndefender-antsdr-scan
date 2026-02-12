@@ -12,7 +12,8 @@ license = {text = "Proprietary"}
 authors = [{name = "N-Defender"}]
 dependencies = [
   "jsonschema>=4.19",
-  "PyYAML>=6.0"
+  "PyYAML>=6.0",
+  "numpy>=1.26"
 ]
 
 [project.scripts]

@@ -40,6 +40,7 @@ def load_config(path: str | Path) -> AppConfig:
         radio=RadioConfig(
             uri=str(radio.get("uri", "")),
             sample_rate=int(radio.get("sample_rate", 0)),
+            rx_buffer_size=int(radio.get("rx_buffer_size", 4096)),
         ),
         tracker=TrackerConfig(
             bucket_hz=int(tracker.get("bucket_hz", 0)),

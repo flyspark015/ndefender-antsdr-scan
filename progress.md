@@ -10,14 +10,15 @@
 - Config loader with YAML support
 - Core scan engine wiring (detector → tracker → emitter)
 - CLI run/replay/stats wiring (config-driven)
+- Spectrum capture pipeline (FFT power spectrum + frequency bins)
 
 ## 🟡 What is currently in progress
-- Live radio spectrum capture implementation
+- Live radio spectrum capture validation on hardware
 
 ## ❌ What is pending
 - CI workflow (tests + schema validation + compile check)
 - WebSocket client implementation
-- Production AntSDR capture pipeline (FFT + power spectrum)
+- Production AntSDR capture pipeline (hardware tuning/testing)
 
 ## 🧪 Verification results
 - `PYTHONPATH=src python -m ndefender_antsdr_scan.cli.main validate --log /tmp/antsdr_valid.jsonl` → `validation ok`
@@ -27,6 +28,7 @@
 - `PYTHONPATH=src python -m unittest tests/test_config.py` → `OK`
 - `PYTHONPATH=src python -m unittest tests/test_engine.py` → `OK`
 - `PYTHONPATH=src python -m unittest tests/test_cli_helpers.py` → `OK`
+- `PYTHONPATH=src python -m unittest tests/test_radio_spectrum.py` → `OK`
 
 ## 🧩 Test outcomes
 - Tracker lifecycle tests: pass
@@ -35,6 +37,7 @@
 - Config loader tests: pass
 - Engine wiring tests: pass
 - CLI helper tests: pass
+- Radio spectrum tests: pass
 
 ## 📦 Code changes implemented
 - `src/ndefender_antsdr_scan/events/schema.json`
@@ -59,6 +62,7 @@
 - `tests/test_config.py`
 - `tests/test_engine.py`
 - `tests/test_cli_helpers.py`
+- `tests/test_radio_spectrum.py`
 
 ## 🧠 Key decisions taken
 - Enforced backend envelope schema via JSON Schema draft 2020-12
@@ -67,3 +71,4 @@
 - Preserved default log path `/opt/ndefender/logs/antsdr_scan.jsonl`
 - Added YAML-based config loader with optional plan file support
 - CLI replay pass-throughs contact events; non-event records can be reconstructed into synthetic frames
+- Implemented FFT-based spectrum extraction with windowing in `spectrum_from_samples`
