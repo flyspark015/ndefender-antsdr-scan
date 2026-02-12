@@ -14,7 +14,14 @@ from ndefender_antsdr_scan.tracking.tracker import Tracker, TrackerConfig
 
 class _Detector:
     def __init__(self) -> None:
-        self._features = FeatureHints(30.0, 12, "unknown", "none")
+        self._features = FeatureHints(
+        prominence_db=30.0,
+        cluster_size=12,
+        pattern_hint="unknown",
+        hop_hint="none",
+        class_path=["Analog", "Video"],
+        classification_confidence=0.8,
+    )
 
     def detect(self, frame: SpectrumFrame):
         return [

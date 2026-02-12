@@ -18,6 +18,7 @@
 - Null-radio dry-run and max-frames guard for run loop
 - README expanded with configuration and CLI guidance
 - Classification module scaffold (rule-based)
+- Classification enrichment in event features
 
 ## 🟡 What is currently in progress
 - Live radio spectrum capture validation on hardware
@@ -38,6 +39,7 @@
 - `PYTHONPATH=src python -m unittest tests/test_radio_spectrum.py` → `OK`
 - `PYTHONPATH=src python -m unittest discover -s tests` → `OK`
 - `PYTHONPATH=src python -m unittest tests/test_classification.py` → `OK`
+- `PYTHONPATH=src python -m unittest tests/test_engine.py` → `OK`
 
 ## 🧩 Test outcomes
 - Tracker lifecycle tests: pass
@@ -47,6 +49,7 @@
 - Engine wiring tests: pass
 - CLI helper tests: pass
 - Classification tests: pass
+- Engine tests: pass (with classification hints)
 - Radio spectrum tests: pass
 
 ## 📦 Code changes implemented
@@ -79,7 +82,13 @@
 - `src/ndefender_antsdr_scan/classification/engine.py`
 - `src/ndefender_antsdr_scan/classification/models.py`
 - `src/ndefender_antsdr_scan/classification/rules.py`
+- `src/ndefender_antsdr_scan/core/engine.py`
+- `src/ndefender_antsdr_scan/tracking/models.py`
+- `src/ndefender_antsdr_scan/tracking/tracker.py`
+- `src/ndefender_antsdr_scan/events/schema.json`
 - `tests/test_classification.py`
+- `tests/test_engine.py`
+- `tests/test_cli_helpers.py`
 - `features.md`
 - `config/default.yaml`
 - `pyproject.toml`

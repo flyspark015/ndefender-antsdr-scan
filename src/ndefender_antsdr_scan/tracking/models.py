@@ -9,6 +9,8 @@ class FeatureHints:
     cluster_size: int
     pattern_hint: str
     hop_hint: str
+    class_path: list[str] | None = None
+    classification_confidence: float | None = None
 
 
 @dataclass(frozen=True)

@@ -11,6 +11,8 @@ def _features() -> FeatureHints:
         cluster_size=12,
         pattern_hint="unknown",
         hop_hint="none",
+        class_path=["Analog", "Video"],
+        classification_confidence=0.8,
     )
 
 

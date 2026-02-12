@@ -127,6 +127,7 @@ class Tracker:
 
     @staticmethod
     def _make_event(event_type: str, timestamp_ms: int, contact: ContactState) -> dict:
+        class_path = contact.features.class_path
         return {
             "type": event_type,
             "timestamp": int(timestamp_ms),
@@ -146,6 +147,8 @@ class Tracker:
                     "cluster_size": contact.features.cluster_size,
                     "pattern_hint": contact.features.pattern_hint,
                     "hop_hint": contact.features.hop_hint,
+                    "class_path": class_path if class_path else [],
+                    "classification_confidence": contact.features.classification_confidence or 0.0,
                 },
             },
         }

@@ -51,13 +51,20 @@
             "prominence_db",
             "cluster_size",
             "pattern_hint",
-            "hop_hint"
+            "hop_hint",
+            "class_path",
+            "classification_confidence"
           ],
           "properties": {
             "prominence_db": {"type": "number"},
             "cluster_size": {"type": "integer", "minimum": 0},
             "pattern_hint": {"type": "string"},
-            "hop_hint": {"type": "string"}
+            "hop_hint": {"type": "string"},
+            "class_path": {
+              "type": "array",
+              "items": {"type": "string"}
+            },
+            "classification_confidence": {"type": "number", "minimum": 0.0, "maximum": 1.0}
           }
         }
       }

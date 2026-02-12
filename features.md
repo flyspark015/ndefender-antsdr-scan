@@ -49,3 +49,65 @@ Each feature lists its current status and verification notes.
 ## ❌ Pending — Hardware validation
 - Description: Live AntSDR capture validation, LO tuning checks, and WS emission.
 - Verification: Not yet performed on target device.
+
+---
+
+# Detection & Tracking Capabilities (Drone RF)
+
+Each detection type documents what we detect, how it is identified, output hints, and status.
+
+## 🟡 Analog FPV VTX (5.8 GHz wideband FM)
+- Detects: Wideband analog video carriers (common FPV VTX signals).
+- Identification: Wide bandwidth peaks + low burstiness; `bandwidth_class="wide"`, `prominence_db`, `cluster_size`.
+- Output: Event `features.class_path` → ["Analog", "Video", "WideFM"], `classification_confidence`.
+- Status: 🟡 In Progress (classification integrated; band-specific rules pending).
+- Verification: `tests/test_classification.py` (rule stub), needs replay/soak for ✅.
+
+## ❌ RaceBand / FatShark / Band A channelization
+- Detects: Specific analog band/channel edges (R1–R8, F1–F8, A/B/E).
+- Identification: Band plan + channel center matching + stable FM plateau.
+- Output: `features.class_path` includes channel/band tag; `pattern_hint` set.
+- Status: ❌ Planned.
+- Verification: Will require band-plan replay + unit tests.
+
+## ❌ Digital FPV (OFDM-style bursts)
+- Detects: Digital video links via OFDM-like PSD and burst timing.
+- Identification: Burstiness + bandwidth estimate + OFDM signature.
+- Output: `features.class_path` → ["Digital", "Video"], `pattern_hint`.
+- Status: ❌ Planned.
+- Verification: Planned synthetic replay + DSP tests.
+
+## ❌ DJI-specific (OcuSync/O3)
+- Detects: Proprietary burst patterns + bandwidth constraints (non-encrypted inference only).
+- Identification: OFDM signature + hop/burst patterns within DJI band window.
+- Output: `features.class_path` includes "DJI" only if reliable; `encryption_hint` planned.
+- Status: ❌ Planned (no reliable detection yet).
+- Verification: Only after validated replay/soak; no ✅ until proven.
+
+## ❌ Walksnail / HDZero
+- Detects: Digital link signatures (bandwidth + burst rate profiles).
+- Identification: OFDM signature + channel bandwidth.
+- Output: `features.class_path` with vendor tag.
+- Status: ❌ Planned.
+- Verification: Planned synthetic replay + field validation.
+
+## ❌ ELRS / ExpressLRS (control link)
+- Detects: Narrowband bursty control packets in 2.4/915 MHz.
+- Identification: Narrowband peaks + burstiness + hop rate.
+- Output: `features.class_path` → ["Control", "ELRS"], `pattern_hint`.
+- Status: ❌ Planned.
+- Verification: Planned burst detector + correlation tests.
+
+## ❌ Crossfire / Tracer (control link)
+- Detects: Narrowband control carriers in 915 MHz with hop patterns.
+- Identification: Narrowband + hop detection + baud patterns (future).
+- Output: `features.class_path` → ["Control", "Crossfire"].
+- Status: ❌ Planned.
+- Verification: Planned tests + soak.
+
+## ❌ Correlation gating (video + control)
+- Detects: Combined video + control alignment for higher confidence NEW.
+- Identification: Timestamp correlation window (±100ms).
+- Output: `features.control_correlation` (planned).
+- Status: ❌ Planned.
+- Verification: Correlation unit tests + replay.

@@ -5,6 +5,7 @@ from typing import Iterable, Protocol
 
 from ndefender_antsdr_scan.detectors.base import Detection, Detector, SpectrumFrame
 from ndefender_antsdr_scan.io.emit import EventEmitter
+from ndefender_antsdr_scan.classification import classify_signal, SignalFeatures
 from ndefender_antsdr_scan.tracking.models import FeatureHints
 from ndefender_antsdr_scan.tracking.tracker import Tracker, make_observation
 
@@ -70,17 +71,32 @@ def _detections_to_observations(detections: Iterable[Detection], timestamp_ms: i
             peak_db=det.peak_db,
             noise_floor_db=det.noise_floor_db,
             bandwidth_class=det.bandwidth_class,
-            features=_normalize_features(det.features),
+            features=_augment_features(det),
             timestamp_ms=timestamp_ms,
         )
         for det in detections
     ]
 
 
-def _normalize_features(features: FeatureHints) -> FeatureHints:
+def _augment_features(detection: Detection) -> FeatureHints:
+    base = detection.features
+    classification = classify_signal(
+        SignalFeatures(
+            freq_hz=detection.freq_hz,
+            band=detection.band,
+            snr_db=detection.snr_db,
+            bandwidth_class=detection.bandwidth_class,
+            prominence_db=base.prominence_db,
+            cluster_size=base.cluster_size,
+            pattern_hint=base.pattern_hint,
+            hop_hint=base.hop_hint,
+        )
+    )
     return FeatureHints(
-        prominence_db=float(features.prominence_db),
-        cluster_size=int(features.cluster_size),
-        pattern_hint=str(features.pattern_hint),
-        hop_hint=str(features.hop_hint),
+        prominence_db=float(base.prominence_db),
+        cluster_size=int(base.cluster_size),
+        pattern_hint=str(base.pattern_hint),
+        hop_hint=str(base.hop_hint),
+        class_path=classification.class_path,
+        classification_confidence=classification.confidence,
     )
