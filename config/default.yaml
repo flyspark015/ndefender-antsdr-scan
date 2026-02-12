@@ -34,3 +34,5 @@ ws:
 
 classification:
   profiles: "classification_profiles.yaml"
+  hop_window_ms: 1000
+  min_hop_hz: 200000

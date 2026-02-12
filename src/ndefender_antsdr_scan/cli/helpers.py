@@ -28,7 +28,15 @@ def build_engine(config: AppConfig, jsonl_path: str | None = None) -> tuple[Scan
     classifier = Classifier(profiles=config.classification_profiles)
     ws_client = WsClient(config.ws) if config.ws.enabled and config.ws.url else None
     emitter = EventEmitter(EmitConfig(jsonl_path=jsonl_path) if jsonl_path else None, ws_client=ws_client)
-    return ScanEngine(detector, tracker, emitter, clock=_now_ms, classifier=classifier), emitter
+    return ScanEngine(
+        detector,
+        tracker,
+        emitter,
+        clock=_now_ms,
+        classifier=classifier,
+        hop_window_ms=config.hop_window_ms,
+        min_hop_hz=config.min_hop_hz,
+    ), emitter
 
 
 def _now_ms() -> int:

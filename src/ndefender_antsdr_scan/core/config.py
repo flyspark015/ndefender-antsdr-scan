@@ -28,6 +28,8 @@ class AppConfig:
     sweep: SweepConfig
     ws: WsClientConfig
     classification_profiles: ProfileSet | None
+    hop_window_ms: int
+    min_hop_hz: float
 
 
 def load_config(path: str | Path) -> AppConfig:
@@ -75,6 +77,8 @@ def load_config(path: str | Path) -> AppConfig:
             retry_backoff_s=float(ws.get("retry_backoff_s", 1.0)),
         ),
         classification_profiles=_load_classification_profiles(config_path, classification),
+        hop_window_ms=int(classification.get("hop_window_ms", 1000)),
+        min_hop_hz=float(classification.get("min_hop_hz", 200000.0)),
     )
 
 

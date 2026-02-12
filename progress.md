@@ -26,6 +26,7 @@
 - Analog 5.8 GHz sweep plans (RaceBand/FatShark/Band A)
 - Control sweep plans (2.4 GHz, 915 MHz)
 - DSP feature extraction (bandwidth + burstiness)
+- Hop-rate estimation (rolling window)
 
 ## 🟡 What is currently in progress
 - Live radio spectrum capture validation on hardware
@@ -52,6 +53,7 @@
 - `PYTHONPATH=src python -m unittest tests/test_plan_loading.py` → `OK`
 - `PYTHONPATH=src python -m unittest tests/test_control_profiles.py` → `OK`
 - `PYTHONPATH=src python -m unittest tests/test_dsp_features.py` → `OK`
+- `PYTHONPATH=src python -m unittest tests/test_hop_rate.py` → `OK`
 
 ## 🧩 Test outcomes
 - Tracker lifecycle tests: pass
@@ -68,6 +70,7 @@
 - Sweep plan loading tests: pass
 - Control profile tests: pass
 - DSP feature tests: pass
+- Hop-rate tests: pass
 - Radio spectrum tests: pass
 
 ## 📦 Code changes implemented
@@ -121,6 +124,8 @@
 - `tests/test_control_profiles.py`
 - `src/ndefender_antsdr_scan/core/dsp.py`
 - `tests/test_dsp_features.py`
+- `src/ndefender_antsdr_scan/core/hopping.py`
+- `tests/test_hop_rate.py`
 - `config/default.yaml`
 - `pyproject.toml`
 - `.github/workflows/ci.yml`

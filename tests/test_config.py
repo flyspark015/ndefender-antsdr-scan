@@ -34,6 +34,8 @@ detector:
         self.assertFalse(cfg.ws.enabled)
         self.assertEqual(cfg.ws.url, "")
         self.assertIsNone(cfg.classification_profiles)
+        self.assertEqual(cfg.hop_window_ms, 1000)
+        self.assertEqual(cfg.min_hop_hz, 200000.0)
 
 
 if __name__ == "__main__":

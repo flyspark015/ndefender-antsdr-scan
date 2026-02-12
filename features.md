@@ -50,6 +50,10 @@ Each feature lists its current status and verification notes.
 - Description: Estimate bandwidth and burstiness for classification hints and control-link detection.
 - Verification: `PYTHONPATH=src python -m unittest tests/test_dsp_features.py` → OK.
 
+## ✅ Hop-rate estimation
+- Description: Estimate hop rate over a rolling time window for control-link inference.
+- Verification: `PYTHONPATH=src python -m unittest tests/test_hop_rate.py` → OK.
+
 ## ✅ Profile-driven classification rules
 - Description: Optional YAML profile rules to tag signals by frequency range, bandwidth class, and SNR.
 - Verification: `PYTHONPATH=src python -m unittest tests/test_classification_profiles.py` → OK (closest-center selection).
@@ -114,7 +118,7 @@ Each detection type documents what we detect, how it is identified, output hints
 - Detects: Narrowband control carriers in 915 MHz with hop patterns.
 - Identification: Narrowband + hop detection + baud patterns (future).
 - Output: `features.class_path` → ["Control", "Crossfire"].
-- Status: 🟡 In Progress (profile rule only; hop detection pending).
+- Status: 🟡 In Progress (profile rule + hop-rate signal; hop classification pending).
 - Verification: `PYTHONPATH=src python -m unittest tests/test_control_profiles.py` → OK.
 
 ## ✅ Video + Control correlation gating
