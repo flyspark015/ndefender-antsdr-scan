@@ -6,6 +6,7 @@ from ndefender_antsdr_scan.cli.helpers import (
     build_engine,
     iter_live_frames,
     load_app_config,
+    null_live_frames,
     run_replay,
     run_stats,
 )
@@ -19,8 +20,13 @@ def _cmd_run(args: argparse.Namespace) -> int:
         return 2
     engine, _emitter = build_engine(config)
     try:
-        for frame in iter_live_frames(config):
+        frame_iter = null_live_frames(config) if args.null_radio else iter_live_frames(config)
+        processed = 0
+        for frame in frame_iter:
             engine.process_frame(frame)
+            processed += 1
+            if args.max_frames > 0 and processed >= args.max_frames:
+                break
     except KeyboardInterrupt:
         print("shutdown requested")
     finally:
@@ -67,6 +73,17 @@ def build_parser() -> argparse.ArgumentParser:
 
     run = subparsers.add_parser("run", help="Run live AntSDR scan")
     run.add_argument("--config", required=True, help="Path to config YAML")
+    run.add_argument(
+        "--null-radio",
+        action="store_true",
+        help="Use a null radio for dry runs (no hardware required)",
+    )
+    run.add_argument(
+        "--max-frames",
+        type=int,
+        default=0,
+        help="Stop after N frames (0 = run continuously)",
+    )
     run.set_defaults(func=_cmd_run)
 
     replay = subparsers.add_parser("replay", help="Replay a JSONL log")

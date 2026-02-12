@@ -15,6 +15,7 @@
 - WebSocket client implementation with retry/backoff
 - Continuous sweep loop for live scanning (graceful shutdown)
 - Configurable dwell pacing per sweep step
+- Null-radio dry-run and max-frames guard for run loop
 - README expanded with configuration and CLI guidance
 
 ## 🟡 What is currently in progress
@@ -86,6 +87,7 @@
 - WebSocket client uses retry/backoff and JSON-encoded payloads
 - Run loop validates sweep bands and handles graceful shutdown with flush
 - Sweep pacing is configured via `sweep.dwell_ms` to control LO dwell time
+- `run` supports `--null-radio` and `--max-frames` to enable safe dry runs
 
 ## ✅ Hardware validation checklist (planned)
 - Verify AntSDR connectivity (`uri` reachable, `pyadi-iio` importable)

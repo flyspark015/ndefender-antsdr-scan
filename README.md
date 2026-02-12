@@ -70,6 +70,12 @@ Run live scan:
 ndefender-antsdr-scan run --config config/default.yaml
 ```
 
+Dry-run without hardware (null radio) and stop after N frames:
+
+```bash
+ndefender-antsdr-scan run --config config/default.yaml --null-radio --max-frames 5
+```
+
 Replay an existing JSONL log:
 
 ```bash
