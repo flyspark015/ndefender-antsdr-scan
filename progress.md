@@ -36,6 +36,7 @@
 - Vendor profile pattern hints (DJI/Walksnail/HDZero)
 - Vendor heuristic pattern hints (rule-based fallback)
 - Schema fixtures updated with analog channel pattern hints
+- Analog profile confidence scaling (SNR/prominence)
 - Schema fixtures validation suite
 - CLI dry-run integration test (null radio)
 - Advanced detection implementation plan (docs/advanced_detection_plan.md)
@@ -92,6 +93,7 @@
 - Classification profile tests: pass
 - Classification channel profile tests: pass
 - Analog channel pattern_hint test: pass
+- Profile confidence scaling tests: pass
 - Sweep plan loading tests: pass
 - Control profile tests: pass
 - DSP feature tests: pass

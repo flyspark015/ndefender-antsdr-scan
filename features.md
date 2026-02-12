@@ -86,7 +86,7 @@ Each detection type documents what we detect, how it is identified, output hints
 
 ## 🟡 Analog FPV VTX (5.8 GHz wideband FM)
 - Detects: Wideband analog video carriers (common FPV VTX signals).
-- Identification: Wide bandwidth peaks + low burstiness; optional profile match by band range.
+- Identification: Wide bandwidth peaks + low burstiness; optional profile match by band range. Confidence scales with SNR/prominence for analog profiles.
 - Output: Event `features.class_path` → ["Analog", "Video", "WideFM"], `classification_confidence`.
 - Status: 🟡 In Progress (profile framework implemented; band-specific rules pending).
 - Verification: `tests/test_classification_profiles.py` (synthetic profile), needs replay/soak for ✅.

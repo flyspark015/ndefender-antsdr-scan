@@ -55,9 +55,10 @@ class ProfileSet:
             )
         )
         rule = candidates[0]
+        confidence = _profile_confidence(rule, features)
         return ClassificationResult(
             class_path=rule.class_path,
-            confidence=rule.confidence,
+            confidence=confidence,
             reason=f"profile:{rule.name}",
             pattern_hint=rule.pattern_hint,
         )
@@ -90,3 +91,16 @@ def _load_yaml(path: Path) -> dict:
     if not isinstance(data, dict):
         raise ValueError("classification profiles must be a mapping")
     return data
+
+
+def _profile_confidence(rule: ProfileRule, features: SignalFeatures) -> float:
+    if not rule.class_path or rule.class_path[0] != "Analog":
+        return rule.confidence
+    confidence = rule.confidence
+    min_snr = rule.min_snr_db if rule.min_snr_db is not None else 10.0
+    snr_excess = max(0.0, features.snr_db - min_snr)
+    confidence += min(snr_excess / 20.0 * 0.1, 0.1)
+    if features.prominence_db is not None:
+        prominence = max(0.0, features.prominence_db)
+        confidence += min(prominence / 30.0 * 0.05, 0.05)
+    return min(confidence, 0.95)
