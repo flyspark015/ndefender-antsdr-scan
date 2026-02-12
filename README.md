@@ -106,3 +106,7 @@ Run tests:
 ```bash
 PYTHONPATH=src python -m unittest discover -s tests
 ```
+
+## Hardware Validation (AntSDR)
+
+See `docs/hardware_validation.md` for a step-by-step checklist and smoke test workflow.

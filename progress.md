@@ -49,6 +49,8 @@
 - Non-vendor digital OFDM integration test
 - Control profile pattern hints (ELRS/Crossfire)
 - Control profile integration tests (pattern hints)
+- Hardware validation guide (docs/hardware_validation.md)
+- Hardware smoke-test script (tools/hardware_smoke_test.sh)
 - Schema fixtures validation suite
 - CLI dry-run integration test (null radio)
 - Advanced detection implementation plan (docs/advanced_detection_plan.md)
@@ -118,6 +120,7 @@
 - Non-vendor digital OFDM tests: pass
 - Control profile tests (pattern_hint): pass
 - Control profile integration tests: pass
+- Null-radio dry-run verification: pass
 - Sweep plan loading tests: pass
 - Control profile tests: pass
 - DSP feature tests: pass
@@ -217,10 +220,12 @@
 - `tests/test_cli_run_dry.py`
 - `tests/test_cli_replay_e2e.py`
 - `docs/advanced_detection_plan.md`
+- `docs/hardware_validation.md`
 - `config/default.yaml`
 - `pyproject.toml`
 - `.github/workflows/ci.yml`
 - `tests/fixtures/valid.jsonl`
+- `tools/hardware_smoke_test.sh`
 
 ## 🧠 Key decisions taken
 - Enforced backend envelope schema via JSON Schema draft 2020-12
