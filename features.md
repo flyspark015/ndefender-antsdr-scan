@@ -87,42 +87,42 @@ Each detection type documents what we detect, how it is identified, output hints
 - Status: 🟡 In Progress (profile framework implemented; band-specific rules pending).
 - Verification: `tests/test_classification_profiles.py` (synthetic profile), needs replay/soak for ✅.
 
-## ❌ RaceBand / FatShark / Band A channelization
+## 🟡 RaceBand / FatShark / Band A channelization
 - Detects: Specific analog band/channel edges (R1–R8, F1–F8, A/B/E).
 - Identification: Band plan + channel center matching + stable FM plateau.
 - Output: `features.class_path` includes channel/band tag; `pattern_hint` set.
 - Status: 🟡 In Progress (profile rules implemented; field validation pending).
 - Verification: `PYTHONPATH=src python -m unittest tests/test_classification_profiles_channels.py` → OK.
 
-## ❌ Digital FPV (OFDM-style bursts)
+## 🟡 Digital FPV (OFDM-style bursts)
 - Detects: Digital video links via OFDM-like PSD and burst timing.
 - Identification: Burstiness + bandwidth estimate + OFDM signature.
 - Output: `features.class_path` → ["Digital", "Video"], `pattern_hint`.
 - Status: 🟡 In Progress (heuristic implemented; field validation pending).
 - Verification: `PYTHONPATH=src python -m unittest tests/test_ofdm_signature.py` → OK.
 
-## ❌ DJI-specific (OcuSync/O3)
+## 🟡 DJI-specific (OcuSync/O3)
 - Detects: Proprietary burst patterns + bandwidth constraints (non-encrypted inference only).
 - Identification: OFDM signature + hop/burst patterns within DJI band window.
 - Output: `features.class_path` includes "DJI" only if reliable; `encryption_hint` planned.
 - Status: 🟡 In Progress (heuristic band-window tagging only).
 - Verification: `PYTHONPATH=src python -m unittest tests/test_vendor_heuristics.py` → OK (heuristic only).
 
-## ❌ Walksnail / HDZero
+## 🟡 Walksnail / HDZero
 - Detects: Digital link signatures (bandwidth + burst rate profiles).
 - Identification: OFDM signature + channel bandwidth.
 - Output: `features.class_path` with vendor tag.
 - Status: 🟡 In Progress (heuristic band-window tagging only).
 - Verification: `PYTHONPATH=src python -m unittest tests/test_vendor_heuristics.py` → OK (heuristic only).
 
-## ❌ ELRS / ExpressLRS (control link)
+## 🟡 ELRS / ExpressLRS (control link)
 - Detects: Narrowband bursty control packets in 2.4/915 MHz.
 - Identification: Narrowband peaks + burstiness + hop rate.
 - Output: `features.class_path` → ["Control", "ELRS"], `pattern_hint`.
 - Status: 🟡 In Progress (profile rule only; burst detection pending).
 - Verification: `PYTHONPATH=src python -m unittest tests/test_control_profiles.py` → OK.
 
-## ❌ Crossfire / Tracer (control link)
+## 🟡 Crossfire / Tracer (control link)
 - Detects: Narrowband control carriers in 915 MHz with hop patterns.
 - Identification: Narrowband + hop detection + baud patterns (future).
 - Output: `features.class_path` → ["Control", "Crossfire"].
