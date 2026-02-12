@@ -94,13 +94,21 @@ def _load_yaml(path: Path) -> dict:
 
 
 def _profile_confidence(rule: ProfileRule, features: SignalFeatures) -> float:
-    if not rule.class_path or rule.class_path[0] != "Analog":
+    if not rule.class_path:
         return rule.confidence
     confidence = rule.confidence
-    min_snr = rule.min_snr_db if rule.min_snr_db is not None else 10.0
-    snr_excess = max(0.0, features.snr_db - min_snr)
-    confidence += min(snr_excess / 20.0 * 0.1, 0.1)
-    if features.prominence_db is not None:
-        prominence = max(0.0, features.prominence_db)
-        confidence += min(prominence / 30.0 * 0.05, 0.05)
+    category = rule.class_path[0]
+    if category == "Analog":
+        min_snr = rule.min_snr_db if rule.min_snr_db is not None else 10.0
+        snr_excess = max(0.0, features.snr_db - min_snr)
+        confidence += min(snr_excess / 20.0 * 0.1, 0.1)
+        if features.prominence_db is not None:
+            prominence = max(0.0, features.prominence_db)
+            confidence += min(prominence / 30.0 * 0.05, 0.05)
+    elif category == "Digital":
+        if features.ofdm_score is not None:
+            min_ofdm = rule.requires_ofdm_score if rule.requires_ofdm_score is not None else 0.7
+            ofdm_excess = max(0.0, features.ofdm_score - min_ofdm)
+            if min_ofdm < 1.0:
+                confidence += min(ofdm_excess / (1.0 - min_ofdm) * 0.1, 0.1)
     return min(confidence, 0.95)
