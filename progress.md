@@ -42,6 +42,7 @@
 - Control confidence scaling (hop/burst)
 - Pattern hint propagation from classification → events
 - Vendor vs analog priority integration test
+- Correlation event field propagation test
 - Schema fixtures validation suite
 - CLI dry-run integration test (null radio)
 - Advanced detection implementation plan (docs/advanced_detection_plan.md)
@@ -104,6 +105,7 @@
 - Control confidence scaling tests: pass
 - Pattern hint propagation tests: pass
 - Vendor vs analog priority tests: pass
+- Correlation event field tests: pass
 - Sweep plan loading tests: pass
 - Control profile tests: pass
 - DSP feature tests: pass
@@ -183,6 +185,7 @@
 - `tests/test_control_confidence_scaling.py`
 - `tests/test_pattern_hint_propagation.py`
 - `tests/test_vendor_priority_integration.py`
+- `tests/test_correlation_event_fields.py`
 - `src/ndefender_antsdr_scan/classification/ofdm.py`
 - `tests/test_ofdm_signature.py`
 - `tests/test_ofdm_confidence_scaling.py`
