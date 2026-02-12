@@ -19,6 +19,8 @@ detector:
 
 sweep:
   dwell_ms: 0
+  plans:
+    - "plans/analog_5g8.yaml"
 
 ws:
   enabled: false

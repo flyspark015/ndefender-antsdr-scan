@@ -1,0 +1,13 @@
+bands:
+  - name: "5G8_RaceBand"
+    start_hz: 5658000000
+    stop_hz: 5917000000
+    step_hz: 2000000
+  - name: "5G8_FatShark"
+    start_hz: 5733000000
+    stop_hz: 5866000000
+    step_hz: 2000000
+  - name: "5G8_BandA"
+    start_hz: 5865000000
+    stop_hz: 5945000000
+    step_hz: 2000000

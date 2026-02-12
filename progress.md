@@ -23,6 +23,7 @@
 - Profile-driven classification rules (YAML)
 - Analog band/channel profile data (RaceBand/FatShark/Band A)
 - Channel selection now prefers closest profile center frequency
+- Analog 5.8 GHz sweep plans (RaceBand/FatShark/Band A)
 
 ## 🟡 What is currently in progress
 - Live radio spectrum capture validation on hardware
@@ -46,6 +47,7 @@
 - `PYTHONPATH=src python -m unittest tests/test_correlation.py` → `OK`
 - `PYTHONPATH=src python -m unittest tests/test_classification_profiles.py` → `OK`
 - `PYTHONPATH=src python -m unittest tests/test_classification_profiles_channels.py` → `OK`
+- `PYTHONPATH=src python -m unittest tests/test_plan_loading.py` → `OK`
 
 ## 🧩 Test outcomes
 - Tracker lifecycle tests: pass
@@ -59,6 +61,7 @@
 - Correlation gating tests: pass
 - Classification profile tests: pass
 - Classification channel profile tests: pass
+- Sweep plan loading tests: pass
 - Radio spectrum tests: pass
 
 ## 📦 Code changes implemented
@@ -105,6 +108,8 @@
 - `tests/fixtures/classification_profiles.yaml`
 - `config/classification_profiles.yaml`
 - `tests/test_classification_profiles_channels.py`
+- `config/plans/analog_5g8.yaml`
+- `tests/test_plan_loading.py`
 - `config/default.yaml`
 - `pyproject.toml`
 - `.github/workflows/ci.yml`

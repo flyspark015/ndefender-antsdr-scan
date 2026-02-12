@@ -18,6 +18,10 @@ Each feature lists its current status and verification notes.
 - Description: Deterministic sweep step iterator with validation.
 - Verification: `PYTHONPATH=src python -m unittest tests/test_sweep.py` → OK.
 
+## ✅ Band plan loading (analog 5.8 GHz)
+- Description: Loads predefined analog 5.8 GHz band plans (RaceBand/FatShark/Band A) from YAML.
+- Verification: `PYTHONPATH=src python -m unittest tests/test_plan_loading.py` → OK.
+
 ## ✅ Config loading
 - Description: YAML config loader with sweep plans and WS config support.
 - Verification: `PYTHONPATH=src python -m unittest tests/test_config.py` → OK.
