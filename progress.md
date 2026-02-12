@@ -35,6 +35,7 @@
 - Vendor profile placeholders (DJI/Walksnail/HDZero)
 - Vendor profile pattern hints (DJI/Walksnail/HDZero)
 - Vendor heuristic pattern hints (rule-based fallback)
+- Schema fixtures updated with analog channel pattern hints
 - Schema fixtures validation suite
 - CLI dry-run integration test (null radio)
 - Advanced detection implementation plan (docs/advanced_detection_plan.md)
