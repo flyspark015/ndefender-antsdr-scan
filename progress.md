@@ -12,12 +12,12 @@
 - CLI run/replay/stats wiring (config-driven)
 - Spectrum capture pipeline (FFT power spectrum + frequency bins)
 - CI workflow (tests + schema validation + compile check)
+- WebSocket client implementation with retry/backoff
 
 ## 🟡 What is currently in progress
 - Live radio spectrum capture validation on hardware
 
 ## ❌ What is pending
-- WebSocket client implementation
 - Production AntSDR capture pipeline (hardware tuning/testing)
 
 ## 🧪 Verification results
@@ -53,6 +53,7 @@
 - `src/ndefender_antsdr_scan/core/config.py`
 - `src/ndefender_antsdr_scan/core/engine.py`
 - `src/ndefender_antsdr_scan/core/radio.py`
+- `src/ndefender_antsdr_scan/api/ws_client.py`
 - `src/ndefender_antsdr_scan/core/sweep.py`
 - `src/ndefender_antsdr_scan/detectors/base.py`
 - `src/ndefender_antsdr_scan/detectors/peak.py`
@@ -64,6 +65,8 @@
 - `tests/test_engine.py`
 - `tests/test_cli_helpers.py`
 - `tests/test_radio_spectrum.py`
+- `config/default.yaml`
+- `pyproject.toml`
 - `.github/workflows/ci.yml`
 - `tests/fixtures/valid.jsonl`
 
@@ -75,3 +78,4 @@
 - Added YAML-based config loader with optional plan file support
 - CLI replay pass-throughs contact events; non-event records can be reconstructed into synthetic frames
 - Implemented FFT-based spectrum extraction with windowing in `spectrum_from_samples`
+- WebSocket client uses retry/backoff and JSON-encoded payloads

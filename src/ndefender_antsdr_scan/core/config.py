@@ -7,6 +7,7 @@ from typing import Any
 import yaml
 
 from ndefender_antsdr_scan.core.radio import RadioConfig
+from ndefender_antsdr_scan.api.ws_client import WsClientConfig
 from ndefender_antsdr_scan.core.sweep import BandPlan
 from ndefender_antsdr_scan.detectors.peak import PeakDetectorConfig
 from ndefender_antsdr_scan.tracking.tracker import TrackerConfig
@@ -23,6 +24,7 @@ class AppConfig:
     tracker: TrackerConfig
     detector: PeakDetectorConfig
     sweep: SweepConfig
+    ws: WsClientConfig
 
 
 def load_config(path: str | Path) -> AppConfig:
@@ -33,6 +35,7 @@ def load_config(path: str | Path) -> AppConfig:
     tracker = raw.get("tracker", {})
     detector = raw.get("detector", {})
     sweep = raw.get("sweep", {})
+    ws = raw.get("ws", {})
 
     bands = _load_bands(config_path, sweep)
 
@@ -53,6 +56,14 @@ def load_config(path: str | Path) -> AppConfig:
             lo_guard_hz=float(detector.get("lo_guard_hz", 0.0)),
         ),
         sweep=SweepConfig(bands=bands),
+        ws=WsClientConfig(
+            url=str(ws.get("url", "")),
+            enabled=bool(ws.get("enabled", False)),
+            connect_timeout_s=float(ws.get("connect_timeout_s", 5.0)),
+            send_timeout_s=float(ws.get("send_timeout_s", 2.0)),
+            max_retries=int(ws.get("max_retries", 3)),
+            retry_backoff_s=float(ws.get("retry_backoff_s", 1.0)),
+        ),
     )
 
 

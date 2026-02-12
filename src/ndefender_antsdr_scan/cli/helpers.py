@@ -5,6 +5,7 @@ from typing import Iterable
 
 from ndefender_antsdr_scan.core.config import AppConfig, load_config
 from ndefender_antsdr_scan.api.contract import EVENT_TYPES
+from ndefender_antsdr_scan.api.ws_client import WsClient
 from ndefender_antsdr_scan.core.engine import ScanEngine
 from ndefender_antsdr_scan.core.radio import AntSdrRadio, NullRadio
 from ndefender_antsdr_scan.core.sweep import iter_sweep
@@ -22,7 +23,8 @@ def load_app_config(path: str) -> AppConfig:
 def build_engine(config: AppConfig, jsonl_path: str | None = None) -> tuple[ScanEngine, EventEmitter]:
     detector = PeakDetector(config.detector)
     tracker = Tracker(config.tracker)
-    emitter = EventEmitter(EmitConfig(jsonl_path=jsonl_path) if jsonl_path else None)
+    ws_client = WsClient(config.ws) if config.ws.enabled and config.ws.url else None
+    emitter = EventEmitter(EmitConfig(jsonl_path=jsonl_path) if jsonl_path else None, ws_client=ws_client)
     return ScanEngine(detector, tracker, emitter, clock=_now_ms), emitter
 
 

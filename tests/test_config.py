@@ -31,6 +31,8 @@ detector:
         self.assertEqual(cfg.tracker.ttl_s, 120)
         self.assertEqual(cfg.detector.min_snr_db, 10)
         self.assertEqual(cfg.sweep.bands, [])
+        self.assertFalse(cfg.ws.enabled)
+        self.assertEqual(cfg.ws.url, "")
 
 
 if __name__ == "__main__":

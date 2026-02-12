@@ -13,7 +13,8 @@ authors = [{name = "N-Defender"}]
 dependencies = [
   "jsonschema>=4.19",
   "PyYAML>=6.0",
-  "numpy>=1.26"
+  "numpy>=1.26",
+  "websocket-client>=1.7"
 ]
 
 [project.scripts]
