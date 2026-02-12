@@ -2,7 +2,9 @@ import os
 import tempfile
 import unittest
 
-from ndefender_antsdr_scan.cli.helpers import run_replay, run_stats
+from ndefender_antsdr_scan.cli.helpers import iter_sweep_frames, run_replay, run_stats
+from ndefender_antsdr_scan.core.sweep import BandPlan
+from ndefender_antsdr_scan.core.radio import NullRadio
 from ndefender_antsdr_scan.core.engine import ScanEngine
 from ndefender_antsdr_scan.detectors.base import Detection, SpectrumFrame
 from ndefender_antsdr_scan.io.emit import EventEmitter, EmitConfig
@@ -71,6 +73,13 @@ class CliHelperTests(unittest.TestCase):
             with open(out_path, "r", encoding="utf-8") as f:
                 lines = f.readlines()
             self.assertEqual(len(lines), 1)
+
+    def test_iter_sweep_frames_once(self) -> None:
+        bands = [BandPlan(name="2G4", start_hz=100.0, stop_hz=300.0, step_hz=100.0)]
+        radio = NullRadio(lambda _lo: ([1.0], [2.0]))
+        frames = list(iter_sweep_frames(radio, bands, lambda: 123))
+        self.assertEqual(len(frames), 3)
+        self.assertEqual(frames[0].timestamp_ms, 123)
 
 
 if __name__ == "__main__":

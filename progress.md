@@ -13,6 +13,7 @@
 - Spectrum capture pipeline (FFT power spectrum + frequency bins)
 - CI workflow (tests + schema validation + compile check)
 - WebSocket client implementation with retry/backoff
+- Continuous sweep loop for live scanning (graceful shutdown)
 
 ## 🟡 What is currently in progress
 - Live radio spectrum capture validation on hardware
@@ -79,3 +80,4 @@
 - CLI replay pass-throughs contact events; non-event records can be reconstructed into synthetic frames
 - Implemented FFT-based spectrum extraction with windowing in `spectrum_from_samples`
 - WebSocket client uses retry/backoff and JSON-encoded payloads
+- Run loop validates sweep bands and handles graceful shutdown with flush

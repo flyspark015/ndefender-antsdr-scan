@@ -8,7 +8,7 @@ from ndefender_antsdr_scan.api.contract import EVENT_TYPES
 from ndefender_antsdr_scan.api.ws_client import WsClient
 from ndefender_antsdr_scan.core.engine import ScanEngine
 from ndefender_antsdr_scan.core.radio import AntSdrRadio, NullRadio
-from ndefender_antsdr_scan.core.sweep import iter_sweep
+from ndefender_antsdr_scan.core.sweep import BandPlan, iter_sweep
 from ndefender_antsdr_scan.detectors.base import SpectrumFrame
 from ndefender_antsdr_scan.detectors.peak import PeakDetector
 from ndefender_antsdr_scan.io.emit import EmitConfig, EventEmitter
@@ -106,30 +106,35 @@ def _frame_from_record(record: dict) -> SpectrumFrame | None:
 
 
 def iter_live_frames(config: AppConfig) -> Iterable[SpectrumFrame]:
+    return iter_live_frames_continuous(config)
+
+
+def iter_live_frames_continuous(config: AppConfig) -> Iterable[SpectrumFrame]:
     radio = AntSdrRadio(config.radio)
     radio.connect()
     try:
-        for step in iter_sweep(config.sweep.bands):
-            freqs, power = radio.capture_spectrum(step.lo_hz)
-            yield SpectrumFrame(
-                freqs_hz=freqs,
-                power_db=power,
-                timestamp_ms=_now_ms(),
-                band=step.band,
-                lo_hz=step.lo_hz,
-            )
+        while True:
+            yield from iter_sweep_frames(radio, config.sweep.bands, _now_ms)
     finally:
         radio.close()
 
 
 def null_live_frames(config: AppConfig) -> Iterable[SpectrumFrame]:
     null_radio = NullRadio(lambda _lo: ([2_450_000_000], [120.0]))
-    for step in iter_sweep(config.sweep.bands):
-        freqs, power = null_radio.capture_spectrum(step.lo_hz)
+    yield from iter_sweep_frames(null_radio, config.sweep.bands, _now_ms)
+
+
+def iter_sweep_frames(
+    radio: AntSdrRadio | NullRadio,
+    bands: Iterable[BandPlan],
+    clock: callable,
+) -> Iterable[SpectrumFrame]:
+    for step in iter_sweep(bands):
+        freqs, power = radio.capture_spectrum(step.lo_hz)
         yield SpectrumFrame(
             freqs_hz=freqs,
             power_db=power,
-            timestamp_ms=_now_ms(),
+            timestamp_ms=int(clock()),
             band=step.band,
             lo_hz=step.lo_hz,
         )

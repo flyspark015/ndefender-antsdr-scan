@@ -14,10 +14,17 @@ from ndefender_antsdr_scan.events.validate import validate_jsonl
 
 def _cmd_run(args: argparse.Namespace) -> int:
     config = load_app_config(args.config)
+    if not config.sweep.bands:
+        print("no sweep bands configured; add sweep.bands or sweep.plans to config")
+        return 2
     engine, _emitter = build_engine(config)
-    for frame in iter_live_frames(config):
-        engine.process_frame(frame)
-    engine.flush()
+    try:
+        for frame in iter_live_frames(config):
+            engine.process_frame(frame)
+    except KeyboardInterrupt:
+        print("shutdown requested")
+    finally:
+        engine.flush()
     return 0
 
 
