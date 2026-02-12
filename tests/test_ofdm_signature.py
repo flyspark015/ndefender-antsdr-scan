@@ -19,7 +19,7 @@ class OfdmSignatureTests(unittest.TestCase):
 
     def test_ofdm_classification(self) -> None:
         features = SignalFeatures(
-            freq_hz=5_800_000_000,
+            freq_hz=5_950_000_000,
             band="5G8",
             snr_db=15.0,
             bandwidth_class="wide",

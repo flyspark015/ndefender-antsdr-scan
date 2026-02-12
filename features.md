@@ -105,15 +105,15 @@ Each detection type documents what we detect, how it is identified, output hints
 - Detects: Proprietary burst patterns + bandwidth constraints (non-encrypted inference only).
 - Identification: OFDM signature + hop/burst patterns within DJI band window.
 - Output: `features.class_path` includes "DJI" only if reliable; `encryption_hint` planned.
-- Status: ❌ Planned (no reliable detection yet).
-- Verification: Only after validated replay/soak; no ✅ until proven.
+- Status: 🟡 In Progress (heuristic band-window tagging only).
+- Verification: `PYTHONPATH=src python -m unittest tests/test_vendor_heuristics.py` → OK (heuristic only).
 
 ## ❌ Walksnail / HDZero
 - Detects: Digital link signatures (bandwidth + burst rate profiles).
 - Identification: OFDM signature + channel bandwidth.
 - Output: `features.class_path` with vendor tag.
-- Status: ❌ Planned.
-- Verification: Planned synthetic replay + field validation.
+- Status: 🟡 In Progress (heuristic band-window tagging only).
+- Verification: `PYTHONPATH=src python -m unittest tests/test_vendor_heuristics.py` → OK (heuristic only).
 
 ## ❌ ELRS / ExpressLRS (control link)
 - Detects: Narrowband bursty control packets in 2.4/915 MHz.
