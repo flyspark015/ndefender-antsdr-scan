@@ -65,6 +65,7 @@
 - `PYTHONPATH=src python -m unittest tests/test_ofdm_signature.py` → `OK`
 - `PYTHONPATH=src python -m unittest tests/test_vendor_heuristics.py` → `OK`
 - `PYTHONPATH=src python -m unittest tests/test_vendor_profiles.py` → `OK`
+- `PYTHONPATH=src python -m ndefender_antsdr_scan.cli.main validate --log tests/fixtures/valid_vendor.jsonl` → `validation ok`
 
 ## 🧩 Test outcomes
 - Tracker lifecycle tests: pass
@@ -152,6 +153,7 @@
 - `src/ndefender_antsdr_scan/classification/rules.py`
 - `tests/test_vendor_heuristics.py`
 - `tests/test_vendor_profiles.py`
+- `tests/fixtures/valid_vendor.jsonl`
 - `config/default.yaml`
 - `pyproject.toml`
 - `.github/workflows/ci.yml`
