@@ -54,6 +54,10 @@ Each feature lists its current status and verification notes.
 - Description: Estimate hop rate over a rolling time window for control-link inference.
 - Verification: `PYTHONPATH=src python -m unittest tests/test_hop_rate.py` → OK.
 
+## ✅ Control-link rule classification (burst vs hopping)
+- Description: Uses hop-rate and burstiness to label control signals as `Control/Hopping` or `Control/Burst`.
+- Verification: `PYTHONPATH=src python -m unittest tests/test_classification_rules.py` → OK.
+
 ## ✅ Profile-driven classification rules
 - Description: Optional YAML profile rules to tag signals by frequency range, bandwidth class, and SNR.
 - Verification: `PYTHONPATH=src python -m unittest tests/test_classification_profiles.py` → OK (closest-center selection).
