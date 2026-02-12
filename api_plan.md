@@ -130,6 +130,7 @@ Message (already in canonical envelope):
 - Integration tests for start/stop/replay.
 - WS streaming tests with mocked engine events.
 - Schema validation for all emitted events.
+- API monitor self-test (API-connected).
 
 ## Deployment notes ✅
 - Run via `ndefender-antsdr-scan api --config config/default.yaml`.

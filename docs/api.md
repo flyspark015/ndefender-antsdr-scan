@@ -61,3 +61,17 @@ WebSocket stream of RF event envelopes.
   }
 }
 ```
+
+## Monitoring
+
+Use the automated API monitor to verify health, stream events, and track classifications in real time:
+
+```bash
+./tools/api_monitor.py --url http://127.0.0.1:8890
+```
+
+One-shot API self-test:
+
+```bash
+./tools/api_monitor.py --url http://127.0.0.1:8890 --self-test
+```

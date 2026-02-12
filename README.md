@@ -124,6 +124,20 @@ Environment overrides:
 - `API_MAX_CLIENTS`
 - `API_EVENT_BUFFER`
 
+## Monitoring Dashboard
+
+Run the automated API monitor (dashboard + self-test):
+
+```bash
+./tools/api_monitor.py --url http://127.0.0.1:8890
+```
+
+One-shot test mode:
+
+```bash
+./tools/api_monitor.py --url http://127.0.0.1:8890 --self-test
+```
+
 ## Development
 
 Run tests:

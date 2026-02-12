@@ -57,6 +57,7 @@
 - API event bus + runtime runner
 - API health includes last event timestamp
 - API replay validates log path existence
+- API monitor dashboard + self-test script
 - Schema fixtures validation suite
 - CLI dry-run integration test (null radio)
 - Advanced detection implementation plan (docs/advanced_detection_plan.md)
@@ -130,6 +131,7 @@
 - Control profile integration tests: pass
 - Null-radio dry-run verification: pass
 - API server tests: pass
+- API monitor self-test: pass
 - Sweep plan loading tests: pass
 - Control profile tests: pass
 - DSP feature tests: pass
@@ -206,6 +208,7 @@
 - `tests/test_api_config.py`
 - `tests/test_api_bus.py`
 - `tests/test_api_server.py`
+- `tests/test_api_monitor.py`
 - `src/ndefender_antsdr_scan/core/dsp.py`
 - `tests/test_dsp_features.py`
 - `src/ndefender_antsdr_scan/core/hopping.py`
