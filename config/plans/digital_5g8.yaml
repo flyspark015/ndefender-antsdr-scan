@@ -1,0 +1,5 @@
+bands:
+  - name: "5G8_Digital"
+    start_hz: 5725000000
+    stop_hz: 5850000000
+    step_hz: 2000000

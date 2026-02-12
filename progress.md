@@ -25,6 +25,7 @@
 - Channel selection now prefers closest profile center frequency
 - Analog 5.8 GHz sweep plans (RaceBand/FatShark/Band A)
 - Control sweep plans (2.4 GHz, 915 MHz)
+- Digital 5.8 GHz sweep plan
 - DSP feature extraction (bandwidth + burstiness)
 - Hop-rate estimation (rolling window)
 - Control-link rule classification (burst vs hopping)
@@ -133,6 +134,7 @@
 - `config/plans/control_2g4.yaml`
 - `config/plans/control_915.yaml`
 - `tests/test_plan_loading.py`
+- `config/plans/digital_5g8.yaml`
 - `tests/test_control_profiles.py`
 - `src/ndefender_antsdr_scan/core/dsp.py`
 - `tests/test_dsp_features.py`
