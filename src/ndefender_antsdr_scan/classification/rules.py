@@ -3,6 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 from .models import ClassificationResult, SignalFeatures
+from .ofdm import ofdm_signature_score
 from .scoring import score_control
 
 
@@ -16,6 +17,13 @@ def classify(features: SignalFeatures, ctx: RuleContext | None = None) -> Classi
     context = ctx or RuleContext()
 
     if features.bandwidth_class == "wide":
+        ofdm_score = ofdm_signature_score(features)
+        if ofdm_score >= 0.7:
+            return ClassificationResult(
+                class_path=["Digital", "Video"],
+                confidence=min(0.7 + ofdm_score * 0.2, 0.9),
+                reason="wideband + ofdm signature",
+            )
         if _is_low_burst(features):
             return ClassificationResult(
                 class_path=["Analog", "Video", "WideFM"],

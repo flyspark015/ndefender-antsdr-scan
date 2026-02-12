@@ -98,8 +98,8 @@ Each detection type documents what we detect, how it is identified, output hints
 - Detects: Digital video links via OFDM-like PSD and burst timing.
 - Identification: Burstiness + bandwidth estimate + OFDM signature.
 - Output: `features.class_path` → ["Digital", "Video"], `pattern_hint`.
-- Status: ❌ Planned.
-- Verification: Planned synthetic replay + DSP tests.
+- Status: 🟡 In Progress (heuristic implemented; field validation pending).
+- Verification: `PYTHONPATH=src python -m unittest tests/test_ofdm_signature.py` → OK.
 
 ## ❌ DJI-specific (OcuSync/O3)
 - Detects: Proprietary burst patterns + bandwidth constraints (non-encrypted inference only).

@@ -29,6 +29,7 @@
 - Hop-rate estimation (rolling window)
 - Control-link rule classification (burst vs hopping)
 - Control-link scoring (burst + hop signal strength)
+- OFDM signature heuristic (digital video)
 
 ## 🟡 What is currently in progress
 - Live radio spectrum capture validation on hardware
@@ -58,6 +59,7 @@
 - `PYTHONPATH=src python -m unittest tests/test_hop_rate.py` → `OK`
 - `PYTHONPATH=src python -m unittest tests/test_classification_rules.py` → `OK`
 - `PYTHONPATH=src python -m unittest tests/test_control_scoring.py` → `OK`
+- `PYTHONPATH=src python -m unittest tests/test_ofdm_signature.py` → `OK`
 
 ## 🧩 Test outcomes
 - Tracker lifecycle tests: pass
@@ -77,6 +79,7 @@
 - Hop-rate tests: pass
 - Classification rules tests: pass
 - Control scoring tests: pass
+- OFDM heuristic tests: pass
 - Radio spectrum tests: pass
 
 ## 📦 Code changes implemented
@@ -136,6 +139,8 @@
 - `tests/test_classification_rules.py`
 - `src/ndefender_antsdr_scan/classification/scoring.py`
 - `tests/test_control_scoring.py`
+- `src/ndefender_antsdr_scan/classification/ofdm.py`
+- `tests/test_ofdm_signature.py`
 - `config/default.yaml`
 - `pyproject.toml`
 - `.github/workflows/ci.yml`
