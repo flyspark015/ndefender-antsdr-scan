@@ -18,12 +18,14 @@ def classify(features: SignalFeatures, ctx: RuleContext | None = None) -> Classi
 
     if features.bandwidth_class == "wide":
         ofdm_score = ofdm_signature_score(features)
-        vendor = _vendor_hint(features, ofdm_score)
-        if vendor is not None:
+        vendor_hint = _vendor_hint(features, ofdm_score)
+        if vendor_hint is not None:
+            vendor, pattern_hint = vendor_hint
             return ClassificationResult(
                 class_path=["Digital", "Video", vendor],
                 confidence=min(0.65 + ofdm_score * 0.2, 0.85),
                 reason=f"ofdm + vendor:{vendor}",
+                pattern_hint=pattern_hint,
             )
         if ofdm_score >= 0.7:
             return ClassificationResult(
@@ -89,14 +91,14 @@ def _control_confidence_boost(features: SignalFeatures) -> float:
     return score_control(features) * 0.1
 
 
-def _vendor_hint(features: SignalFeatures, ofdm_score: float) -> str | None:
+def _vendor_hint(features: SignalFeatures, ofdm_score: float) -> tuple[str, str] | None:
     if ofdm_score < 0.7:
         return None
     freq = features.freq_hz
     if 5_725_000_000 <= freq <= 5_850_000_000:
-        return "DJI"
+        return "DJI", "dji_5g8"
     if 5_660_000_000 <= freq <= 5_930_000_000:
-        return "Walksnail"
+        return "Walksnail", "walksnail_5g8"
     if 5_600_000_000 <= freq <= 5_920_000_000:
-        return "HDZero"
+        return "HDZero", "hdzero_5g8"
     return None

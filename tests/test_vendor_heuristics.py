@@ -15,6 +15,7 @@ class VendorHeuristicTests(unittest.TestCase):
         )
         result = classify_signal(features)
         self.assertEqual(result.class_path[-1], "DJI")
+        self.assertEqual(result.pattern_hint, "dji_5g8")
 
     def test_walksnail_hint(self) -> None:
         features = SignalFeatures(
@@ -27,6 +28,7 @@ class VendorHeuristicTests(unittest.TestCase):
         )
         result = classify_signal(features)
         self.assertEqual(result.class_path[-1], "Walksnail")
+        self.assertEqual(result.pattern_hint, "walksnail_5g8")
 
     def test_hdzero_hint(self) -> None:
         features = SignalFeatures(
@@ -39,6 +41,7 @@ class VendorHeuristicTests(unittest.TestCase):
         )
         result = classify_signal(features)
         self.assertEqual(result.class_path[-1], "HDZero")
+        self.assertEqual(result.pattern_hint, "hdzero_5g8")
 
 
 if __name__ == "__main__":
