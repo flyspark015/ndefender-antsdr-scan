@@ -1,5 +1,6 @@
 profiles:
 - name: dji_5g8
+  pattern_hint: dji_5g8
   start_hz: 5725000000
   stop_hz: 5850000000
   class_path:
@@ -12,6 +13,7 @@ profiles:
   priority: 12
   requires_ofdm_score: 0.7
 - name: walksnail_5g8
+  pattern_hint: walksnail_5g8
   start_hz: 5660000000
   stop_hz: 5930000000
   class_path:
@@ -24,6 +26,7 @@ profiles:
   priority: 11
   requires_ofdm_score: 0.7
 - name: hdzero_5g8
+  pattern_hint: hdzero_5g8
   start_hz: 5600000000
   stop_hz: 5920000000
   class_path:

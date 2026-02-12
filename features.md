@@ -108,7 +108,7 @@ Each detection type documents what we detect, how it is identified, output hints
 ## 🟡 DJI-specific (OcuSync/O3)
 - Detects: Proprietary burst patterns + bandwidth constraints (non-encrypted inference only).
 - Identification: OFDM signature + hop/burst patterns within DJI band window.
-- Output: `features.class_path` includes "DJI" only if reliable; `encryption_hint` planned.
+- Output: `features.class_path` includes "DJI"; `pattern_hint` set to `dji_5g8` when profile match; `encryption_hint` planned.
 - Status: 🟡 In Progress (heuristic band-window tagging only).
 - Verification: `PYTHONPATH=src python -m unittest tests/test_vendor_heuristics.py` → OK (heuristic only); `PYTHONPATH=src python -m unittest tests/test_vendor_profiles.py` → OK (profile placeholder + OFDM threshold).
   Schema: `PYTHONPATH=src python -m ndefender_antsdr_scan.cli.main validate --log tests/fixtures/valid_vendor.jsonl` → validation ok.
@@ -116,7 +116,7 @@ Each detection type documents what we detect, how it is identified, output hints
 ## 🟡 Walksnail / HDZero
 - Detects: Digital link signatures (bandwidth + burst rate profiles).
 - Identification: OFDM signature + channel bandwidth.
-- Output: `features.class_path` with vendor tag.
+- Output: `features.class_path` with vendor tag; `pattern_hint` set to `walksnail_5g8` or `hdzero_5g8` when profile match.
 - Status: 🟡 In Progress (heuristic band-window tagging only).
 - Verification: `PYTHONPATH=src python -m unittest tests/test_vendor_heuristics.py` → OK (heuristic only); `PYTHONPATH=src python -m unittest tests/test_vendor_profiles.py` → OK (profile placeholder + OFDM threshold).
   Schema: `PYTHONPATH=src python -m ndefender_antsdr_scan.cli.main validate --log tests/fixtures/valid_vendor.jsonl` → validation ok.

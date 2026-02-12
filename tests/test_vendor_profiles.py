@@ -21,6 +21,7 @@ class VendorProfileTests(unittest.TestCase):
         )
         result = self.classifier.classify(features)
         self.assertEqual(result.class_path, ["Digital", "Video", "DJI"])
+        self.assertEqual(result.pattern_hint, "dji_5g8")
 
     def test_walksnail_profile(self) -> None:
         features = SignalFeatures(
@@ -32,6 +33,7 @@ class VendorProfileTests(unittest.TestCase):
         )
         result = self.classifier.classify(features)
         self.assertEqual(result.class_path, ["Digital", "Video", "Walksnail"])
+        self.assertEqual(result.pattern_hint, "walksnail_5g8")
 
     def test_hdzero_profile(self) -> None:
         features = SignalFeatures(
@@ -43,6 +45,7 @@ class VendorProfileTests(unittest.TestCase):
         )
         result = self.classifier.classify(features)
         self.assertEqual(result.class_path, ["Digital", "Video", "HDZero"])
+        self.assertEqual(result.pattern_hint, "hdzero_5g8")
 
     def test_vendor_requires_ofdm_score(self) -> None:
         features = SignalFeatures(
@@ -54,6 +57,7 @@ class VendorProfileTests(unittest.TestCase):
         )
         result = self.classifier.classify(features)
         self.assertNotIn(result.class_path[-1], {"DJI", "Walksnail", "HDZero"})
+        self.assertNotIn(result.pattern_hint, {"dji_5g8", "walksnail_5g8", "hdzero_5g8"})
 
     def test_vendor_requires_ofdm_present(self) -> None:
         features = SignalFeatures(
@@ -64,6 +68,7 @@ class VendorProfileTests(unittest.TestCase):
         )
         result = self.classifier.classify(features)
         self.assertNotIn(result.class_path[-1], {"DJI", "Walksnail", "HDZero"})
+        self.assertNotIn(result.pattern_hint, {"dji_5g8", "walksnail_5g8", "hdzero_5g8"})
 
     def test_vendor_priority_over_analog(self) -> None:
         features = SignalFeatures(
@@ -75,6 +80,7 @@ class VendorProfileTests(unittest.TestCase):
         )
         result = self.classifier.classify(features)
         self.assertEqual(result.class_path[-1], "DJI")
+        self.assertEqual(result.pattern_hint, "dji_5g8")
 
     def test_vendor_does_not_override_without_ofdm(self) -> None:
         features = SignalFeatures(

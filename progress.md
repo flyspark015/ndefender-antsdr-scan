@@ -33,6 +33,7 @@
 - OFDM signature heuristic (digital video)
 - Vendor heuristic tagging (DJI/Walksnail/HDZero) based on OFDM + band
 - Vendor profile placeholders (DJI/Walksnail/HDZero)
+- Vendor profile pattern hints (DJI/Walksnail/HDZero)
 - Schema fixtures validation suite
 - CLI dry-run integration test (null radio)
 - Advanced detection implementation plan (docs/advanced_detection_plan.md)
@@ -98,6 +99,7 @@
 - OFDM heuristic tests: pass
 - Vendor heuristic tests: pass
 - Vendor profile tests: pass
+- Vendor pattern_hint tests: pass
 - Schema fixture tests: pass
 - CLI dry-run test: pass
 - CLI replay e2e test: pass
