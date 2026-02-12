@@ -15,6 +15,7 @@
 - WebSocket client implementation with retry/backoff
 - Continuous sweep loop for live scanning (graceful shutdown)
 - Configurable dwell pacing per sweep step
+- README expanded with configuration and CLI guidance
 
 ## 🟡 What is currently in progress
 - Live radio spectrum capture validation on hardware
@@ -85,3 +86,10 @@
 - WebSocket client uses retry/backoff and JSON-encoded payloads
 - Run loop validates sweep bands and handles graceful shutdown with flush
 - Sweep pacing is configured via `sweep.dwell_ms` to control LO dwell time
+
+## ✅ Hardware validation checklist (planned)
+- Verify AntSDR connectivity (`uri` reachable, `pyadi-iio` importable)
+- Confirm RX LO tuning across sweep band (start/stop/step behavior)
+- Validate FFT power spectrum shape and peak detection at known tones
+- Check event emission to JSONL at `/opt/ndefender/logs/antsdr_scan.jsonl`
+- Confirm WebSocket emission when enabled (connect/retry/backoff)
