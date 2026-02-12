@@ -21,6 +21,8 @@
 - Classification enrichment in event features
 - Correlation gating (video + control) with tests
 - Profile-driven classification rules (YAML)
+- Analog band/channel profile data (RaceBand/FatShark/Band A)
+- Channel selection now prefers closest profile center frequency
 
 ## 🟡 What is currently in progress
 - Live radio spectrum capture validation on hardware
@@ -43,6 +45,7 @@
 - `PYTHONPATH=src python -m unittest tests/test_engine.py` → `OK`
 - `PYTHONPATH=src python -m unittest tests/test_correlation.py` → `OK`
 - `PYTHONPATH=src python -m unittest tests/test_classification_profiles.py` → `OK`
+- `PYTHONPATH=src python -m unittest tests/test_classification_profiles_channels.py` → `OK`
 
 ## 🧩 Test outcomes
 - Tracker lifecycle tests: pass
@@ -55,6 +58,7 @@
 - Engine tests: pass (with classification hints)
 - Correlation gating tests: pass
 - Classification profile tests: pass
+- Classification channel profile tests: pass
 - Radio spectrum tests: pass
 
 ## 📦 Code changes implemented
@@ -99,6 +103,8 @@
 - `src/ndefender_antsdr_scan/classification/profiles.py`
 - `tests/test_classification_profiles.py`
 - `tests/fixtures/classification_profiles.yaml`
+- `config/classification_profiles.yaml`
+- `tests/test_classification_profiles_channels.py`
 - `config/default.yaml`
 - `pyproject.toml`
 - `.github/workflows/ci.yml`
@@ -117,6 +123,7 @@
 - Sweep pacing is configured via `sweep.dwell_ms` to control LO dwell time
 - `run` supports `--null-radio` and `--max-frames` to enable safe dry runs
 - Classification introduced as a separate module (rule-based stub) for staged integration
+- Profile selection chooses closest center frequency to resolve overlapping channel bands
 
 ## ✅ Hardware validation checklist (planned)
 - Verify AntSDR connectivity (`uri` reachable, `pyadi-iio` importable) — pending

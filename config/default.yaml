@@ -29,4 +29,4 @@ ws:
   retry_backoff_s: 1.0
 
 classification:
-  profiles: ""
+  profiles: "classification_profiles.yaml"

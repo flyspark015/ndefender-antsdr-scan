@@ -44,7 +44,7 @@ Each feature lists its current status and verification notes.
 
 ## ✅ Profile-driven classification rules
 - Description: Optional YAML profile rules to tag signals by frequency range, bandwidth class, and SNR.
-- Verification: `PYTHONPATH=src python -m unittest tests/test_classification_profiles.py` → OK.
+- Verification: `PYTHONPATH=src python -m unittest tests/test_classification_profiles.py` → OK (closest-center selection).
 
 ## ✅ Correlation gating (video + control)
 - Description: NEW event emitted only when control + video aligned within time window (configurable).
@@ -71,8 +71,8 @@ Each detection type documents what we detect, how it is identified, output hints
 - Detects: Specific analog band/channel edges (R1–R8, F1–F8, A/B/E).
 - Identification: Band plan + channel center matching + stable FM plateau.
 - Output: `features.class_path` includes channel/band tag; `pattern_hint` set.
-- Status: ❌ Planned.
-- Verification: Will require band-plan replay + unit tests.
+- Status: 🟡 In Progress (profile rules implemented; field validation pending).
+- Verification: `PYTHONPATH=src python -m unittest tests/test_classification_profiles_channels.py` → OK.
 
 ## ❌ Digital FPV (OFDM-style bursts)
 - Detects: Digital video links via OFDM-like PSD and burst timing.

@@ -28,20 +28,31 @@ class ProfileRule:
             return False
         return True
 
+    def distance_to(self, freq_hz: float) -> float:
+        center = (self.start_hz + self.stop_hz) / 2.0
+        return abs(freq_hz - center)
+
 
 @dataclass(frozen=True)
 class ProfileSet:
     rules: list[ProfileRule]
 
     def classify(self, features: SignalFeatures) -> ClassificationResult | None:
-        for rule in self.rules:
-            if rule.matches(features):
-                return ClassificationResult(
-                    class_path=rule.class_path,
-                    confidence=rule.confidence,
-                    reason=f"profile:{rule.name}",
-                )
-        return None
+        candidates = [rule for rule in self.rules if rule.matches(features)]
+        if not candidates:
+            return None
+        candidates.sort(
+            key=lambda rule: (
+                rule.distance_to(features.freq_hz),
+                -rule.confidence,
+            )
+        )
+        rule = candidates[0]
+        return ClassificationResult(
+            class_path=rule.class_path,
+            confidence=rule.confidence,
+            reason=f"profile:{rule.name}",
+        )
 
 
 def load_profiles(path: str | Path) -> ProfileSet:
