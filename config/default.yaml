@@ -27,3 +27,6 @@ ws:
   send_timeout_s: 2.0
   max_retries: 3
   retry_backoff_s: 1.0
+
+classification:
+  profiles: ""

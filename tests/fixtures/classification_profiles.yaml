@@ -1,0 +1,8 @@
+profiles:
+  - name: "raceband"
+    start_hz: 5658000000
+    stop_hz: 5917000000
+    class_path: ["Analog", "Video", "RaceBand"]
+    bandwidth_class: "wide"
+    min_snr_db: 10
+    confidence: 0.9

@@ -54,6 +54,9 @@ ws:
   send_timeout_s: 2.0
   max_retries: 3
   retry_backoff_s: 1.0
+
+classification:
+  profiles: ""
 ```
 
 Logs are written to:
@@ -69,6 +72,8 @@ Run live scan:
 ```bash
 ndefender-antsdr-scan run --config config/default.yaml
 ```
+
+Optional: add a classification profile file and set `classification.profiles` to enable profile-driven tagging.
 
 Dry-run without hardware (null radio) and stop after N frames:
 

@@ -5,7 +5,7 @@ from typing import Iterable, Protocol
 
 from ndefender_antsdr_scan.detectors.base import Detection, Detector, SpectrumFrame
 from ndefender_antsdr_scan.io.emit import EventEmitter
-from ndefender_antsdr_scan.classification import classify_signal, SignalFeatures
+from ndefender_antsdr_scan.classification import Classifier, SignalFeatures
 from ndefender_antsdr_scan.tracking.models import FeatureHints
 from ndefender_antsdr_scan.tracking.tracker import Tracker, make_observation
 
@@ -23,11 +23,19 @@ class EngineStats:
 
 
 class ScanEngine:
-    def __init__(self, detector: Detector, tracker: Tracker, emitter: EventEmitter, clock: Clock | None = None) -> None:
+    def __init__(
+        self,
+        detector: Detector,
+        tracker: Tracker,
+        emitter: EventEmitter,
+        clock: Clock | None = None,
+        classifier: Classifier | None = None,
+    ) -> None:
         self._detector = detector
         self._tracker = tracker
         self._emitter = emitter
         self._clock = clock
+        self._classifier = classifier or Classifier()
         self._stats = EngineStats()
 
     @property
@@ -36,7 +44,7 @@ class ScanEngine:
 
     def process_frame(self, frame: SpectrumFrame) -> list[dict]:
         detections = self._detector.detect(frame)
-        observations = _detections_to_observations(detections, frame.timestamp_ms)
+        observations = self._detections_to_observations(detections, frame.timestamp_ms)
         events = self._tracker.ingest(observations)
         self._emitter.emit_many(events)
 
@@ -62,8 +70,8 @@ class ScanEngine:
         return events
 
 
-def _detections_to_observations(detections: Iterable[Detection], timestamp_ms: int):
-    return [
+    def _detections_to_observations(self, detections: Iterable[Detection], timestamp_ms: int):
+        return [
         make_observation(
             freq_hz=det.freq_hz,
             band=det.band,
@@ -71,32 +79,33 @@ def _detections_to_observations(detections: Iterable[Detection], timestamp_ms: i
             peak_db=det.peak_db,
             noise_floor_db=det.noise_floor_db,
             bandwidth_class=det.bandwidth_class,
-            features=_augment_features(det),
+            features=self._augment_features(det),
             timestamp_ms=timestamp_ms,
         )
         for det in detections
-    ]
+        ]
 
 
-def _augment_features(detection: Detection) -> FeatureHints:
-    base = detection.features
-    classification = classify_signal(
-        SignalFeatures(
-            freq_hz=detection.freq_hz,
-            band=detection.band,
-            snr_db=detection.snr_db,
-            bandwidth_class=detection.bandwidth_class,
-            prominence_db=base.prominence_db,
-            cluster_size=base.cluster_size,
-            pattern_hint=base.pattern_hint,
-            hop_hint=base.hop_hint,
+    def _augment_features(self, detection: Detection) -> FeatureHints:
+        base = detection.features
+        classification = self._classifier.classify(
+            SignalFeatures(
+                freq_hz=detection.freq_hz,
+                band=detection.band,
+                snr_db=detection.snr_db,
+                bandwidth_class=detection.bandwidth_class,
+                prominence_db=base.prominence_db,
+                cluster_size=base.cluster_size,
+                pattern_hint=base.pattern_hint,
+                hop_hint=base.hop_hint,
+            )
         )
-    )
-    return FeatureHints(
-        prominence_db=float(base.prominence_db),
-        cluster_size=int(base.cluster_size),
-        pattern_hint=str(base.pattern_hint),
-        hop_hint=str(base.hop_hint),
-        class_path=classification.class_path,
-        classification_confidence=classification.confidence,
-    )
+        return FeatureHints(
+            prominence_db=float(base.prominence_db),
+            cluster_size=int(base.cluster_size),
+            pattern_hint=str(base.pattern_hint),
+            hop_hint=str(base.hop_hint),
+            class_path=classification.class_path,
+            classification_confidence=classification.confidence,
+            control_correlation=base.control_correlation,
+        )

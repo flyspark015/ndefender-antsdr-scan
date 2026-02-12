@@ -42,6 +42,10 @@ Each feature lists its current status and verification notes.
 - Description: Multi-level classification tree for analog/digital/control with confidence scoring.
 - Verification: `PYTHONPATH=src python -m unittest tests/test_classification.py` → OK (rule-based stub, partially integrated).
 
+## ✅ Profile-driven classification rules
+- Description: Optional YAML profile rules to tag signals by frequency range, bandwidth class, and SNR.
+- Verification: `PYTHONPATH=src python -m unittest tests/test_classification_profiles.py` → OK.
+
 ## ✅ Correlation gating (video + control)
 - Description: NEW event emitted only when control + video aligned within time window (configurable).
 - Verification: `PYTHONPATH=src python -m unittest tests/test_correlation.py` → OK.
@@ -58,10 +62,10 @@ Each detection type documents what we detect, how it is identified, output hints
 
 ## 🟡 Analog FPV VTX (5.8 GHz wideband FM)
 - Detects: Wideband analog video carriers (common FPV VTX signals).
-- Identification: Wide bandwidth peaks + low burstiness; `bandwidth_class="wide"`, `prominence_db`, `cluster_size`.
+- Identification: Wide bandwidth peaks + low burstiness; optional profile match by band range.
 - Output: Event `features.class_path` → ["Analog", "Video", "WideFM"], `classification_confidence`.
-- Status: 🟡 In Progress (classification integrated; band-specific rules pending).
-- Verification: `tests/test_classification.py` (rule stub), needs replay/soak for ✅.
+- Status: 🟡 In Progress (profile framework implemented; band-specific rules pending).
+- Verification: `tests/test_classification_profiles.py` (synthetic profile), needs replay/soak for ✅.
 
 ## ❌ RaceBand / FatShark / Band A channelization
 - Detects: Specific analog band/channel edges (R1–R8, F1–F8, A/B/E).

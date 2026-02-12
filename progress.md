@@ -20,6 +20,7 @@
 - Classification module scaffold (rule-based)
 - Classification enrichment in event features
 - Correlation gating (video + control) with tests
+- Profile-driven classification rules (YAML)
 
 ## 🟡 What is currently in progress
 - Live radio spectrum capture validation on hardware
@@ -41,6 +42,7 @@
 - `PYTHONPATH=src python -m unittest tests/test_classification.py` → `OK`
 - `PYTHONPATH=src python -m unittest tests/test_engine.py` → `OK`
 - `PYTHONPATH=src python -m unittest tests/test_correlation.py` → `OK`
+- `PYTHONPATH=src python -m unittest tests/test_classification_profiles.py` → `OK`
 
 ## 🧩 Test outcomes
 - Tracker lifecycle tests: pass
@@ -52,6 +54,7 @@
 - Classification tests: pass
 - Engine tests: pass (with classification hints)
 - Correlation gating tests: pass
+- Classification profile tests: pass
 - Radio spectrum tests: pass
 
 ## 📦 Code changes implemented
@@ -93,6 +96,9 @@
 - `tests/test_cli_helpers.py`
 - `features.md`
 - `tests/test_correlation.py`
+- `src/ndefender_antsdr_scan/classification/profiles.py`
+- `tests/test_classification_profiles.py`
+- `tests/fixtures/classification_profiles.yaml`
 - `config/default.yaml`
 - `pyproject.toml`
 - `.github/workflows/ci.yml`

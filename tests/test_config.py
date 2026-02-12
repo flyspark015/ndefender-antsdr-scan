@@ -33,6 +33,7 @@ detector:
         self.assertEqual(cfg.sweep.bands, [])
         self.assertFalse(cfg.ws.enabled)
         self.assertEqual(cfg.ws.url, "")
+        self.assertIsNone(cfg.classification_profiles)
 
 
 if __name__ == "__main__":

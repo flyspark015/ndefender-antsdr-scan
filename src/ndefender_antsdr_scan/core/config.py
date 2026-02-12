@@ -8,6 +8,7 @@ import yaml
 
 from ndefender_antsdr_scan.core.radio import RadioConfig
 from ndefender_antsdr_scan.api.ws_client import WsClientConfig
+from ndefender_antsdr_scan.classification.profiles import ProfileSet, load_profiles
 from ndefender_antsdr_scan.core.sweep import BandPlan
 from ndefender_antsdr_scan.detectors.peak import PeakDetectorConfig
 from ndefender_antsdr_scan.tracking.tracker import TrackerConfig
@@ -26,6 +27,7 @@ class AppConfig:
     detector: PeakDetectorConfig
     sweep: SweepConfig
     ws: WsClientConfig
+    classification_profiles: ProfileSet | None
 
 
 def load_config(path: str | Path) -> AppConfig:
@@ -38,6 +40,7 @@ def load_config(path: str | Path) -> AppConfig:
     detector = raw.get("detector", {})
     sweep = raw.get("sweep", {})
     ws = raw.get("ws", {})
+    classification = raw.get("classification", {})
 
     bands = _load_bands(config_path, sweep)
 
@@ -71,7 +74,16 @@ def load_config(path: str | Path) -> AppConfig:
             max_retries=int(ws.get("max_retries", 3)),
             retry_backoff_s=float(ws.get("retry_backoff_s", 1.0)),
         ),
+        classification_profiles=_load_classification_profiles(config_path, classification),
     )
+
+
+def _load_classification_profiles(config_path: Path, classification: dict[str, Any]) -> ProfileSet | None:
+    profiles_path = classification.get("profiles")
+    if not profiles_path:
+        return None
+    path = (config_path.parent / profiles_path).resolve()
+    return load_profiles(path)
 
 
 def _load_yaml(path: Path) -> dict:
