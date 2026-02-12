@@ -17,12 +17,15 @@
 - Configurable dwell pacing per sweep step
 - Null-radio dry-run and max-frames guard for run loop
 - README expanded with configuration and CLI guidance
+- Classification module scaffold (rule-based)
 
 ## 🟡 What is currently in progress
 - Live radio spectrum capture validation on hardware
+- Advanced classification integration
 
 ## ❌ What is pending
 - Production AntSDR capture pipeline (hardware tuning/testing)
+- Correlation gating (video + control)
 
 ## 🧪 Verification results
 - `PYTHONPATH=src python -m ndefender_antsdr_scan.cli.main validate --log /tmp/antsdr_valid.jsonl` → `validation ok`
@@ -34,6 +37,7 @@
 - `PYTHONPATH=src python -m unittest tests/test_cli_helpers.py` → `OK`
 - `PYTHONPATH=src python -m unittest tests/test_radio_spectrum.py` → `OK`
 - `PYTHONPATH=src python -m unittest discover -s tests` → `OK`
+- `PYTHONPATH=src python -m unittest tests/test_classification.py` → `OK`
 
 ## 🧩 Test outcomes
 - Tracker lifecycle tests: pass
@@ -42,6 +46,7 @@
 - Config loader tests: pass
 - Engine wiring tests: pass
 - CLI helper tests: pass
+- Classification tests: pass
 - Radio spectrum tests: pass
 
 ## 📦 Code changes implemented
@@ -71,6 +76,11 @@
 - `tests/test_engine.py`
 - `tests/test_cli_helpers.py`
 - `tests/test_radio_spectrum.py`
+- `src/ndefender_antsdr_scan/classification/engine.py`
+- `src/ndefender_antsdr_scan/classification/models.py`
+- `src/ndefender_antsdr_scan/classification/rules.py`
+- `tests/test_classification.py`
+- `features.md`
 - `config/default.yaml`
 - `pyproject.toml`
 - `.github/workflows/ci.yml`
@@ -88,6 +98,7 @@
 - Run loop validates sweep bands and handles graceful shutdown with flush
 - Sweep pacing is configured via `sweep.dwell_ms` to control LO dwell time
 - `run` supports `--null-radio` and `--max-frames` to enable safe dry runs
+- Classification introduced as a separate module (rule-based stub) for staged integration
 
 ## ✅ Hardware validation checklist (planned)
 - Verify AntSDR connectivity (`uri` reachable, `pyadi-iio` importable) — pending
