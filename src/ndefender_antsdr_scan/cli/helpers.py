@@ -136,7 +136,8 @@ def iter_live_frames_continuous(config: AppConfig) -> Iterable[SpectrumFrame]:
 
 
 def null_live_frames(config: AppConfig) -> Iterable[SpectrumFrame]:
-    null_radio = NullRadio(lambda _lo: ([2_450_000_000], [120.0]))
+    center = 2_450_000_000
+    null_radio = NullRadio(lambda _lo: ([center - 1.0, center, center + 1.0], [80.0, 120.0, 80.0]))
     while True:
         yield from iter_sweep_frames(
             null_radio,

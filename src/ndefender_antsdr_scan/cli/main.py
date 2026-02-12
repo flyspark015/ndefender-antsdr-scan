@@ -18,7 +18,7 @@ def _cmd_run(args: argparse.Namespace) -> int:
     if not config.sweep.bands:
         print("no sweep bands configured; add sweep.bands or sweep.plans to config")
         return 2
-    engine, _emitter = build_engine(config)
+    engine, _emitter = build_engine(config, jsonl_path=args.output)
     try:
         frame_iter = null_live_frames(config) if args.null_radio else iter_live_frames(config)
         processed = 0
@@ -83,6 +83,11 @@ def build_parser() -> argparse.ArgumentParser:
         type=int,
         default=0,
         help="Stop after N frames (0 = run continuously)",
+    )
+    run.add_argument(
+        "--output",
+        default=None,
+        help="Optional JSONL output path (defaults to system log)",
     )
     run.set_defaults(func=_cmd_run)
 

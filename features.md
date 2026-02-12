@@ -40,7 +40,7 @@ Each feature lists its current status and verification notes.
 
 ## ✅ CLI run/replay/stats
 - Description: CLI entry points for live run, replay, validate, and stats.
-- Verification: `PYTHONPATH=src python -m unittest tests/test_cli_helpers.py` → OK.
+- Verification: `PYTHONPATH=src python -m unittest tests/test_cli_helpers.py` → OK. Dry-run: `PYTHONPATH=src python -m unittest tests/test_cli_run_dry.py` → OK.
 
 ## ✅ CI workflow
 - Description: GitHub Actions runs compile check, unit tests, and schema validation.

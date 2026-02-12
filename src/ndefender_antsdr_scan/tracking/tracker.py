@@ -30,7 +30,7 @@ class Tracker:
             if obs_list:
                 now_ms = max(obs.timestamp_ms for obs in obs_list)
             else:
-                now_ms = self._now_ms()
+                now_ms = self._now_ms() if self._time_ms_provider is not None else 0
 
         events: list[dict] = []
         for obs in obs_list:
