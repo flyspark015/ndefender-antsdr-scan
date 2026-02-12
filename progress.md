@@ -41,6 +41,7 @@
 - OFDM rule confidence scaling test coverage
 - Control confidence scaling (hop/burst)
 - Pattern hint propagation from classification → events
+- Vendor vs analog priority integration test
 - Schema fixtures validation suite
 - CLI dry-run integration test (null radio)
 - Advanced detection implementation plan (docs/advanced_detection_plan.md)
@@ -102,6 +103,7 @@
 - OFDM confidence scaling tests: pass
 - Control confidence scaling tests: pass
 - Pattern hint propagation tests: pass
+- Vendor vs analog priority tests: pass
 - Sweep plan loading tests: pass
 - Control profile tests: pass
 - DSP feature tests: pass
@@ -180,6 +182,7 @@
 - `tests/test_control_scoring.py`
 - `tests/test_control_confidence_scaling.py`
 - `tests/test_pattern_hint_propagation.py`
+- `tests/test_vendor_priority_integration.py`
 - `src/ndefender_antsdr_scan/classification/ofdm.py`
 - `tests/test_ofdm_signature.py`
 - `tests/test_ofdm_confidence_scaling.py`
