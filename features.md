@@ -140,4 +140,4 @@ Each detection type documents what we detect, how it is identified, output hints
 - Identification: Timestamp correlation window (±100ms, configurable).
 - Output: `features.control_correlation` true when correlated.
 - Status: ✅ Implemented & Verified.
-- Verification: `PYTHONPATH=src python -m unittest tests/test_correlation.py` → OK.
+- Verification: `PYTHONPATH=src python -m unittest tests/test_correlation.py` → OK. Schema: `PYTHONPATH=src python -m ndefender_antsdr_scan.cli.main validate --log tests/fixtures/valid_correlation.jsonl` → validation ok.
