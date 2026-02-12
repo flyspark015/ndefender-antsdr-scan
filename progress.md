@@ -8,9 +8,9 @@
 - Peak detector and DSP helpers with unit tests
 - Core sweep planner and radio interface stubs
 - Config loader with YAML support
+- Core scan engine wiring (detector → tracker → emitter)
 
 ## 🟡 What is currently in progress
-- Pipeline wiring (detector → tracker → emitter)
 - CLI `run/replay/stats` functionality
 
 ## ❌ What is pending
@@ -24,12 +24,14 @@
 - `PYTHONPATH=src python -m unittest tests/test_peak_detector.py` → `OK`
 - `PYTHONPATH=src python -m unittest tests/test_sweep.py` → `OK`
 - `PYTHONPATH=src python -m unittest tests/test_config.py` → `OK`
+- `PYTHONPATH=src python -m unittest tests/test_engine.py` → `OK`
 
 ## 🧩 Test outcomes
 - Tracker lifecycle tests: pass
 - Peak detector tests: pass
 - Sweep planner tests: pass
 - Config loader tests: pass
+- Engine wiring tests: pass
 
 ## 📦 Code changes implemented
 - `src/ndefender_antsdr_scan/events/schema.json`
@@ -42,6 +44,7 @@
 - `src/ndefender_antsdr_scan/io/emit.py`
 - `src/ndefender_antsdr_scan/core/dsp.py`
 - `src/ndefender_antsdr_scan/core/config.py`
+- `src/ndefender_antsdr_scan/core/engine.py`
 - `src/ndefender_antsdr_scan/core/radio.py`
 - `src/ndefender_antsdr_scan/core/sweep.py`
 - `src/ndefender_antsdr_scan/detectors/base.py`
@@ -50,6 +53,7 @@
 - `tests/test_peak_detector.py`
 - `tests/test_sweep.py`
 - `tests/test_config.py`
+- `tests/test_engine.py`
 
 ## 🧠 Key decisions taken
 - Enforced backend envelope schema via JSON Schema draft 2020-12
