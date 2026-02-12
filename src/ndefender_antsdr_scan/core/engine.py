@@ -142,10 +142,11 @@ class ScanEngine:
                 hop_hint=base.hop_hint,
             )
         )
+        pattern_hint = classification.pattern_hint or base.pattern_hint
         return FeatureHints(
             prominence_db=float(base.prominence_db),
             cluster_size=int(base.cluster_size),
-            pattern_hint=str(base.pattern_hint),
+            pattern_hint=str(pattern_hint),
             hop_hint=str(base.hop_hint),
             bandwidth_est_hz=base.bandwidth_est_hz,
             burstiness=base.burstiness,

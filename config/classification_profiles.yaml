@@ -36,6 +36,7 @@ profiles:
   priority: 10
   requires_ofdm_score: 0.7
 - name: fatshark_f1
+  pattern_hint: fatshark_f1
   start_hz: 5736500000
   stop_hz: 5763500000
   class_path:
@@ -47,6 +48,7 @@ profiles:
   min_snr_db: 10
   confidence: 0.85
 - name: fatshark_f2
+  pattern_hint: fatshark_f2
   start_hz: 5746500000
   stop_hz: 5773500000
   class_path:
@@ -58,6 +60,7 @@ profiles:
   min_snr_db: 10
   confidence: 0.85
 - name: fatshark_f3
+  pattern_hint: fatshark_f3
   start_hz: 5756500000
   stop_hz: 5783500000
   class_path:
@@ -69,6 +72,7 @@ profiles:
   min_snr_db: 10
   confidence: 0.85
 - name: fatshark_f4
+  pattern_hint: fatshark_f4
   start_hz: 5766500000
   stop_hz: 5793500000
   class_path:
@@ -80,6 +84,7 @@ profiles:
   min_snr_db: 10
   confidence: 0.85
 - name: fatshark_f5
+  pattern_hint: fatshark_f5
   start_hz: 5776500000
   stop_hz: 5803500000
   class_path:
@@ -91,6 +96,7 @@ profiles:
   min_snr_db: 10
   confidence: 0.85
 - name: fatshark_f6
+  pattern_hint: fatshark_f6
   start_hz: 5786500000
   stop_hz: 5813500000
   class_path:
@@ -102,6 +108,7 @@ profiles:
   min_snr_db: 10
   confidence: 0.85
 - name: fatshark_f7
+  pattern_hint: fatshark_f7
   start_hz: 5796500000
   stop_hz: 5823500000
   class_path:
@@ -113,6 +120,7 @@ profiles:
   min_snr_db: 10
   confidence: 0.85
 - name: fatshark_f8
+  pattern_hint: fatshark_f8
   start_hz: 5806500000
   stop_hz: 5833500000
   class_path:
@@ -124,6 +132,7 @@ profiles:
   min_snr_db: 10
   confidence: 0.85
 - name: raceband_r1
+  pattern_hint: raceband_r1
   start_hz: 5644500000
   stop_hz: 5671500000
   class_path:
@@ -135,6 +144,7 @@ profiles:
   min_snr_db: 10
   confidence: 0.9
 - name: raceband_r2
+  pattern_hint: raceband_r2
   start_hz: 5681500000
   stop_hz: 5708500000
   class_path:
@@ -146,6 +156,7 @@ profiles:
   min_snr_db: 10
   confidence: 0.9
 - name: raceband_r3
+  pattern_hint: raceband_r3
   start_hz: 5718500000
   stop_hz: 5745500000
   class_path:
@@ -157,6 +168,7 @@ profiles:
   min_snr_db: 10
   confidence: 0.9
 - name: raceband_r4
+  pattern_hint: raceband_r4
   start_hz: 5755500000
   stop_hz: 5782500000
   class_path:
@@ -168,6 +180,7 @@ profiles:
   min_snr_db: 10
   confidence: 0.9
 - name: raceband_r5
+  pattern_hint: raceband_r5
   start_hz: 5792500000
   stop_hz: 5819500000
   class_path:
@@ -179,6 +192,7 @@ profiles:
   min_snr_db: 10
   confidence: 0.9
 - name: raceband_r6
+  pattern_hint: raceband_r6
   start_hz: 5829500000
   stop_hz: 5856500000
   class_path:
@@ -190,6 +204,7 @@ profiles:
   min_snr_db: 10
   confidence: 0.9
 - name: raceband_r7
+  pattern_hint: raceband_r7
   start_hz: 5866500000
   stop_hz: 5893500000
   class_path:
@@ -201,6 +216,7 @@ profiles:
   min_snr_db: 10
   confidence: 0.9
 - name: raceband_r8
+  pattern_hint: raceband_r8
   start_hz: 5903500000
   stop_hz: 5930500000
   class_path:
@@ -212,6 +228,7 @@ profiles:
   min_snr_db: 10
   confidence: 0.9
 - name: banda_a1
+  pattern_hint: banda_a1
   start_hz: 5840500000
   stop_hz: 5867500000
   class_path:
@@ -223,6 +240,7 @@ profiles:
   min_snr_db: 10
   confidence: 0.8
 - name: banda_a2
+  pattern_hint: banda_a2
   start_hz: 5850500000
   stop_hz: 5877500000
   class_path:
@@ -234,6 +252,7 @@ profiles:
   min_snr_db: 10
   confidence: 0.8
 - name: banda_a3
+  pattern_hint: banda_a3
   start_hz: 5860500000
   stop_hz: 5887500000
   class_path:
@@ -245,6 +264,7 @@ profiles:
   min_snr_db: 10
   confidence: 0.8
 - name: banda_a4
+  pattern_hint: banda_a4
   start_hz: 5870500000
   stop_hz: 5897500000
   class_path:
@@ -256,6 +276,7 @@ profiles:
   min_snr_db: 10
   confidence: 0.8
 - name: banda_a5
+  pattern_hint: banda_a5
   start_hz: 5880500000
   stop_hz: 5907500000
   class_path:
@@ -267,6 +288,7 @@ profiles:
   min_snr_db: 10
   confidence: 0.8
 - name: banda_a6
+  pattern_hint: banda_a6
   start_hz: 5890500000
   stop_hz: 5917500000
   class_path:
@@ -278,6 +300,7 @@ profiles:
   min_snr_db: 10
   confidence: 0.8
 - name: banda_a7
+  pattern_hint: banda_a7
   start_hz: 5900500000
   stop_hz: 5927500000
   class_path:
@@ -289,6 +312,7 @@ profiles:
   min_snr_db: 10
   confidence: 0.8
 - name: banda_a8
+  pattern_hint: banda_a8
   start_hz: 5910500000
   stop_hz: 5937500000
   class_path:

@@ -36,6 +36,7 @@
 - Schema fixtures validation suite
 - CLI dry-run integration test (null radio)
 - Advanced detection implementation plan (docs/advanced_detection_plan.md)
+- Analog channel pattern_hint tagging via profiles (RaceBand/FatShark/Band A)
 
 ## 🟡 What is currently in progress
 - Live radio spectrum capture validation on hardware
@@ -87,6 +88,7 @@
 - Correlation gating tests: pass
 - Classification profile tests: pass
 - Classification channel profile tests: pass
+- Analog channel pattern_hint test: pass
 - Sweep plan loading tests: pass
 - Control profile tests: pass
 - DSP feature tests: pass
@@ -129,6 +131,7 @@
 - `tests/test_cli_helpers.py`
 - `tests/test_radio_spectrum.py`
 - `src/ndefender_antsdr_scan/classification/engine.py`
+- `src/ndefender_antsdr_scan/classification/models.py`
 - `src/ndefender_antsdr_scan/classification/models.py`
 - `src/ndefender_antsdr_scan/classification/rules.py`
 - `src/ndefender_antsdr_scan/core/engine.py`

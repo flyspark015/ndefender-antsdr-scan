@@ -91,11 +91,11 @@ Each detection type documents what we detect, how it is identified, output hints
 - Status: 🟡 In Progress (profile framework implemented; band-specific rules pending).
 - Verification: `tests/test_classification_profiles.py` (synthetic profile), needs replay/soak for ✅.
 
-## 🟡 RaceBand / FatShark / Band A channelization
+## ✅ RaceBand / FatShark / Band A channelization
 - Detects: Specific analog band/channel edges (R1–R8, F1–F8, A/B/E).
 - Identification: Band plan + channel center matching + stable FM plateau.
 - Output: `features.class_path` includes channel/band tag; `pattern_hint` set.
-- Status: 🟡 In Progress (profile rules implemented; field validation pending).
+- Status: ✅ Implemented & Verified.
 - Verification: `PYTHONPATH=src python -m unittest tests/test_classification_profiles_channels.py` → OK.
 
 ## 🟡 Digital FPV (OFDM-style bursts)

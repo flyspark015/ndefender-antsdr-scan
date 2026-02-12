@@ -24,14 +24,17 @@ class ClassificationProfileChannelTests(unittest.TestCase):
     def test_raceband_r1(self) -> None:
         result = self._classify(5_658_000_000)
         self.assertEqual(result.class_path[-1], "R1")
+        self.assertEqual(result.pattern_hint, "raceband_r1")
 
     def test_fatshark_f4(self) -> None:
         result = self._classify(5_780_000_000)
         self.assertEqual(result.class_path[-1], "F4")
+        self.assertEqual(result.pattern_hint, "fatshark_f4")
 
     def test_banda_a8(self) -> None:
         result = self._classify(5_924_000_000)
         self.assertEqual(result.class_path[-1], "A8")
+        self.assertEqual(result.pattern_hint, "banda_a8")
 
 
 if __name__ == "__main__":

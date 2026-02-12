@@ -25,3 +25,4 @@ class ClassificationResult:
     class_path: list[str]
     confidence: float
     reason: str
+    pattern_hint: str | None = None

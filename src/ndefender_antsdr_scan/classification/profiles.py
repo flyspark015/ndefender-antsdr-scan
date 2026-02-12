@@ -15,6 +15,7 @@ class ProfileRule:
     start_hz: float
     stop_hz: float
     class_path: list[str]
+    pattern_hint: str | None = None
     bandwidth_class: str | None = None
     min_snr_db: float | None = None
     confidence: float = 0.85
@@ -58,6 +59,7 @@ class ProfileSet:
             class_path=rule.class_path,
             confidence=rule.confidence,
             reason=f"profile:{rule.name}",
+            pattern_hint=rule.pattern_hint,
         )
 
 
@@ -70,6 +72,7 @@ def load_profiles(path: str | Path) -> ProfileSet:
             start_hz=float(entry.get("start_hz", 0.0)),
             stop_hz=float(entry.get("stop_hz", 0.0)),
             class_path=[str(item) for item in entry.get("class_path", [])],
+            pattern_hint=entry.get("pattern_hint"),
             bandwidth_class=entry.get("bandwidth_class"),
             min_snr_db=float(entry["min_snr_db"]) if "min_snr_db" in entry else None,
             confidence=float(entry.get("confidence", 0.85)),
