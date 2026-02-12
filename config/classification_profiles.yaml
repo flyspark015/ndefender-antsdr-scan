@@ -1,4 +1,40 @@
 profiles:
+- name: dji_5g8
+  start_hz: 5725000000
+  stop_hz: 5850000000
+  class_path:
+  - Digital
+  - Video
+  - DJI
+  bandwidth_class: wide
+  min_snr_db: 15
+  confidence: 0.7
+  priority: 10
+  requires_ofdm_score: 0.7
+- name: walksnail_5g8
+  start_hz: 5660000000
+  stop_hz: 5930000000
+  class_path:
+  - Digital
+  - Video
+  - Walksnail
+  bandwidth_class: wide
+  min_snr_db: 15
+  confidence: 0.7
+  priority: 10
+  requires_ofdm_score: 0.7
+- name: hdzero_5g8
+  start_hz: 5600000000
+  stop_hz: 5920000000
+  class_path:
+  - Digital
+  - Video
+  - HDZero
+  bandwidth_class: wide
+  min_snr_db: 15
+  confidence: 0.7
+  priority: 10
+  requires_ofdm_score: 0.7
 - name: fatshark_f1
   start_hz: 5736500000
   stop_hz: 5763500000

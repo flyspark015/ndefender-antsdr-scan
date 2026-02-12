@@ -96,6 +96,21 @@ class ScanEngine:
     def _augment_features(self, detection: Detection, timestamp_ms: int) -> FeatureHints:
         base = detection.features
         hop_rate_hz = self._hop_rate_for(detection.band, detection.freq_hz, timestamp_ms)
+        ofdm_score = None
+        if base.bandwidth_est_hz is not None or base.burstiness is not None:
+            from ndefender_antsdr_scan.classification.ofdm import ofdm_signature_score
+
+            ofdm_score = ofdm_signature_score(
+                SignalFeatures(
+                    freq_hz=detection.freq_hz,
+                    band=detection.band,
+                    snr_db=detection.snr_db,
+                    bandwidth_class=detection.bandwidth_class,
+                    bandwidth_est_hz=base.bandwidth_est_hz,
+                    burstiness=base.burstiness,
+                )
+            )
+
         classification = self._classifier.classify(
             SignalFeatures(
                 freq_hz=detection.freq_hz,
@@ -105,6 +120,7 @@ class ScanEngine:
                 bandwidth_est_hz=base.bandwidth_est_hz,
                 burstiness=base.burstiness,
                 hop_rate_hz=hop_rate_hz,
+                ofdm_score=ofdm_score,
                 prominence_db=base.prominence_db,
                 cluster_size=base.cluster_size,
                 pattern_hint=base.pattern_hint,

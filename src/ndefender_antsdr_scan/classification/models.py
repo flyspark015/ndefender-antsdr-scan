@@ -12,6 +12,7 @@ class SignalFeatures:
     bandwidth_est_hz: float | None = None
     burstiness: float | None = None
     hop_rate_hz: float | None = None
+    ofdm_score: float | None = None
     modulation_hint: str | None = None
     prominence_db: float | None = None
     cluster_size: int | None = None

@@ -32,6 +32,7 @@
 - Control-link scoring (burst + hop signal strength)
 - OFDM signature heuristic (digital video)
 - Vendor heuristic tagging (DJI/Walksnail/HDZero) based on OFDM + band
+- Vendor profile placeholders (DJI/Walksnail/HDZero)
 
 ## 🟡 What is currently in progress
 - Live radio spectrum capture validation on hardware
@@ -63,6 +64,7 @@
 - `PYTHONPATH=src python -m unittest tests/test_control_scoring.py` → `OK`
 - `PYTHONPATH=src python -m unittest tests/test_ofdm_signature.py` → `OK`
 - `PYTHONPATH=src python -m unittest tests/test_vendor_heuristics.py` → `OK`
+- `PYTHONPATH=src python -m unittest tests/test_vendor_profiles.py` → `OK`
 
 ## 🧩 Test outcomes
 - Tracker lifecycle tests: pass
@@ -84,6 +86,7 @@
 - Control scoring tests: pass
 - OFDM heuristic tests: pass
 - Vendor heuristic tests: pass
+- Vendor profile tests: pass
 - Radio spectrum tests: pass
 
 ## 📦 Code changes implemented
@@ -148,6 +151,7 @@
 - `tests/test_ofdm_signature.py`
 - `src/ndefender_antsdr_scan/classification/rules.py`
 - `tests/test_vendor_heuristics.py`
+- `tests/test_vendor_profiles.py`
 - `config/default.yaml`
 - `pyproject.toml`
 - `.github/workflows/ci.yml`
@@ -167,6 +171,7 @@
 - `run` supports `--null-radio` and `--max-frames` to enable safe dry runs
 - Classification introduced as a separate module (rule-based stub) for staged integration
 - Profile selection chooses closest center frequency to resolve overlapping channel bands
+- Vendor profiles require OFDM score and priority to avoid analog overlap
 
 ## ✅ Hardware validation checklist (planned)
 - Verify AntSDR connectivity (`uri` reachable, `pyadi-iio` importable) — pending

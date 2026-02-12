@@ -18,6 +18,8 @@ class ProfileRule:
     bandwidth_class: str | None = None
     min_snr_db: float | None = None
     confidence: float = 0.85
+    requires_ofdm_score: float | None = None
+    priority: int = 0
 
     def matches(self, features: SignalFeatures) -> bool:
         if not (self.start_hz <= features.freq_hz <= self.stop_hz):
@@ -26,6 +28,9 @@ class ProfileRule:
             return False
         if self.min_snr_db is not None and features.snr_db < self.min_snr_db:
             return False
+        if self.requires_ofdm_score is not None:
+            if features.ofdm_score is None or features.ofdm_score < self.requires_ofdm_score:
+                return False
         return True
 
     def distance_to(self, freq_hz: float) -> float:
@@ -43,6 +48,7 @@ class ProfileSet:
             return None
         candidates.sort(
             key=lambda rule: (
+                -rule.priority,
                 rule.distance_to(features.freq_hz),
                 -rule.confidence,
             )
@@ -67,6 +73,8 @@ def load_profiles(path: str | Path) -> ProfileSet:
             bandwidth_class=entry.get("bandwidth_class"),
             min_snr_db=float(entry["min_snr_db"]) if "min_snr_db" in entry else None,
             confidence=float(entry.get("confidence", 0.85)),
+            requires_ofdm_score=float(entry["requires_ofdm_score"]) if "requires_ofdm_score" in entry else None,
+            priority=int(entry.get("priority", 0)),
         )
         for entry in entries
     ]
