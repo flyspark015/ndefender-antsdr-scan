@@ -72,6 +72,7 @@
 - `PYTHONPATH=src python -m ndefender_antsdr_scan.cli.main validate --log tests/fixtures/valid_correlation.jsonl` → `validation ok`
 - `PYTHONPATH=src python -m unittest tests/test_schema_fixtures.py` → `OK`
 - `PYTHONPATH=src python -m unittest tests/test_cli_run_dry.py` → `OK`
+- `PYTHONPATH=src python -m unittest tests/test_cli_replay_e2e.py` → `OK`
 
 ## 🧩 Test outcomes
 - Tracker lifecycle tests: pass
@@ -96,6 +97,7 @@
 - Vendor profile tests: pass
 - Schema fixture tests: pass
 - CLI dry-run test: pass
+- CLI replay e2e test: pass
 - Radio spectrum tests: pass
 
 ## 📦 Code changes implemented
@@ -166,6 +168,7 @@
 - `tests/fixtures/valid_correlation.jsonl`
 - `tests/test_schema_fixtures.py`
 - `tests/test_cli_run_dry.py`
+- `tests/test_cli_replay_e2e.py`
 - `config/default.yaml`
 - `pyproject.toml`
 - `.github/workflows/ci.yml`
