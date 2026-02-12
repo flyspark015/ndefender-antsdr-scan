@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["type", "timestamp", "source", "data"],
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": [
+        "RF_CONTACT_NEW",
+        "RF_CONTACT_UPDATE",
+        "RF_CONTACT_LOST"
+      ]
+    },
+    "timestamp": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "source": {
+      "const": "antsdr"
+    },
+    "data": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "freq_hz",
+        "bucket_hz",
+        "band",
+        "snr_db",
+        "peak_db",
+        "noise_floor_db",
+        "bandwidth_class",
+        "confidence",
+        "features"
+      ],
+      "properties": {
+        "id": {"type": "string"},
+        "freq_hz": {"type": "number"},
+        "bucket_hz": {"type": "number"},
+        "band": {"type": "string"},
+        "snr_db": {"type": "number"},
+        "peak_db": {"type": "number"},
+        "noise_floor_db": {"type": "number"},
+        "bandwidth_class": {"type": "string"},
+        "confidence": {"type": "number", "minimum": 0.0, "maximum": 1.0},
+        "features": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "prominence_db",
+            "cluster_size",
+            "pattern_hint",
+            "hop_hint"
+          ],
+          "properties": {
+            "prominence_db": {"type": "number"},
+            "cluster_size": {"type": "integer", "minimum": 0},
+            "pattern_hint": {"type": "string"},
+            "hop_hint": {"type": "string"}
+          }
+        }
+      }
+    }
+  }
+}

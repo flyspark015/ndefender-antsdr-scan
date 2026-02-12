@@ -15,7 +15,15 @@ def _cmd_replay(args: argparse.Namespace) -> int:
 
 
 def _cmd_validate(args: argparse.Namespace) -> int:
-    print(f"validate not implemented yet: log={args.log}")
+    from ndefender_antsdr_scan.events.validate import validate_jsonl
+
+    errors = validate_jsonl(args.log)
+    if errors:
+        for err in errors:
+            print(f"line {err.line}: {err.message}")
+        print(f"validation failed: {len(errors)} error(s)")
+        return 1
+    print("validation ok")
     return 0
 
 
