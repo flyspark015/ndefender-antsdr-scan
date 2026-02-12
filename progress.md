@@ -35,6 +35,7 @@
 - Vendor profile placeholders (DJI/Walksnail/HDZero)
 - Schema fixtures validation suite
 - CLI dry-run integration test (null radio)
+- Advanced detection implementation plan (docs/advanced_detection_plan.md)
 
 ## 🟡 What is currently in progress
 - Live radio spectrum capture validation on hardware
@@ -169,6 +170,7 @@
 - `tests/test_schema_fixtures.py`
 - `tests/test_cli_run_dry.py`
 - `tests/test_cli_replay_e2e.py`
+- `docs/advanced_detection_plan.md`
 - `config/default.yaml`
 - `pyproject.toml`
 - `.github/workflows/ci.yml`
