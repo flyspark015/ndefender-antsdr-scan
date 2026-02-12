@@ -57,6 +57,7 @@ async def get_health(request: web.Request) -> web.Response:
         "status": "ok",
         "engine_running": state.runner.is_running,
         "ws_backend_connected": state.runner.ws_connected,
+        "last_event_timestamp_ms": state.event_bus.last_timestamp_ms(),
         "timestamp_ms": int(time.time() * 1000),
     }
     return web.json_response(payload)
@@ -153,6 +154,8 @@ async def post_run_replay(request: web.Request) -> web.Response:
     log_path = payload.get("log_path")
     if not log_path:
         return _json_error("bad_request", "missing log_path")
+    if not Path(str(log_path)).exists():
+        return _json_error("not_found", "log_path not found", status=404)
     output_path = payload.get("output_path")
     max_events = payload.get("max_events")
     max_events_val = int(max_events) if max_events is not None else None

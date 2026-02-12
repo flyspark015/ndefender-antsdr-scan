@@ -41,6 +41,7 @@ Response:
   "status": "ok",
   "engine_running": true,
   "ws_backend_connected": false,
+  "last_event_timestamp_ms": 1700000000000,
   "timestamp_ms": 1700000000000
 }
 ```

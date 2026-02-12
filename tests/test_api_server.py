@@ -59,6 +59,7 @@ class ApiServerTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(resp.status, 200)
         payload = await resp.json()
         self.assertEqual(payload["status"], "ok")
+        self.assertIn("last_event_timestamp_ms", payload)
 
     async def test_stats(self) -> None:
         resp = await self.client.get("/api/v1/stats")
@@ -84,6 +85,15 @@ class ApiServerTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(resp.status, 400)
         payload = await resp.json()
         self.assertEqual(payload["error"]["code"], "bad_request")
+
+    async def test_replay_missing_file(self) -> None:
+        resp = await self.client.post(
+            "/api/v1/run/replay",
+            json={"log_path": "/tmp/does-not-exist.jsonl"},
+        )
+        self.assertEqual(resp.status, 404)
+        payload = await resp.json()
+        self.assertEqual(payload["error"]["code"], "not_found")
 
     async def test_config_redacts_api_key(self) -> None:
         resp = await self.client.get("/api/v1/config")

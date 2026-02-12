@@ -48,6 +48,19 @@ class EventBus:
                 return []
             return list(self._buffer)[-limit:]
 
+    def last_timestamp_ms(self) -> int | None:
+        with self._lock:
+            if not self._buffer:
+                return None
+            last = self._buffer[-1]
+        value = last.get("timestamp") if isinstance(last, dict) else None
+        if value is None:
+            return None
+        try:
+            return int(value)
+        except (TypeError, ValueError):
+            return None
+
     def subscribe(self, max_queue: int = 100) -> asyncio.Queue:
         queue: asyncio.Queue = asyncio.Queue(maxsize=max_queue)
         with self._lock:

@@ -55,6 +55,8 @@
 - API server implementation (REST + WS)
 - API configuration + env overrides
 - API event bus + runtime runner
+- API health includes last event timestamp
+- API replay validates log path existence
 - Schema fixtures validation suite
 - CLI dry-run integration test (null radio)
 - Advanced detection implementation plan (docs/advanced_detection_plan.md)

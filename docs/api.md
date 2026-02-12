@@ -10,6 +10,9 @@ If `api.api_key` is set, include `X-API-Key` header.
 ### GET /health
 Returns status and engine state.
 
+Response includes:
+- `last_event_timestamp_ms` (null if no events published)
+
 ### GET /version
 Returns package version.
 
@@ -39,6 +42,9 @@ Request:
   "max_events": 100
 }
 ```
+
+Errors:
+- `404 not_found` if `log_path` does not exist.
 
 ### GET /events/last?limit=50
 Returns the last N events as a snapshot.
