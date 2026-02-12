@@ -3,6 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 from .models import ClassificationResult, SignalFeatures
+from .scoring import score_control
 
 
 @dataclass(frozen=True)
@@ -29,15 +30,17 @@ def classify(features: SignalFeatures, ctx: RuleContext | None = None) -> Classi
 
     if features.bandwidth_class == "narrow":
         if _is_hopping(features):
+            boost = _control_confidence_boost(features)
             return ClassificationResult(
                 class_path=["Control", "Hopping"],
-                confidence=0.8,
+                confidence=min(0.8 + boost, 0.9),
                 reason="narrowband + hopping",
             )
         if _is_bursty(features, context.min_burstiness_for_control):
+            boost = _control_confidence_boost(features)
             return ClassificationResult(
                 class_path=["Control", "Burst"],
-                confidence=0.75,
+                confidence=min(0.75 + boost, 0.9),
                 reason="narrowband + bursty",
             )
         return ClassificationResult(
@@ -65,3 +68,7 @@ def _is_hopping(features: SignalFeatures) -> bool:
     if features.hop_rate_hz is None:
         return False
     return features.hop_rate_hz >= 1.0
+
+
+def _control_confidence_boost(features: SignalFeatures) -> float:
+    return score_control(features) * 0.1

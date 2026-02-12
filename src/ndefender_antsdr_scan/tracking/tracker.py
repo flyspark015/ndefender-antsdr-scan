@@ -222,6 +222,7 @@ class Tracker:
                     "bandwidth_est_hz": contact.features.bandwidth_est_hz or 0.0,
                     "burstiness": contact.features.burstiness or 0.0,
                     "hop_rate_hz": contact.features.hop_rate_hz or 0.0,
+                    "control_score": contact.features.control_score or 0.0,
                     "class_path": class_path if class_path else [],
                     "classification_confidence": contact.features.classification_confidence or 0.0,
                     "control_correlation": control_correlation,

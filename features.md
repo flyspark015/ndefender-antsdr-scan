@@ -58,6 +58,10 @@ Each feature lists its current status and verification notes.
 - Description: Uses hop-rate and burstiness to label control signals as `Control/Hopping` or `Control/Burst`.
 - Verification: `PYTHONPATH=src python -m unittest tests/test_classification_rules.py` → OK.
 
+## ✅ Control-link scoring (burst + hop signal strength)
+- Description: Scores control-likelihood using band, burstiness, and hop rate for confidence boosts.
+- Verification: `PYTHONPATH=src python -m unittest tests/test_control_scoring.py` → OK.
+
 ## ✅ Profile-driven classification rules
 - Description: Optional YAML profile rules to tag signals by frequency range, bandwidth class, and SNR.
 - Verification: `PYTHONPATH=src python -m unittest tests/test_classification_profiles.py` → OK (closest-center selection).

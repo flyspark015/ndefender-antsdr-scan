@@ -20,6 +20,7 @@ class _Detector:
             bandwidth_est_hz=20.0,
             burstiness=0.1,
             hop_rate_hz=0.0,
+            control_score=0.0,
             class_path=["Analog", "Video"],
             classification_confidence=0.8,
             control_correlation=False,

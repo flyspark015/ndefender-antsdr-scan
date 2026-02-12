@@ -28,6 +28,7 @@
 - DSP feature extraction (bandwidth + burstiness)
 - Hop-rate estimation (rolling window)
 - Control-link rule classification (burst vs hopping)
+- Control-link scoring (burst + hop signal strength)
 
 ## 🟡 What is currently in progress
 - Live radio spectrum capture validation on hardware
@@ -56,6 +57,7 @@
 - `PYTHONPATH=src python -m unittest tests/test_dsp_features.py` → `OK`
 - `PYTHONPATH=src python -m unittest tests/test_hop_rate.py` → `OK`
 - `PYTHONPATH=src python -m unittest tests/test_classification_rules.py` → `OK`
+- `PYTHONPATH=src python -m unittest tests/test_control_scoring.py` → `OK`
 
 ## 🧩 Test outcomes
 - Tracker lifecycle tests: pass
@@ -74,6 +76,7 @@
 - DSP feature tests: pass
 - Hop-rate tests: pass
 - Classification rules tests: pass
+- Control scoring tests: pass
 - Radio spectrum tests: pass
 
 ## 📦 Code changes implemented
@@ -131,6 +134,8 @@
 - `tests/test_hop_rate.py`
 - `src/ndefender_antsdr_scan/classification/rules.py`
 - `tests/test_classification_rules.py`
+- `src/ndefender_antsdr_scan/classification/scoring.py`
+- `tests/test_control_scoring.py`
 - `config/default.yaml`
 - `pyproject.toml`
 - `.github/workflows/ci.yml`

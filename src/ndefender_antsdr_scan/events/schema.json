@@ -55,6 +55,7 @@
             "bandwidth_est_hz",
             "burstiness",
             "hop_rate_hz",
+            "control_score",
             "class_path",
             "classification_confidence",
             "control_correlation"
@@ -67,6 +68,7 @@
             "bandwidth_est_hz": {"type": "number", "minimum": 0.0},
             "burstiness": {"type": "number", "minimum": 0.0, "maximum": 1.0},
             "hop_rate_hz": {"type": "number", "minimum": 0.0},
+            "control_score": {"type": "number", "minimum": 0.0, "maximum": 1.0},
             "class_path": {
               "type": "array",
               "items": {"type": "string"}

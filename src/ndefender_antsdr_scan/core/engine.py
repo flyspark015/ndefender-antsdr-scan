@@ -6,6 +6,7 @@ from typing import Iterable, Protocol
 from ndefender_antsdr_scan.detectors.base import Detection, Detector, SpectrumFrame
 from ndefender_antsdr_scan.io.emit import EventEmitter
 from ndefender_antsdr_scan.classification import Classifier, SignalFeatures
+from ndefender_antsdr_scan.classification.scoring import score_control
 from ndefender_antsdr_scan.core.hopping import HopRateEstimator
 from ndefender_antsdr_scan.tracking.models import FeatureHints
 from ndefender_antsdr_scan.tracking.tracker import Tracker, make_observation
@@ -110,6 +111,21 @@ class ScanEngine:
                 hop_hint=base.hop_hint,
             )
         )
+        control_score = score_control(
+            SignalFeatures(
+                freq_hz=detection.freq_hz,
+                band=detection.band,
+                snr_db=detection.snr_db,
+                bandwidth_class=detection.bandwidth_class,
+                bandwidth_est_hz=base.bandwidth_est_hz,
+                burstiness=base.burstiness,
+                hop_rate_hz=hop_rate_hz,
+                prominence_db=base.prominence_db,
+                cluster_size=base.cluster_size,
+                pattern_hint=base.pattern_hint,
+                hop_hint=base.hop_hint,
+            )
+        )
         return FeatureHints(
             prominence_db=float(base.prominence_db),
             cluster_size=int(base.cluster_size),
@@ -118,6 +134,7 @@ class ScanEngine:
             bandwidth_est_hz=base.bandwidth_est_hz,
             burstiness=base.burstiness,
             hop_rate_hz=hop_rate_hz,
+            control_score=control_score,
             class_path=classification.class_path,
             classification_confidence=classification.confidence,
             control_correlation=base.control_correlation,
