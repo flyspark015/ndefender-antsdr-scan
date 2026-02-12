@@ -88,32 +88,39 @@ Each feature lists its current status and verification notes.
 
 Each detection type documents what we detect, how it is identified, output hints, and status.
 
+## ✅ RF Contact Detection & Tracking (generic)
+- Detects: RF energy peaks and tracks contacts with stable ID, TTL, and lifecycle events.
+- Identification: Peak detection + bucketed ID + confirmation gating + TTL loss.
+- Output: `RF_CONTACT_NEW/UPDATE/LOST` with `id`, `freq_hz`, `bucket_hz`, `snr_db`.
+- Status: ✅ Implemented & Verified.
+- Verification: `PYTHONPATH=src python -m unittest tests/test_tracker.py` → OK; `PYTHONPATH=src python -m unittest tests/test_peak_detector.py` → OK.
+
 ## 🟡 Analog FPV VTX (5.8 GHz wideband FM)
 - Detects: Wideband analog video carriers (common FPV VTX signals).
 - Identification: Wide bandwidth peaks + low burstiness; optional profile match by band range. Confidence scales with SNR/prominence for analog profiles.
 - Output: Event `features.class_path` → ["Analog", "Video", "WideFM"], `classification_confidence`.
-- Status: 🟡 In Progress (profile framework implemented; band-specific rules pending).
-- Verification: `tests/test_classification_profiles.py` (synthetic profile), needs replay/soak for ✅.
+- Status: 🟡 In Progress (profile framework implemented; no RF replay/soak validation yet).
+- Verification: `tests/test_classification_profiles.py` (synthetic profile only).
 
-## ✅ RaceBand / FatShark / Band A channelization
+## 🟡 RaceBand / FatShark / Band A channelization
 - Detects: Specific analog band/channel edges (R1–R8, F1–F8, A/B/E).
 - Identification: Band plan + channel center matching + stable FM plateau.
 - Output: `features.class_path` includes channel/band tag; `pattern_hint` set.
-- Status: ✅ Implemented & Verified.
-- Verification: `PYTHONPATH=src python -m unittest tests/test_classification_profiles_channels.py` → OK.
+- Status: 🟡 In Progress (unit tests only; no RF replay/soak validation yet).
+- Verification: `PYTHONPATH=src python -m unittest tests/test_classification_profiles_channels.py` → OK (synthetic).
 
 ## 🟡 Digital FPV (OFDM-style bursts)
 - Detects: Digital video links via OFDM-like PSD and burst timing.
 - Identification: Burstiness + bandwidth estimate + OFDM signature.
 - Output: `features.class_path` → ["Digital", "Video"], `pattern_hint`.
-- Status: 🟡 In Progress (heuristic implemented; confidence scales with OFDM score).
-- Verification: `PYTHONPATH=src python -m unittest tests/test_ofdm_signature.py` → OK.
+- Status: 🟡 In Progress (heuristic implemented; no RF replay/soak validation yet).
+- Verification: `PYTHONPATH=src python -m unittest tests/test_ofdm_signature.py` → OK (synthetic).
 
 ## 🟡 DJI-specific (OcuSync/O3)
 - Detects: Proprietary burst patterns + bandwidth constraints (non-encrypted inference only).
 - Identification: OFDM signature + hop/burst patterns within DJI band window.
 - Output: `features.class_path` includes "DJI"; `pattern_hint` set to `dji_5g8` (profile or heuristic); `encryption_hint` planned.
-- Status: 🟡 In Progress (heuristic band-window tagging only).
+- Status: 🟡 In Progress (heuristic band-window tagging only; no RF replay/soak validation yet).
 - Verification: `PYTHONPATH=src python -m unittest tests/test_vendor_heuristics.py` → OK (heuristic only); `PYTHONPATH=src python -m unittest tests/test_vendor_profiles.py` → OK (profile placeholder + OFDM threshold).
   Schema: `PYTHONPATH=src python -m ndefender_antsdr_scan.cli.main validate --log tests/fixtures/valid_vendor.jsonl` → validation ok.
 
@@ -121,7 +128,7 @@ Each detection type documents what we detect, how it is identified, output hints
 - Detects: Digital link signatures (bandwidth + burst rate profiles).
 - Identification: OFDM signature + channel bandwidth.
 - Output: `features.class_path` with vendor tag; `pattern_hint` set to `walksnail_5g8` or `hdzero_5g8` (profile or heuristic).
-- Status: 🟡 In Progress (heuristic band-window tagging only).
+- Status: 🟡 In Progress (heuristic band-window tagging only; no RF replay/soak validation yet).
 - Verification: `PYTHONPATH=src python -m unittest tests/test_vendor_heuristics.py` → OK (heuristic only); `PYTHONPATH=src python -m unittest tests/test_vendor_profiles.py` → OK (profile placeholder + OFDM threshold).
   Schema: `PYTHONPATH=src python -m ndefender_antsdr_scan.cli.main validate --log tests/fixtures/valid_vendor.jsonl` → validation ok.
 
@@ -129,15 +136,15 @@ Each detection type documents what we detect, how it is identified, output hints
 - Detects: Narrowband bursty control packets in 2.4/915 MHz.
 - Identification: Narrowband peaks + burstiness + hop rate.
 - Output: `features.class_path` → ["Control", "ELRS"], `pattern_hint` set to `elrs_2g4`.
-- Status: 🟡 In Progress (profile rule only; burst detection pending).
-- Verification: `PYTHONPATH=src python -m unittest tests/test_control_profiles.py` → OK. Schema: `PYTHONPATH=src python -m ndefender_antsdr_scan.cli.main validate --log tests/fixtures/valid_control.jsonl` → validation ok.
+- Status: 🟡 In Progress (profile rule only; no RF replay/soak validation yet).
+- Verification: `PYTHONPATH=src python -m unittest tests/test_control_profiles.py` → OK (synthetic). Schema: `PYTHONPATH=src python -m ndefender_antsdr_scan.cli.main validate --log tests/fixtures/valid_control.jsonl` → validation ok.
 
 ## 🟡 Crossfire / Tracer (control link)
 - Detects: Narrowband control carriers in 915 MHz with hop patterns.
 - Identification: Narrowband + hop detection + baud patterns (future).
 - Output: `features.class_path` → ["Control", "Crossfire"], `pattern_hint` set to `crossfire_915`.
-- Status: 🟡 In Progress (profile rule + hop-rate signal; hop classification pending).
-- Verification: `PYTHONPATH=src python -m unittest tests/test_control_profiles.py` → OK. Schema: `PYTHONPATH=src python -m ndefender_antsdr_scan.cli.main validate --log tests/fixtures/valid_control.jsonl` → validation ok.
+- Status: 🟡 In Progress (profile rule + hop-rate signal; no RF replay/soak validation yet).
+- Verification: `PYTHONPATH=src python -m unittest tests/test_control_profiles.py` → OK (synthetic). Schema: `PYTHONPATH=src python -m ndefender_antsdr_scan.cli.main validate --log tests/fixtures/valid_control.jsonl` → validation ok.
 
 ## ✅ Video + Control correlation gating
 - Detects: Combined video + control alignment for higher confidence NEW.
@@ -145,3 +152,10 @@ Each detection type documents what we detect, how it is identified, output hints
 - Output: `features.control_correlation` true when correlated.
 - Status: ✅ Implemented & Verified.
 - Verification: `PYTHONPATH=src python -m unittest tests/test_correlation.py` → OK. Schema: `PYTHONPATH=src python -m ndefender_antsdr_scan.cli.main validate --log tests/fixtures/valid_correlation.jsonl` → validation ok.
+
+## ❌ RemoteID / DroneID (broadcast ID)
+- Detects: RemoteID/DroneID broadcasts.
+- Identification: Requires protocol-specific demod/decoder (not implemented).
+- Output: Would require new feature fields and decoding pipeline.
+- Status: ❌ Planned (no decoder implemented).
+- Verification: None.
