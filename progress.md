@@ -33,6 +33,7 @@
 - OFDM signature heuristic (digital video)
 - Vendor heuristic tagging (DJI/Walksnail/HDZero) based on OFDM + band
 - Vendor profile placeholders (DJI/Walksnail/HDZero)
+- Schema fixtures validation suite
 
 ## 🟡 What is currently in progress
 - Live radio spectrum capture validation on hardware
@@ -68,6 +69,7 @@
 - `PYTHONPATH=src python -m ndefender_antsdr_scan.cli.main validate --log tests/fixtures/valid_vendor.jsonl` → `validation ok`
 - `PYTHONPATH=src python -m ndefender_antsdr_scan.cli.main validate --log tests/fixtures/valid_control.jsonl` → `validation ok`
 - `PYTHONPATH=src python -m ndefender_antsdr_scan.cli.main validate --log tests/fixtures/valid_correlation.jsonl` → `validation ok`
+- `PYTHONPATH=src python -m unittest tests/test_schema_fixtures.py` → `OK`
 
 ## 🧩 Test outcomes
 - Tracker lifecycle tests: pass
@@ -90,6 +92,7 @@
 - OFDM heuristic tests: pass
 - Vendor heuristic tests: pass
 - Vendor profile tests: pass
+- Schema fixture tests: pass
 - Radio spectrum tests: pass
 
 ## 📦 Code changes implemented
@@ -158,6 +161,7 @@
 - `tests/fixtures/valid_vendor.jsonl`
 - `tests/fixtures/valid_control.jsonl`
 - `tests/fixtures/valid_correlation.jsonl`
+- `tests/test_schema_fixtures.py`
 - `config/default.yaml`
 - `pyproject.toml`
 - `.github/workflows/ci.yml`
