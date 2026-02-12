@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ndefender-antsdr-scan"
+version = "0.1.0"
+description = "AntSDR RF contact detection & tracking engine for N-Defender"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "Proprietary"}
+authors = [{name = "N-Defender"}]
+
+[project.scripts]
+ndefender-antsdr-scan = "ndefender_antsdr_scan.cli.main:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

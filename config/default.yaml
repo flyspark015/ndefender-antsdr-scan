@@ -1,0 +1,13 @@
+radio:
+  uri: "ip:192.168.10.2"
+  sample_rate: 2000000
+
+tracker:
+  bucket_hz: 250000
+  ttl_s: 120
+  min_hits_to_confirm: 2
+  update_interval_s: 1.0
+
+detector:
+  min_snr_db: 10
+  lo_guard_hz: 100000
