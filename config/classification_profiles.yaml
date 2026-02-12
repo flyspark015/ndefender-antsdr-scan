@@ -9,7 +9,7 @@ profiles:
   bandwidth_class: wide
   min_snr_db: 15
   confidence: 0.7
-  priority: 10
+  priority: 12
   requires_ofdm_score: 0.7
 - name: walksnail_5g8
   start_hz: 5660000000
@@ -21,7 +21,7 @@ profiles:
   bandwidth_class: wide
   min_snr_db: 15
   confidence: 0.7
-  priority: 10
+  priority: 11
   requires_ofdm_score: 0.7
 - name: hdzero_5g8
   start_hz: 5600000000

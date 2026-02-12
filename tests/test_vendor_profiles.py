@@ -65,6 +65,17 @@ class VendorProfileTests(unittest.TestCase):
         result = self.classifier.classify(features)
         self.assertNotIn(result.class_path[-1], {"DJI", "Walksnail", "HDZero"})
 
+    def test_vendor_priority_over_analog(self) -> None:
+        features = SignalFeatures(
+            freq_hz=5_765_000_000,
+            band="5G8",
+            snr_db=15.0,
+            bandwidth_class="wide",
+            ofdm_score=0.8,
+        )
+        result = self.classifier.classify(features)
+        self.assertEqual(result.class_path[-1], "DJI")
+
 
 if __name__ == "__main__":
     unittest.main()

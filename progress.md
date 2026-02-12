@@ -174,6 +174,7 @@
 - Classification introduced as a separate module (rule-based stub) for staged integration
 - Profile selection chooses closest center frequency to resolve overlapping channel bands
 - Vendor profiles require OFDM score and priority to avoid analog overlap
+- Vendor profile priority order: DJI > Walksnail > HDZero for overlap resolution
 
 ## ✅ Hardware validation checklist (planned)
 - Verify AntSDR connectivity (`uri` reachable, `pyadi-iio` importable) — pending
