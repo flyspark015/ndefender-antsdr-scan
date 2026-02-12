@@ -46,6 +46,7 @@
 - Control event field propagation tests
 - Analog event pattern_hint propagation test
 - Digital OFDM integration test
+- Non-vendor digital OFDM integration test
 - Schema fixtures validation suite
 - CLI dry-run integration test (null radio)
 - Advanced detection implementation plan (docs/advanced_detection_plan.md)
@@ -112,6 +113,7 @@
 - Control event field tests: pass
 - Analog event pattern_hint tests: pass
 - Digital OFDM integration tests: pass
+- Non-vendor digital OFDM tests: pass
 - Sweep plan loading tests: pass
 - Control profile tests: pass
 - DSP feature tests: pass
@@ -195,6 +197,7 @@
 - `tests/test_control_event_fields.py`
 - `tests/test_analog_event_pattern_hint.py`
 - `tests/test_digital_ofdm_integration.py`
+- `tests/test_digital_ofdm_non_vendor_integration.py`
 - `src/ndefender_antsdr_scan/classification/ofdm.py`
 - `tests/test_ofdm_signature.py`
 - `tests/test_ofdm_confidence_scaling.py`
