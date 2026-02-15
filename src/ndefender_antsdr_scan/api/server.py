@@ -24,8 +24,12 @@ class ApiState:
     event_bus: EventBus
 
 
-APP_STATE = web.AppKey("state", ApiState)
-APP_WS_CLIENTS = web.AppKey("ws_clients", set)
+try:
+    APP_STATE = web.AppKey("state", ApiState)  # type: ignore[attr-defined]
+    APP_WS_CLIENTS = web.AppKey("ws_clients", set)  # type: ignore[attr-defined]
+except AttributeError:
+    APP_STATE = "state"
+    APP_WS_CLIENTS = "ws_clients"
 
 
 def _json_error(code: str, message: str, status: int = 400) -> web.Response:

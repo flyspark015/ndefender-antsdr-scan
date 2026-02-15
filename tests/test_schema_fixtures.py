@@ -1,3 +1,4 @@
+import os
 import subprocess
 import sys
 import unittest
@@ -13,6 +14,7 @@ class SchemaFixtureTests(unittest.TestCase):
             "tests/fixtures/valid_correlation.jsonl",
         ]
         for fixture in fixtures:
+            env = {**os.environ, "PYTHONPATH": "src"}
             result = subprocess.run(
                 [
                     sys.executable,
@@ -24,6 +26,7 @@ class SchemaFixtureTests(unittest.TestCase):
                 ],
                 capture_output=True,
                 text=True,
+                env=env,
             )
             self.assertEqual(result.returncode, 0, msg=result.stdout + result.stderr)
 
