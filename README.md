@@ -72,6 +72,14 @@ Logs are written to:
 /opt/ndefender/logs/antsdr_scan.jsonl
 ```
 
+Production integration:
+- The Backend Aggregator tails `/opt/ndefender/logs/antsdr_scan.jsonl` for RF status + contacts.
+- If the AntSDR is unreachable (e.g., `ip:192.168.10.2` not reachable), the JSONL will not update and the API reports `rf.status=offline` with `last_error=antsdr_unreachable`.
+- Recommended systemd backoff (to reduce restart storms):
+  - `RestartSec=5`
+  - `StartLimitIntervalSec=60`
+  - `StartLimitBurst=6`
+
 ## CLI
 
 Run live scan:
