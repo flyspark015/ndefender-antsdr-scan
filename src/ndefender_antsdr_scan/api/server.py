@@ -319,26 +319,26 @@ async def post_gain_set(request: web.Request) -> web.Response:
 
 
 async def post_device_reset(request: web.Request) -> web.Response:
-    if not _command_rate.allow() or not _danger_rate.allow():
-        return _json_error("rate_limited", status=429)
     body = await _read_command_body(request)
     if isinstance(body, web.Response):
         return body
     _payload, confirm = body
     if not confirm:
         return _json_error("confirm_required", status=400)
+    if not _command_rate.allow() or not _danger_rate.allow():
+        return _json_error("rate_limited", status=429)
     return _json_error("not_implemented", status=409)
 
 
 async def post_device_calibrate(request: web.Request) -> web.Response:
-    if not _command_rate.allow() or not _danger_rate.allow():
-        return _json_error("rate_limited", status=429)
     body = await _read_command_body(request)
     if isinstance(body, web.Response):
         return body
     _payload, confirm = body
     if not confirm:
         return _json_error("confirm_required", status=400)
+    if not _command_rate.allow() or not _danger_rate.allow():
+        return _json_error("rate_limited", status=429)
     return _json_error("not_implemented", status=409)
 
 
