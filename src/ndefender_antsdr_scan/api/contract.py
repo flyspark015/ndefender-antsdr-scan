@@ -14,7 +14,7 @@ EVENT_TYPES = {
 @dataclass(frozen=True)
 class Envelope:
     type: str
-    timestamp: int
+    timestamp_ms: int
     source: str
     data: dict
 
@@ -24,7 +24,7 @@ def make_envelope(event_type: str, timestamp_ms: int, data: dict) -> dict:
         raise ValueError(f"unsupported event type: {event_type}")
     return {
         "type": event_type,
-        "timestamp": int(timestamp_ms),
+        "timestamp_ms": int(timestamp_ms),
         "source": SOURCE,
         "data": data,
     }

@@ -147,7 +147,13 @@ def _frame_from_record(record: dict) -> SpectrumFrame | None:
     peak_db = data.get("peak_db")
     if freq_hz is None or peak_db is None:
         return None
-    timestamp_ms = int(record.get("timestamp") or data.get("timestamp") or 0)
+    timestamp_ms = int(
+        record.get("timestamp_ms")
+        or data.get("timestamp_ms")
+        or record.get("timestamp")
+        or data.get("timestamp")
+        or 0
+    )
     band = str(data.get("band", ""))
     freq = float(freq_hz)
     peak = float(peak_db)

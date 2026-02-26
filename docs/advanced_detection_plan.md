@@ -103,7 +103,7 @@ This plan describes how we will implement the requested multi-level FPV RF class
 ## Event Output Plan (No Contract Breaks)
 
 Envelope stays fixed:
-- `type`, `timestamp`, `source`, `data`.
+- `type`, `timestamp_ms`, `source`, `data`.
 
 Feature fields (optional):
 - `class_path` (list)
@@ -151,4 +151,3 @@ Phase 4 (Hardware Validation)
 - False vendor tags: require OFDM threshold + profile match.
 - Excess NEW events: rely on confirmation gating and correlation.
 - Band overlap: priority order and closest-center rules.
-

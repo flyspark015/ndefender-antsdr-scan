@@ -202,7 +202,7 @@ class Tracker:
         control_correlation = bool(contact.features.control_correlation)
         return {
             "type": event_type,
-            "timestamp": int(timestamp_ms),
+            "timestamp_ms": int(timestamp_ms),
             "source": "antsdr",
             "data": {
                 "id": contact.id,

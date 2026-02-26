@@ -53,7 +53,7 @@ class EventBus:
             if not self._buffer:
                 return None
             last = self._buffer[-1]
-        value = last.get("timestamp") if isinstance(last, dict) else None
+        value = last.get("timestamp_ms") if isinstance(last, dict) else None
         if value is None:
             return None
         try:
