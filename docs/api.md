@@ -17,7 +17,16 @@ Response includes:
 Returns package version.
 
 ### GET /stats
-Returns counters for frames/detections/events.
+Returns counters for frames/events.
+
+### GET /device
+Returns AntSDR device connectivity and URI.
+
+### GET /sweep/state
+Returns sweep plans and running state.
+
+### GET /gain
+Returns current gain mode (auto/manual).
 
 ### GET /config
 Returns effective config (secrets redacted).
@@ -26,10 +35,50 @@ Returns effective config (secrets redacted).
 Reloads config from disk (fails if scan running).
 
 ### POST /run/start
-Starts live scan loop.
+Starts live scan loop (legacy).
 
 ### POST /run/stop
-Stops live scan loop.
+Stops live scan loop (legacy).
+
+### POST /sweep/start
+Starts sweep using the selected plan.
+
+Request:
+```json
+{"payload":{"plan":"default"},"confirm":false}
+```
+
+### POST /sweep/stop
+Stops sweep.
+
+Request:
+```json
+{"payload":{},"confirm":false}
+```
+
+### POST /gain/set
+Set gain mode.
+
+Request:
+```json
+{"payload":{"mode":"auto","gain_db":null},"confirm":false}
+```
+
+### POST /device/reset
+Dangerous reset (confirm required).
+
+Request:
+```json
+{"payload":{},"confirm":true}
+```
+
+### POST /device/calibrate
+Dangerous calibration (confirm required).
+
+Request:
+```json
+{"payload":{"kind":"rf_dc"},"confirm":true}
+```
 
 ### POST /run/replay
 Replay a JSONL log into the pipeline.
@@ -55,10 +104,7 @@ WebSocket stream of RF event envelopes.
 ## Error format
 ```json
 {
-  "error": {
-    "code": "bad_request",
-    "message": "missing log_path"
-  }
+  "detail": "missing_log_path"
 }
 ```
 
