@@ -1,0 +1,47 @@
+radio:
+  uri: "ip:192.168.10.2"
+  sample_rate: 2000000
+  rx_buffer_size: 4096
+
+tracker:
+  bucket_hz: 250000
+  ttl_s: 120
+  min_hits_to_confirm: 2
+  update_interval_s: 1.0
+
+correlation:
+  enabled: false
+  window_ms: 100
+
+detector:
+  min_snr_db: 10
+  lo_guard_hz: 100000
+
+sweep:
+  dwell_ms: 0
+  plans:
+    - "plans/analog_5g8.yaml"
+    - "plans/digital_5g8.yaml"
+    - "plans/control_2g4.yaml"
+    - "plans/control_915.yaml"
+
+ws:
+  enabled: false
+  url: ""
+  connect_timeout_s: 5.0
+  send_timeout_s: 2.0
+  max_retries: 3
+  retry_backoff_s: 1.0
+
+classification:
+  profiles: "classification_profiles.yaml"
+  hop_window_ms: 1000
+  min_hop_hz: 200000
+
+api:
+  enabled: true
+  bind: "127.0.0.1"
+  port: 8890
+  api_key: ""
+  max_clients: 25
+  event_buffer: 500
